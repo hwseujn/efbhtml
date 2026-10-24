@@ -1,0 +1,1481 @@
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #11151b;
+    --panel: #191f27;
+    --panel2: #202833;
+    --border: #303946;
+    --text: #e8edf3;
+    --muted: #8d99a8;
+    --accent: #63b3ed;
+    --sidebar: #151a21;
+}
+
+html,
+body {
+    margin: 0;
+    width: 1042px;
+    height: 748px;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 12px;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.screen {
+    width: 1042px;
+    height: 748px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #303741;
+}
+
+/* HEADER */
+
+.header {
+    height: 52px;
+    flex: 0 0 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: #191f27;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-left {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--muted);
+}
+
+.header-right p {
+    margin: 0;
+}
+
+.connection {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #58c995;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* LAYOUT */
+
+.workspace {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.sidebar {
+    width: 174px;
+    flex: 0 0 174px;
+    display: flex;
+    flex-direction: column;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    padding: 16px 10px;
+}
+
+.sidebar-label {
+    color: #687585;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 5px 10px 14px;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    width: 100%;
+    height: 54px;
+    flex: 0 0 54px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: transparent;
+    color: #98a4b2;
+    text-align: left;
+    transition: background .15s, color .15s;
+}
+
+.nav-item:hover {
+    background: #202833;
+    color: #e8edf3;
+}
+
+.nav-item.active {
+    color: #eaf5ff;
+    background: #233243;
+    border-color: #344e66;
+}
+
+/* IMAGE ICONS */
+
+.nav-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    object-fit: contain;
+}
+
+/* NAVIGATION LABELS */
+
+.nav-text {
+    font-size: 10px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: .25px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 12px 10px 3px;
+    border-top: 1px solid #29313b;
+    color: #687585;
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+/* CONTENT AREA */
+
+.content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    padding: 20px;
+    overflow: hidden;
+    background: var(--bg);
+}
+
+.page {
+    display: none;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
+}
+
+.page.active {
+    display: flex;
+}
+
+.page-header {
+    height: 58px;
+    flex: 0 0 58px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 17px;
+}
+
+.brand {
+    color: #7f8c9b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    margin-bottom: 7px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: .6px;
+}
+
+.page-tag {
+    color: #7f8c9b;
+    border: 1px solid #35404d;
+    padding: 6px 9px;
+    border-radius: 3px;
+    font-size: 9px;
+    letter-spacing: .7px;
+}
+
+/* TAKEOFF PERFORMANCE */
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.03fr;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+}
+
+.columns section {
+    min-width: 0;
+    padding: 13px 11px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+}
+
+.columns h2 {
+    margin: 0 0 14px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid var(--border);
+    color: #bdc8d4;
+    font-size: 10px;
+    letter-spacing: .7px;
+    font-weight: 700;
+}
+
+.input-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field label {
+    color: #8c9aaa;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    height: 32px;
+    min-width: 0;
+    padding: 0 9px;
+    outline: none;
+    border: 1px solid #343f4d;
+    border-radius: 3px;
+    background: #12171e;
+    color: #e9f0f7;
+    font-size: 12px;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--accent);
+}
+
+.field select {
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    gap: 7px;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.buttons button {
+    height: 34px;
+    flex: 1;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.primary {
+    background: #367db5;
+    border: 1px solid #438dc7;
+    color: white;
+}
+
+.primary:hover {
+    background: #438dc7;
+}
+
+.secondary {
+    background: #252d37;
+    border: 1px solid #3b4654;
+    color: #c7d0da;
+}
+
+.secondary:hover {
+    background: #303a47;
+}
+
+.status {
+    min-height: 31px;
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    margin-bottom: 12px;
+    border: 1px solid #3a4653;
+    border-radius: 3px;
+    background: #202833;
+    color: #bdc9d6;
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+.status.good {
+    color: #82ddb1;
+    border-color: #315c49;
+    background: #192b25;
+}
+
+.status.warn {
+    color: #f0cb7a;
+    border-color: #69562e;
+    background: #30291b;
+}
+
+.status.bad {
+    color: #ff9696;
+    border-color: #713d40;
+    background: #301f23;
+}
+
+.speeds {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.speed {
+    min-width: 0;
+    padding: 12px 3px;
+    text-align: center;
+    border: 1px solid #34404e;
+    border-radius: 4px;
+    background: #202833;
+}
+
+.name {
+    color: #91a0b0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .6px;
+}
+
+.speed .value {
+    margin-top: 8px;
+    font-size: 23px;
+    font-weight: 700;
+    color: #e7f3ff;
+}
+
+.resultgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+}
+
+.result {
+    min-width: 0;
+    padding: 10px 8px;
+    border: 1px solid #303b48;
+    border-radius: 4px;
+    background: #171d25;
+}
+
+.result .value {
+    margin-top: 8px;
+    color: #dce8f5;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.result .unit {
+    margin-top: 3px;
+    color: #728091;
+    font-size: 8px;
+}
+
+/* OTHER PAGES */
+
+.placeholder-panel {
+    flex: 1;
+    min-height: 0;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+    padding: 20px;
+}
+
+.placeholder-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    margin-bottom: 10px;
+}
+
+.placeholder-description {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.placeholder-line {
+    height: 1px;
+    background: var(--border);
+    margin: 18px 0;
+}
+
+/* FOOTER */
+
+.footer {
+    height: 27px;
+    flex: 0 0 27px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px;
+    border-top: 1px solid var(--border);
+    background: #171c23;
+    color: #687585;
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+/* =====================================
+   GROUND AND EQUIPMENT
+===================================== */
+
+#page-ground {
+    min-height: 0;
+    
+}
+
+.ground-toolbar {
+    flex: 0 0 42px;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 9px;
+}
+
+.ground-toolbar-spacer {
+    flex: 1;
+}
+
+.ground-action {
+    min-width: 100px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: 1px solid #394655;
+    border-radius: 4px;
+    background: #202833;
+    color: #d9e3ed;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    white-space: nowrap;
+}
+
+.ground-action:hover {
+    background: #2a3543;
+}
+
+.ground-action.active {
+    border-color: #b58a45;
+    background: #382e1d;
+    color: #ffd58b;
+}
+
+.ground-action.danger {
+    border-color: #654044;
+    background: #302126;
+    color: #ffb1b1;
+}
+
+.ground-action.danger:hover {
+    background: #47272d;
+}
+
+.equipment-state {
+    color: #8b98a7;
+    font-size: 9px;
+}
+
+.ground-action.active .equipment-state {
+    color: #ffd58b;
+}
+
+/* AIRCRAFT STAGE */
+
+.ground-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid #303b48;
+    border-radius: 5px;
+    background-image: url('a330tope.png');
+}
+
+/* AIRCRAFT SILHOUETTE
+   Nose points LEFT.
+   Top view, horizontal fuselage.
+*/
+
+.aircraft {
+    position: absolute;
+    left: 21%;
+    top: 17%;
+    width: 57%;
+    height: 66%;
+    pointer-events: none;
+}
+
+/* 비행기 동체: 날개와 꼬리 제거 */
+.aircraft {
+    position: absolute;
+    left: 20%;
+    top: 35%;
+    width: 70%;
+    height: 30%;
+    background: #b8c0ca;
+    border: 2px solid #737d89;
+    border-radius: 4px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+
+
+
+/* DOOR BUTTONS */
+
+.door-btn {
+    position: absolute;
+    z-index: 5;
+    min-width: 42px;
+    height: 27px;
+    padding: 0 7px;
+    border: 1px solid #3d88ba;
+    border-radius: 4px;
+    background: #1c3445;
+    color: #a9ddff;
+    font-size: 10px;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+    white-space: nowrap;
+}
+
+.door-btn:hover {
+    background: #294c65;
+}
+
+.door-btn.active {
+    background: #176b54;
+    border-color: #47d5a1;
+    color: #c4ffeb;
+}
+
+/* LEFT-SIDE DOORS: ABOVE FUSELAGE */
+
+.door-l1 {
+    left: 23%;
+    bottom: 36%;
+}
+
+.door-l2 {
+    left: 43%;
+    bottom: 36%;
+}
+
+.door-l3 {
+    left: 62%;
+    bottom: 36%;
+}
+
+.door-l4 {
+    left: 78%;
+    bottom: 36%;
+}
+
+/* RIGHT-SIDE DOORS: BELOW FUSELAGE */
+
+.door-r1 {
+    left: 23%;
+    bottom: 57%;
+}
+
+.door-r2 {
+    left: 43%;
+    bottom: 57%;
+}
+
+.door-r3 {
+    left: 62%;
+    bottom: 57%;
+}
+
+.door-r4 {
+    left: 78%;
+    bottom: 57%;
+}
+
+/* CARGO DOORS */
+
+.cargo-front {
+    left: 31%;
+    top: 38%;
+    min-width: 79px;
+    height: 25px;
+    font-size: 9px;
+}
+
+.cargo-back {
+    left: 68%;
+    top: 38%;
+    min-width: 75px;
+    height: 25px;
+    font-size: 9px;
+}
+
+/* EQUIPMENT BUTTONS */
+
+.equipment-btn {
+    position: absolute;
+    z-index: 6;
+    min-width: 83px;
+    min-height: 40px;
+    padding: 5px 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 1px solid #475363;
+    border-radius: 4px;
+    background: #222b36;
+    color: #d0d9e3;
+    font-size: 9px;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .22);
+    white-space: nowrap;
+}
+
+.equipment-btn:hover {
+    border-color: #74869a;
+    background: #2d3947;
+}
+
+.equipment-btn small {
+    color: #8190a0;
+    font-size: 8px;
+    font-weight: 600;
+}
+
+.equipment-btn.active {
+    background: #253b31;
+    border-color: #4eae81;
+    color: #a9f0c9;
+}
+
+.equipment-btn.active small {
+    color: #7de0a8;
+}
+
+.equipment-icon {
+    display: none;
+}
+
+/* EQUIPMENT POSITIONS */
+
+.stair-l1 {
+    left: 20%;
+    bottom: 26%;
+}
+
+.stair-l2 {
+    left: 42%;
+    bottom: 26%;
+}
+
+.gpu {
+    left: 8%;
+    top: 30%;
+}
+
+.front-loader {
+    left: 31%;
+    top: 28%;
+}
+
+.fuel-truck {
+    left: 45%;
+    top: 15%;
+}
+
+.back-loader {
+    left: 68%;
+    top: 28%;
+}
+
+.catering {
+    left: 76%;
+    bottom: 26%;
+}
+
+/* LEGEND */
+
+.ground-legend {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    display: flex;
+    gap: 13px;
+    color: #7f8c9b;
+    font-size: 8px;
+    letter-spacing: .5px;
+    pointer-events: none;
+}
+
+.ground-legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+}
+
+.door-dot {
+    background: #3d88ba;
+}
+
+.equipment-dot {
+    background: #475363;
+}
+/* SETTINGS PAGE */
+#page-settings {
+    padding: 24px 30px;
+    box-sizing: border-box;
+    color: #e8edf3;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 680px;
+    margin-top: 24px;
+}
+
+.setting-row {
+    min-height: 54px;
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 8px 14px;
+    background: #202832;
+    border: 1px solid #394653;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.setting-label {
+    color: #c6d0db;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toggle-btn {
+    min-width: 76px;
+    height: 34px;
+    padding: 0 14px;
+    background: #303b47;
+    border: 1px solid #526170;
+    border-radius: 3px;
+    color: #aebbc8;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.toggle-btn:hover {
+    background: #414e5c;
+    color: #ffffff;
+}
+
+.toggle-btn.active {
+    background: #1685a8;
+    border-color: #27b8df;
+    color: #ffffff;
+    box-shadow: inset 0 0 0 1px #27b8df;
+}
+
+
+
+/* WEIGHT AND BALANCE */
+#page-weight {
+    padding: 24px 30px;
+    box-sizing: border-box;
+    color: #e8edf3;
+}
+
+.wb-container {
+    width: 100%;
+    max-width: 850px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wb-row {
+    display: grid;
+    grid-template-columns: 220px minmax(150px, 1fr) minmax(180px, 1fr);
+    align-items: center;
+    gap: 18px;
+    min-height: 72px;
+    padding: 10px 16px;
+    background: #202832;
+    border: 1px solid #394653;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.wb-row-current-only {
+    grid-template-columns: 220px minmax(150px, 1fr);
+}
+
+.wb-label {
+    color: #dbe4ed;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.wb-value {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.wb-value-label {
+    color: #8f9eae;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.wb-current {
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #f2f6fa;
+    font-size: 18px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.wb-unit {
+    flex-shrink: 0;
+    color: #8f9eae;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.wb-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+.wb-input {
+    width: 100%;
+    min-width: 0;
+    height: 34px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    background: #131a22;
+    border: 1px solid #526170;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+}
+
+.wb-input:focus {
+    border-color: #27b8df;
+    box-shadow: 0 0 0 1px #27b8df;
+}
+
+.wb-input::placeholder {
+    color: #667585;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.wb-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.wb-action-btn {
+    min-width: 170px;
+    height: 42px;
+    padding: 0 18px;
+    background: #1685a8;
+    border: 1px solid #27b8df;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+}
+
+.wb-action-btn:hover {
+    background: #1a9ac1;
+}
+
+.wb-action-btn:active {
+    background: #116b87;
+}
+
+@media (max-width: 780px) {
+    .wb-row,
+    .wb-row-current-only {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .wb-label {
+        grid-column: 1 / -1;
+    }
+
+    .wb-actions {
+        flex-wrap: wrap;
+    }
+}
+
+/* 숫자 입력칸의 위/아래 스핀 버튼 제거 */
+
+/* Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* -------------- simbrief importer 여기부터*/
+/* =====================================
+   SIMBRIEF  +  SIMBRIEF OFP
+   style.css 맨 아래 "simbrief importer 여기부터" 다음에 붙여넣기
+
+   사용 가능한 영역: 가로 약 826px (1042 - 사이드바 174 - 좌우 padding 40 - 테두리)
+   세로는 .content 높이를 그대로 따라가며(flex),
+   남는 공간은 하단 여백으로, 부족하면 경로(ROUTE) 박스가 스크롤됩니다.
+===================================== */
+
+#page-simbrief,
+#page-simbrief-ofp {
+    min-height: 0;
+}
+
+.sb-page,
+.sb-ofp-page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ---------- 공통 헤더 ---------- */
+
+.sb-header,
+.sb-ofp-header {
+    flex: 0 0 48px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.sb-eyebrow {
+    margin-bottom: 6px;
+    color: #7f8c9b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+.sb-status {
+    margin-top: 2px;
+    padding: 6px 10px;
+    border: 1px solid #35404d;
+    border-radius: 3px;
+    color: #7f8c9b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .7px;
+    white-space: nowrap;
+}
+
+/* JS에서 status.className = "sb-status good" 처럼 쓰면 색이 바뀝니다 */
+.sb-status.good {
+    color: #82ddb1;
+    border-color: #315c49;
+    background: #192b25;
+}
+
+.sb-status.warn {
+    color: #f0cb7a;
+    border-color: #69562e;
+    background: #30291b;
+}
+
+.sb-status.bad {
+    color: #ff9696;
+    border-color: #713d40;
+    background: #301f23;
+}
+
+/* ---------- SIMBRIEF ID 입력 줄 ---------- */
+
+.sb-load-row {
+    flex: 0 0 38px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+}
+
+.sb-load-row label {
+    color: #8c9aaa;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+.sb-load-row input {
+    width: 190px;
+    height: 26px;
+    min-width: 0;
+    padding: 0 9px;
+    outline: none;
+    border: 1px solid #343f4d;
+    border-radius: 3px;
+    background: #12171e;
+    color: #e9f0f7;
+    font-size: 12px;
+}
+
+.sb-load-row input:focus {
+    border-color: var(--accent);
+}
+
+.sb-load-row input::placeholder {
+    color: #5f6d7d;
+}
+
+#sb-load-btn {
+    height: 26px;
+    padding: 0 14px;
+    border: 1px solid #438dc7;
+    border-radius: 3px;
+    background: #367db5;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+#sb-load-btn:hover {
+    background: #438dc7;
+}
+
+#sb-load-btn:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+/* ---------- 출발 → 도착 ---------- */
+
+.sb-airports {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 56px 1fr;
+    align-items: stretch;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+}
+
+.sb-airport {
+    min-width: 0;
+    padding: 10px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sb-airport-arrival {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.sb-airport span {
+    color: #8c9aaa;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.sb-airport strong {
+    color: #e7f3ff;
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.sb-airport small {
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sb-airport-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 22px;
+}
+
+/* ---------- 정보 카드 6개 (한 줄) ---------- */
+
+.sb-info-grid {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.sb-info-card {
+    min-width: 0;
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--panel);
+}
+
+.sb-info-card span {
+    overflow: hidden;
+    color: #8c9aaa;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sb-info-card strong {
+    overflow: hidden;
+    color: #e7f3ff;
+    font-size: 15px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- ROUTE & RUNWAYS ---------- */
+
+.sb-panel {
+    flex: 0 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+}
+
+.sb-panel h2 {
+    flex: 0 0 auto;
+    margin: 0 0 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--border);
+    color: #bdc8d4;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .7px;
+}
+
+.sb-route-line {
+    flex: 0 1 auto;
+    min-height: 56px;
+    max-height: 170px;
+    display: grid;
+    grid-template-columns: 110px 28px minmax(0, 1fr) 28px 110px;
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
+}
+
+.sb-route-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.sb-runway {
+    min-width: 0;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #34404e;
+    border-radius: 4px;
+    background: #202833;
+    text-align: center;
+}
+
+.sb-runway span,
+.sb-route-text span {
+    color: #8c9aaa;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.sb-runway strong {
+    color: #e7f3ff;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.sb-route-text {
+    min-width: 0;
+    min-height: 0;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid #303b48;
+    border-radius: 4px;
+    background: #12171e;
+}
+
+/* 경로가 길면 이 안에서만 스크롤 */
+.sb-route-text p {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    overflow-y: auto;
+    color: #cfe0f0;
+    font-family: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.sb-route-text p::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sb-route-text p::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sb-route-text p::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #3b4654;
+}
+
+.sb-footnote {
+    flex: 0 0 auto;
+    margin: auto 0 0;
+    color: #687585;
+    font-size: 9px;
+    letter-spacing: .5px;
+    text-align: right;
+}
+
+/* ---------- SIMBRIEF OFP ---------- */
+
+.sb-open-pdf {
+    flex: 0 0 auto;
+    height: 30px;
+    margin-top: 2px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #27b8df;
+    border-radius: 3px;
+    background: #1685a8;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.sb-open-pdf:hover {
+    background: #1a9ac1;
+}
+
+.sb-pdf-placeholder {
+    flex: 1;
+    min-height: 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #3b4654;
+    border-radius: 5px;
+    background: var(--panel);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.sb-pdf-frame {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: #2a303a;
+}
+
+/* display 를 지정하면 hidden 속성이 무시되므로 반드시 필요 */
+.sb-pdf-placeholder[hidden],
+.sb-pdf-frame[hidden] {
+    display: none;
+}
+
+/* ---------- 낮은 화면(약 478px 높이)용 압축 ---------- */
+
+@media (max-height: 560px) {
+    .sb-page,
+    .sb-ofp-page {
+        gap: 7px;
+    }
+
+    .sb-header,
+    .sb-ofp-header {
+        flex-basis: 42px;
+    }
+
+    .sb-eyebrow {
+        margin-bottom: 4px;
+    }
+
+    .sb-load-row {
+        flex-basis: 34px;
+    }
+
+    .sb-airport {
+        padding: 7px 16px;
+    }
+
+    .sb-airport strong {
+        font-size: 24px;
+    }
+
+    .sb-info-card {
+        padding: 6px 10px;
+        gap: 3px;
+    }
+
+    .sb-panel {
+        padding: 8px 10px;
+    }
+
+    .sb-panel h2 {
+        margin-bottom: 7px;
+        padding-bottom: 6px;
+    }
+
+    .sb-footnote {
+        display: none;
+    }
+}

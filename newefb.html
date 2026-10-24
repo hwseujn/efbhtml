@@ -1,0 +1,1562 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1042, initial-scale=1.0">
+<title>EHCSTUDIO A330 EFB</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<main class="screen">
+
+    <header class="header">
+        <div class="header-left">EHCSTUDIO A330 EFB</div>
+    </header>
+
+    <div class="workspace">
+
+        <!-- LEFT SIDEBAR. -->
+        
+    <aside class="sidebar">
+        <div class="sidebar-label">APPLICATION</div>
+
+        <nav class="nav-list">
+
+            <button class="nav-item active"
+                    data-page="takeoff" type="button">
+                <img class="nav-icon"
+                    src="icons/takeoff.png"
+                    alt="">
+                <span class="nav-text">TAKEOFF<br>PERFORMANCE</span>
+            </button>
+
+            <button class="nav-item"
+                    data-page="simbrief" type="button">
+                <img class="nav-icon"
+                    src="icons/simbrief.png"
+                    alt="">
+                <span class="nav-text">SIMBRIEF</span>
+            </button>
+            <button class="nav-item"
+                    data-page="simbrief-ofp" type="button">
+                <img class="nav-icon"
+                    src="icons/simbrief-ofp.png"
+                    alt="">
+                <span class="nav-text">SIMBRIEF OFP</span>
+            </button>
+            
+            <button class="nav-item"
+                    data-page="weight" type="button">
+                <img class="nav-icon"
+                    src="icons/weight-balance.png"
+                    alt="">
+                <span class="nav-text">WEIGHT AND<br>BALANCE</span>
+            </button>
+
+            <button class="nav-item"
+                    data-page="ground" type="button">
+                <img class="nav-icon"
+                    src="icons/ground.png"
+                    alt="">
+                <span class="nav-text">GROUND AND<br>EQUIPMENT</span>
+            </button>
+
+            <button class="nav-item"
+                    data-page="settings" type="button">
+                <img class="nav-icon"
+                    src="icons/settings.png"
+                    alt="">
+                <span class="nav-text">SETTINGS</span>
+            </button>
+            
+            <button class="nav-item" data-page="avitab">
+                <img class="nav-icon" src="icons/avitab.png" alt="">
+                <span class="nav-text">AVITAB</span>
+            </button>
+
+
+        </nav>
+
+        
+    </aside>
+
+
+        <!-- RIGHT CONTENT -->
+        <div class="content">
+
+            <!-- TAKEOFF PERFORMANCE -->
+            <section class="page active" id="page-takeoff">
+
+                <div class="page-header">
+                    <div>
+                        <div class="brand">EHCSTUDIO AIRBUS A330-300</div>
+                        <h1>TAKEOFF PERFORMANCE</h1>
+                    </div>
+                    <span class="page-tag">PERFORMANCE</span>
+                </div>
+
+                <div class="columns">
+
+                    <section>
+                        <h2>WEATHER / RUNWAY</h2>
+                        <div class="input-list">
+
+                            <div class="field">
+                                <label for="runwayHeading">RUNWAY HEADING</label>
+                                <input id="runwayHeading" max="359"
+                                       min="0" step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="runwayLength">RUNWAY LENGTH (M)</label>
+                                <input id="runwayLength" min="1"
+                                       step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="windDirection">WIND DIR</label>
+                                <input id="windDirection" max="359"
+                                       min="0" step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="windSpeed">WIND SPEED (KT)</label>
+                                <input id="windSpeed" max="35"
+                                       min="0" step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="oat">TEMPERATURE (°C)</label>
+                                <input id="oat" max="50" min="-50"
+                                       step="1" type="number" value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="qnh">QNH (hPa)</label>
+                                <input id="qnh" max="1100" min="900"
+                                       step="1" type="number" value="1013">
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>AIRCRAFT CONFIGURATION</h2>
+                        <div class="input-list">
+
+                            <div class="field">
+                                <label for="tow">TOW (KG)</label>
+                                <input id="tow" step="100"
+                                       type="number" value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="cg">CG (%)</label>
+                                <input id="cg" max="100" min="0"
+                                       step="0.1" type="number" value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="flap">FLAP</label>
+                                <select id="flap">
+                                    <option value="0">1+F</option>
+                                    <option value="1">FLAP 2</option>
+                                    <option value="2">FLAP 3</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label for="condition">RUNWAY CONDITION</label>
+                                <select id="condition">
+                                    <option value="0">DRY</option>
+                                    <option value="1">WET</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label for="thrust">THRUST MODE</label>
+                                <select id="thrust">
+                                    <option value="0">FLEX</option>
+                                    <option value="1">TOGA</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="buttons">
+                            <button class="primary" id="calc" type="button">
+                                CALCULATE
+                            </button>
+                            <button class="secondary" id="reset" type="button">
+                                RESET
+                            </button>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>CALCULATED OUTPUT</h2>
+
+                        <div class="status" id="status">READY</div>
+
+                        <div class="speeds">
+                            <div class="speed">
+                                <div class="name">V1</div>
+                                <div class="value" id="v1">---</div>
+                            </div>
+                            <div class="speed">
+                                <div class="name">VR</div>
+                                <div class="value" id="vr">---</div>
+                            </div>
+                            <div class="speed">
+                                <div class="name">V2</div>
+                                <div class="value" id="v2">---</div>
+                            </div>
+                        </div>
+
+                        <div class="resultgrid">
+                            <div class="result">
+                                <div class="name">FLEX</div>
+                                <div class="value" id="flex">---</div>
+                                <div class="unit">°C</div>
+                            </div>
+                            <div class="result">
+                                <div class="name">TRIM</div>
+                                <div class="value" id="trim">---</div>
+                                <div class="unit">TRIM UNITS</div>
+                            </div>
+                            <div class="result">
+                                <div class="name">HEADWIND</div>
+                                <div class="value" id="headwind">---</div>
+                                <div class="unit">KT</div>
+                            </div>
+                            <div class="result">
+                                <div class="name">CROSSWIND</div>
+                                <div class="value" id="crosswind">---</div>
+                                <div class="unit">KT</div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </section>
+
+            <!-- SIMBRIEF -->
+            
+            <section class="page" id="page-simbrief">
+                <div class="sb-page">
+
+                    <header class="sb-header">
+                        <div>
+                            <div class="sb-eyebrow">FLIGHT OPERATIONS</div>
+                            <h1>SimBrief Flight Plan</h1>
+                        </div>
+                        <span id="sb-status" class="sb-status">NOT LOADED</span>
+                    </header>
+
+                    <div class="sb-load-row">
+                        <label for="sb-user-id">SIMBRIEF ID</label>
+                        <input
+                            id="sb-user-id"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="7"
+                            placeholder="Enter User ID"
+                        >
+                        <button id="sb-load-btn" type="button">
+                            LOAD FLIGHT PLAN
+                        </button>
+                    </div>
+
+                    <section class="sb-airports">
+                        <div class="sb-airport">
+                            <span>DEPARTURE AIRPORT</span>
+                            <strong id="sb-departure">----</strong>
+                            <small id="sb-departure-name">—</small>
+                        </div>
+
+                        <div class="sb-airport-arrow" aria-hidden="true">→</div>
+
+                        <div class="sb-airport sb-airport-arrival">
+                            <span>ARRIVAL AIRPORT</span>
+                            <strong id="sb-arrival">----</strong>
+                            <small id="sb-arrival-name">—</small>
+                        </div>
+                    </section>
+
+                    <section class="sb-info-grid">
+                        <div class="sb-info-card">
+                            <span>ALTERNATE AIRPORT</span>
+                            <strong id="sb-altn">----</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>COST INDEX</span>
+                            <strong id="sb-cost-index">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>CRUISE ALTITUDE</span>
+                            <strong id="sb-cruise-altitude">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>ZFW</span>
+                            <strong id="sb-zfw">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>FOB</span>
+                            <strong id="sb-fob">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>PAYLOAD</span>
+                            <strong id="sb-payload">—</strong>
+                        </div>
+                    </section>
+
+                    <section class="sb-panel">
+                        <h2>ROUTE & RUNWAYS</h2>
+                        <div class="sb-route-line">
+                            <div class="sb-runway">
+                                <span>DEPARTURE RWY</span>
+                                <strong id="sb-departure-runway">—</strong>
+                            </div>
+                            <span class="sb-route-arrow">→</span>
+                            <div class="sb-route-text">
+                                <span>ROUTE</span>
+                                <p id="sb-route">Route not loaded</p>
+                            </div>
+                            <span class="sb-route-arrow">→</span>
+                            <div class="sb-runway">
+                                <span>ARRIVAL RWY</span>
+                                <strong id="sb-arrival-runway">—</strong>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+                    <p class="sb-footnote">
+                        Flight plan data provided by SimBrief.
+                    </p>
+                </div>
+            </section>
+
+            <section class="page" id="page-simbrief-ofp">
+                <div class="sb-ofp-page">
+                    <header class="sb-ofp-header">
+                        <div>
+                            <div class="sb-eyebrow">FLIGHT DOCUMENTS</div>
+                            <h1>SimBrief OFP</h1>
+                        </div>
+                        <a
+                            id="sb-open-pdf"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="sb-open-pdf"
+                        >OPEN PDF ↗</a>
+                    </header>
+
+                    <div id="sb-pdf-placeholder" class="sb-pdf-placeholder">
+                        Load a SimBrief flight plan to display the OFP.
+                    </div>
+
+                    <iframe
+                        id="sb-pdf-frame"
+                        title="SimBrief Operational Flight Plan"
+                        class="sb-pdf-frame"
+                        hidden
+                    ></iframe>
+                </div>
+            </section>
+            <!-- WEIGHT AND BALANCE -->
+            
+            <section class="page" id="page-weight">
+                <h1 class="page-title">WEIGHT AND BALANCE</h1>
+
+                <div class="wb-container">
+
+                    <!-- 1. Fuel on Board -->
+                    <div class="wb-row">
+                        <div class="wb-label">FUEL ON BOARD</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-fuel">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                        <div class="wb-value">
+                            <label class="wb-value-label" for="wb-planned-fuel">
+                                Planned Value
+                            </label>
+                            <div class="wb-input-wrap">
+                                <input id="wb-planned-fuel"
+                                    class="wb-input"
+                                    type="number"
+                                    min="0"
+                                    step="1"
+                                    placeholder="Enter value">
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Payload -->
+                    <div class="wb-row">
+                        <div class="wb-label">PAYLOAD</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-payload">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                        <div class="wb-value">
+                            <label class="wb-value-label" for="wb-planned-payload">
+                                Planned Value
+                            </label>
+                            <div class="wb-input-wrap">
+                                <input id="wb-planned-payload"
+                                    class="wb-input"
+                                    type="number"
+                                    min="0"
+                                    step="1"
+                                    placeholder="Enter value">
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Gross Weight -->
+                    <div class="wb-row wb-row-current-only">
+                        <div class="wb-label">GROSS WEIGHT</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-gw">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Zero Fuel Weight -->
+                    <div class="wb-row wb-row-current-only">
+                        <div class="wb-label">ZERO FUEL WEIGHT</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-zfw">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. GW CG -->
+                    <div class="wb-row">
+                        <div class="wb-label">GW CG</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-gw-cg">—</span>
+                                <span class="wb-unit">MAC %</span>
+                            </div>
+                        </div>
+                        <div class="wb-value">
+                            <label class="wb-value-label" for="wb-planned-gw-cg">
+                                Planned Value
+                            </label>
+                            <div class="wb-input-wrap">
+                                <input id="wb-planned-gw-cg"
+                                    class="wb-input"
+                                    type="number"
+                                    step="0.1"
+                                    placeholder="Enter value">
+                                <span class="wb-unit">MAC %</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. ZFW CG -->
+                    <div class="wb-row wb-row-current-only">
+                        <div class="wb-label">ZFW CG</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-zfw-cg">—</span>
+                                <span class="wb-unit">MAC %</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="wb-actions">
+                        <button type="button" id="startFuelingBtn" class="wb-action-btn">
+                            START FUELING
+                        </button>
+                        <button type="button" id="startBoardingBtn" class="wb-action-btn">
+                            START BOARDING
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- GROUND AND EQUIPMENT -->
+            
+            <!-- GROUND AND EQUIPMENT -->
+            <section class="page" id="page-ground">
+
+                <div class="page-header">
+                    <div>
+                        <div class="brand">EHCSTUDIO AIRBUS A330-300</div>
+                        <h1>GROUND AND EQUIPMENT</h1>
+                    </div>
+                    <span class="page-tag">GROUND SERVICES</span>
+                </div>
+
+                <!-- TOP ACTIONS -->
+                <div class="ground-toolbar">
+                    <button class="ground-action" id="chocksBtn" type="button">
+                        CHOCKS
+                        <span class="equipment-state" id="chocksState">OFF</span>
+                    </button>
+
+                    <div class="ground-toolbar-spacer"></div>
+
+                    <button class="ground-action danger" id="closeAllDoors" type="button">
+                        CLOSE ALL DOORS
+                    </button>
+
+                    <button class="ground-action" id="clearEquipments" type="button">
+                        CLEAR EQUIPMENTS
+                    </button>
+                </div>
+
+                <!-- AIRCRAFT DIAGRAM -->
+                <div class="ground-stage">
+
+                    <!-- AIRCRAFT SILHOUETTE -->
+ 
+
+                    <!-- LEFT SIDE DOORS -->
+                    <button class="door-btn door-l1" data-door="L1" type="button">
+                        L1
+                    </button>
+
+                    <button class="door-btn door-l2" data-door="L2" type="button">
+                        L2
+                    </button>
+
+                    <button class="door-btn door-l3" data-door="L3" type="button">
+                        L3
+                    </button>
+
+                    <button class="door-btn door-l4" data-door="L4" type="button">
+                        L4
+                    </button>
+
+                    <!-- RIGHT SIDE DOORS -->
+                    <button class="door-btn door-r1" data-door="R1" type="button">
+                        R1
+                    </button>
+
+                    <button class="door-btn door-r2" data-door="R2" type="button">
+                        R2
+                    </button>
+
+                    <button class="door-btn door-r3" data-door="R3" type="button">
+                        R3
+                    </button>
+
+                    <button class="door-btn door-r4" data-door="R4" type="button">
+                        R4
+                    </button>
+
+                    <!-- CARGO DOORS -->
+                    <button class="door-btn cargo-front" data-door="CARGO FRONT"
+                            type="button">
+                        FRONT CARGO
+                    </button>
+
+                    <button class="door-btn cargo-back" data-door="CARGO BACK"
+                            type="button">
+                        BACK CARGO
+                    </button>
+
+                    <!-- GROUND EQUIPMENT -->
+                    <button class="equipment-btn stair-l1" data-equipment="L1 STAIR"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>L1 STAIR</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn stair-l2" data-equipment="L2 STAIR"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>L2 STAIR</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn gpu" data-equipment="GPU"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>GPU</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn front-loader"
+                            data-equipment="FRONT CARGO LOADER" type="button">
+                        <span class="equipment-icon"></span>
+                        <span>FRONT LOADER</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn fuel-truck" data-equipment="FUEL TRUCK"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>FUEL TRUCK</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn back-loader"
+                            data-equipment="BACK CARGO LOADER" type="button">
+                        <span class="equipment-icon"></span>
+                        <span>BACK LOADER</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn catering" data-equipment="CATERING"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>CATERING</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <!-- LEGEND -->
+                    <div class="ground-legend">
+                        <span><i class="legend-dot door-dot"></i> DOORS</span>
+                        <span><i class="legend-dot equipment-dot"></i> EQUIPMENT</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SETTINGS -->
+            <section class="page" id="page-settings">
+                <h1 class="page-title">SETTINGS</h1>
+
+                <div class="settings-container">
+
+                    <!-- HUD -->
+                    <div class="setting-row">
+                        <div class="setting-label">HUD</div>
+                        <div class="toggle-group" data-setting="hud">
+                            <button class="toggle-btn" data-value="ON">ON</button>
+                            <button class="toggle-btn active" data-value="OFF">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- ISIS / STBY -->
+                    <div class="setting-row">
+                        <div class="setting-label">STANBY INSTRUMENTS</div>
+                        <div class="toggle-group" data-setting="isis">
+                            <button class="toggle-btn active" data-value="ISIS">ISIS</button>
+                            <button class="toggle-btn" data-value="STBY">ANALOG</button>
+                        </div>
+                    </div>
+
+                    <!-- DDMRI -->
+                    <div class="setting-row">
+                        <div class="setting-label">DDMRI</div>
+                        <div class="toggle-group" data-setting="ddmri">
+                            <button class="toggle-btn" data-value="ON">ON</button>
+                            <button class="toggle-btn active" data-value="OFF">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- EIS -->
+                    <div class="setting-row">
+                        <div class="setting-label">SYSTEM</div>
+                        <div class="toggle-group" data-setting="eis">
+                            <button class="toggle-btn" data-value="EIS1">EIS1</button>
+                            <button class="toggle-btn active" data-value="EIS2">EIS2</button>
+                        </div>
+                    </div>
+
+                    <!-- NO PORTABLE DEVICES SIGN -->
+                    <div class="setting-row">
+                        <div class="setting-label">NO PORTABLE DEVICES SIGN</div>
+                        <div class="toggle-group" data-setting="portable">
+                            <button class="toggle-btn" data-value="ON">ON</button>
+                            <button class="toggle-btn active" data-value="OFF">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- 100 Abv / +100 -->
+                    <div class="setting-row">
+                        <div class="setting-label">CALLOUTS</div>
+                        <div class="toggle-group" data-setting="altitude">
+                            <button class="toggle-btn active" data-value="100 Abv">100 Abv</button>
+                            <button class="toggle-btn" data-value="+100">+100</button>
+                        </div>
+                    </div>
+
+                    <!-- ENGINES -->
+                    <div class="setting-row">
+                        <div class="setting-label">ENGINES</div>
+                        <div class="toggle-group" data-setting="engines">
+                            <button class="toggle-btn active" data-value="RR">RR</button>
+                            <button class="toggle-btn" data-value="PW">PW</button>
+                            <button class="toggle-btn" data-value="GE">GE</button>
+                        </div>
+                    </div>
+                    
+                    <!-- WINDOW REFLECTION -->
+                    <div class="setting-row">
+                        <div class="setting-label">WINDOW REFLECTION</div>
+                        <div class="toggle-group" data-setting="windowReflection">
+                            <button class="toggle-btn active" data-value="1">ON</button>
+                            <button class="toggle-btn" data-value="0">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- IRS INSTANT ALIGN -->
+                    <div class="setting-row">
+                        <div class="setting-label">IRS</div>
+                        <div>
+                            <button
+                                type="button"
+                                id="irsInstantAlignBtn"
+                                class="wb-action-btn">
+                                IRS INSTANT ALIGN
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+                        
+            <section class="page" id="page-avitab">
+                <h1 class="page-title">AVITAB</h1>
+                <div class="avitab-content">
+                    <!-- 추후 AviTab 표시 영역 -->
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+
+
+</main>
+
+<script>
+'use strict';
+
+/* SIDEBAR NAVIGATION */
+
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+
+navItems.forEach(button => {
+    button.addEventListener('click', () => {
+        const pageName = button.dataset.page;
+
+        navItems.forEach(item => item.classList.remove('active'));
+        pages.forEach(page => page.classList.remove('active'));
+
+        button.classList.add('active');
+
+        const target = document.getElementById('page-' + pageName);
+        if (target) target.classList.add('active');
+    });
+});
+
+/* TAKEOFF PERFORMANCE */
+
+const V2_TABLE = [
+    [120,128],[140,137],[160,146],[180,154],[200,162],
+    [220,169],[233,174],[242,177],[260,184],[275,189]
+];
+
+const TRIM_TABLE = [
+    [15,7],[21,7],[24,5.5],[28,3.5],[32,1.5],[35,0],[41,0]
+];
+
+const CONF_FACTOR = [1,0.95,0.91];
+const CONF_SPEED_SHIFT = [0,-4,-7];
+
+function interpolate(table, x) {
+    if (x <= table[0][0]) return table[0][1];
+    if (x >= table[table.length - 1][0])
+        return table[table.length - 1][1];
+
+    for (let i = 1; i < table.length; i++) {
+        if (x <= table[i][0]) {
+            const [a,b] = table[i - 1];
+            const [c,d] = table[i];
+            return b + (d-b) * (x-a) / (c-a);
+        }
+    }
+    return table[table.length - 1][1];
+}
+
+function clamp(v, a, b) {
+    return Math.min(Math.max(v, a), b);
+}
+
+const INPUT_LIMITS = {
+    windDirection:[0,359],
+    windSpeed:[0,35],
+    oat:[-50,50],
+    qnh:[900,1100],
+    runwayHeading:[0,359],
+    cg:[0,100]
+};
+
+function normalizeInput(id) {
+    const element = document.getElementById(id);
+    const value = element.value.trim();
+
+    if (id === 'windSpeed' && value === '') {
+        element.value = '0';
+        return;
+    }
+
+    if (value === '') return;
+
+    const number = Number(value);
+    const limits = INPUT_LIMITS[id];
+
+    if (Number.isFinite(number) && limits) {
+        element.value = String(clamp(number, limits[0], limits[1]));
+    }
+}
+
+Object.keys(INPUT_LIMITS).forEach(id => {
+    const element = document.getElementById(id);
+    element.addEventListener('change', () => normalizeInput(id));
+    element.addEventListener('blur', () => normalizeInput(id));
+});
+
+function read(id) {
+    const element = document.getElementById(id);
+
+    if (id === 'windSpeed' && element.value.trim() === '') {
+        element.value = '0';
+    }
+
+    if (element.value.trim() === '') {
+        throw Error('Fill in all numeric input fields.');
+    }
+
+    const number = Number(element.value);
+
+    if (!Number.isFinite(number)) {
+        throw Error('Invalid numeric input.');
+    }
+
+    return number;
+}
+
+function getInputs() {
+    Object.keys(INPUT_LIMITS).forEach(normalizeInput);
+
+    return {
+        windDirection:read('windDirection'),
+        windSpeed:read('windSpeed'),
+        oat:read('oat'),
+        qnh:read('qnh'),
+        tow:read('tow'),
+        runwayLength:read('runwayLength'),
+        runwayHeading:read('runwayHeading'),
+        cg:read('cg'),
+        flap:Number(document.getElementById('flap').value),
+        condition:Number(document.getElementById('condition').value),
+        thrust:Number(document.getElementById('thrust').value)
+    };
+}
+
+function calculateTakeoffPerformance(p) {
+    const result = {
+        v1:0, vr:0, v2:0,
+        flexTemp:-1, trim:0,
+        isPossible:false, errorCode:0
+    };
+
+    if (
+        p.windDirection < 0 || p.windDirection > 359 ||
+        p.runwayHeading < 0 || p.runwayHeading > 359 ||
+        p.oat < -50 || p.oat > 50 ||
+        p.windSpeed < 0 ||
+        p.tow <= 100000 || p.tow >= 500000 ||
+        p.cg < 0 || p.cg > 100 ||
+        p.runwayLength <= 0
+    ) {
+        result.errorCode = 1;
+        return result;
+    }
+
+    const weight = p.tow / 1000;
+    const config = clamp(p.flap, 0, 2);
+
+    if (weight > 242) {
+        result.errorCode = 2;
+        return result;
+    }
+
+    const radians =
+        (p.windDirection - p.runwayHeading) * Math.PI / 180;
+
+    const headwind = p.windSpeed * Math.cos(radians);
+    const crosswind = Math.abs(p.windSpeed * Math.sin(radians));
+
+    result.headwind = headwind;
+    result.crosswind = crosswind;
+
+    if (p.windSpeed >= 35) {
+        result.errorCode = 3;
+        return result;
+    }
+
+    if (headwind < -15 || crosswind > 35) {
+        result.errorCode = 2;
+        return result;
+    }
+
+    const pressureAltitude = (1013.25 - p.qnh) * 27;
+    const isa = 15;
+    const referenceTemp = isa + 16;
+    const cap = isa + 55;
+
+    function takeoffDistance(temp) {
+        let distance = 2900 * Math.pow(weight / 242, 2);
+
+        distance *= CONF_FACTOR[config];
+        distance *= 1 + 0.000035 * Math.max(0, pressureAltitude);
+        distance *= 1 + 0.0065 * Math.max(0, temp - isa);
+        distance *= 1 + 0.012 * Math.max(0, temp - referenceTemp);
+
+        if (p.condition === 1) distance *= 1.06;
+
+        if (headwind >= 0) {
+            distance *= 1 - Math.min(headwind, 40) * 0.005;
+        } else {
+            distance *= 1 + Math.min(-headwind, 15) * 0.013;
+        }
+
+        return distance;
+    }
+
+    const requiredDistance = takeoffDistance(p.oat);
+
+    if (requiredDistance > p.runwayLength) {
+        result.errorCode = 2;
+        result.togaDistance = requiredDistance;
+        return result;
+    }
+
+    result.isPossible = true;
+
+    if (p.thrust === 0) {
+        for (
+            let temp = Math.floor(cap);
+            temp >= Math.floor(Math.max(p.oat, referenceTemp)) + 1;
+            temp--
+        ) {
+            if (takeoffDistance(temp) <= p.runwayLength) {
+                result.flexTemp = temp;
+                break;
+            }
+        }
+    }
+
+    const shift = CONF_SPEED_SHIFT[config];
+    const v2 = Math.max(interpolate(V2_TABLE, weight) + shift, 126);
+    const vr = Math.max(v2 - 3, 121);
+
+    let v1 = vr - 3;
+
+    if (p.runwayLength / requiredDistance < 1.15) v1 -= 4;
+    if (p.condition === 1) v1 -= 5;
+
+    result.v1 = Math.round(clamp(v1, 118, vr));
+    result.vr = Math.round(vr);
+    result.v2 = Math.round(v2);
+    result.trim = clamp(interpolate(TRIM_TABLE, p.cg), -2.5, 7);
+
+    return result;
+}
+
+function setValue(id, value) {
+    document.getElementById(id).textContent = value;
+}
+
+function showStatus(message, type = '') {
+    const element = document.getElementById('status');
+    element.className = 'status' + (type ? ' ' + type : '');
+    element.textContent = message;
+}
+
+function clearResults() {
+    ['v1','vr','v2','flex','trim','headwind','crosswind']
+        .forEach(id => setValue(id, '---'));
+}
+
+function calculate() {
+    let p, r;
+
+    try {
+        p = getInputs();
+        r = calculateTakeoffPerformance(p);
+    } catch (error) {
+        clearResults();
+        showStatus(error.message, 'warn');
+        return;
+    }
+
+    setValue('headwind',
+        r.headwind === undefined ? '---' : r.headwind.toFixed(1));
+
+    setValue('crosswind',
+        r.crosswind === undefined ? '---' : r.crosswind.toFixed(1));
+
+    if (r.errorCode === 1) {
+        clearResults();
+        showStatus('INPUT ERROR · Check input limits.', 'warn');
+        return;
+    }
+
+    if (r.errorCode === 3) {
+        clearResults();
+        setValue('headwind', r.headwind.toFixed(1));
+        setValue('crosswind', r.crosswind.toFixed(1));
+        showStatus(
+            'WIND LIMIT EXCEEDED · 35 kt or greater. TAKEOFF PROHIBITED.',
+            'bad'
+        );
+        return;
+    }
+
+    if (r.errorCode === 2) {
+        clearResults();
+
+        if (r.headwind !== undefined) {
+            setValue('headwind', r.headwind.toFixed(1));
+            setValue('crosswind', r.crosswind.toFixed(1));
+        }
+
+        let message =
+            'TAKEOFF NOT POSSIBLE · Check weight, wind limits, and runway length.';
+
+        if (p.tow / 1000 > 242) {
+            message = 'TAKEOFF NOT POSSIBLE · Weight exceeds 242 tonnes.';
+        } else if (r.togaDistance !== undefined) {
+            message =
+                'TAKEOFF NOT POSSIBLE · Required TOGA distance exceeds runway length.';
+        }
+
+        showStatus(message, 'bad');
+        return;
+    }
+
+    setValue('v1', r.v1);
+    setValue('vr', r.vr);
+    setValue('v2', r.v2);
+    setValue('flex', r.flexTemp < 0 ? 'N/A' : r.flexTemp);
+    setValue('trim', r.trim.toFixed(1));
+
+    showStatus('CALCULATION COMPLETE', 'good');
+}
+
+function resetForm() {
+    const defaults = {
+        windDirection:0,
+        windSpeed:0,
+        oat:15,
+        qnh:1013,
+        runwayHeading:359,
+        runwayLength:3500,
+        tow:200000,
+        cg:28,
+        flap:0,
+        condition:0,
+        thrust:0
+    };
+
+    Object.entries(defaults).forEach(([id, value]) => {
+        document.getElementById(id).value = value;
+    });
+
+    clearResults();
+    showStatus('READY');
+}
+
+document.getElementById('calc').addEventListener('click', calculate);
+document.getElementById('reset').addEventListener('click', resetForm);
+
+calculate();
+
+/* GROUND AND EQUIPMENT INTERACTIONS */
+
+const groundDoors = document.querySelectorAll(
+    '#page-ground .door-btn'
+);
+
+const groundEquipment = document.querySelectorAll(
+    '#page-ground .equipment-btn'
+);
+
+const chocksBtn = document.getElementById('chocksBtn');
+const chocksState = document.getElementById('chocksState');
+
+groundDoors.forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+    });
+});
+
+groundEquipment.forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+
+        const state = button.querySelector('small');
+        state.textContent = button.classList.contains('active')
+            ? 'ON'
+            : 'OFF';
+    });
+});
+
+chocksBtn.addEventListener('click', () => {
+    chocksBtn.classList.toggle('active');
+
+    chocksState.textContent = chocksBtn.classList.contains('active')
+        ? 'ON'
+        : 'OFF';
+});
+
+document.getElementById('closeAllDoors').addEventListener('click', () => {
+    groundDoors.forEach(button => {
+        button.classList.remove('active');
+    });
+});
+
+document.getElementById('clearEquipments').addEventListener('click', () => {
+    groundEquipment.forEach(button => {
+        button.classList.remove('active');
+        button.querySelector('small').textContent = 'OFF';
+    });
+
+    chocksBtn.classList.remove('active');
+    chocksState.textContent = 'OFF';
+});
+
+// Settings 토글
+document.querySelectorAll("#page-settings .toggle-group").forEach(group => {
+    group.querySelectorAll(".toggle-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            group.querySelectorAll(".toggle-btn").forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+        });
+    });
+});
+
+
+/**
+ * Weight & Balance 값 갱신 함수
+ *
+ * 전달 가능한 키:
+ * currentFuel, plannedFuel
+ * currentPayload, plannedPayload
+ * currentGW, currentZFW
+ * currentGWCG, plannedGWCG
+ * currentZWFCG
+ */
+function setWeightBalanceValues(values = {}) {
+    const fields = {
+        currentFuel: "wb-current-fuel",
+        currentPayload: "wb-current-payload",
+        currentGW: "wb-current-gw",
+        currentZFW: "wb-current-zfw",
+        currentGWCG: "wb-current-gw-cg",
+        currentZWFCG: "wb-current-zfw-cg"
+    };
+
+    // Current Value 표시 갱신
+    Object.entries(fields).forEach(([key, id]) => {
+        if (values[key] !== undefined) {
+            const element = document.getElementById(id);
+
+            if (element) {
+                element.textContent =
+                    values[key] === null || values[key] === ""
+                        ? "—"
+                        : values[key];
+            }
+        }
+    });
+
+    // Planned Value 입력란 갱신
+    const plannedFields = {
+        plannedFuel: "wb-planned-fuel",
+        plannedPayload: "wb-planned-payload",
+        plannedGWCG: "wb-planned-gw-cg"
+    };
+
+    Object.entries(plannedFields).forEach(([key, id]) => {
+        if (values[key] !== undefined) {
+            const input = document.getElementById(id);
+
+            if (input) {
+                input.value = values[key] ?? "";
+            }
+        }
+    });
+}
+
+// 다른 스크립트에서도 호출할 수 있도록 공개
+window.setWeightBalanceValues = setWeightBalanceValues;
+
+// 버튼 이벤트: 추후 시뮬레이터 연동 지점
+document.getElementById("startFuelingBtn")
+    ?.addEventListener("click", () => {
+        console.log("Start Fueling requested");
+    });
+
+document.getElementById("startBoardingBtn")
+    ?.addEventListener("click", () => {
+        console.log("Start Boarding requested");
+    });
+
+function sbGet(data, paths) {
+    for (const path of paths) {
+        const value = path.split(".").reduce((obj, key) => {
+            return obj == null ? undefined : obj[key];
+        }, data);
+
+        if (value !== undefined && value !== null && value !== "") {
+            return value;
+        }
+    }
+    return null;
+}
+
+function sbText(value) {
+    if (value == null) return "";
+
+    if (typeof value === "string" || typeof value === "number") {
+        return String(value).trim();
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(sbText).filter(Boolean).join("\n");
+    }
+
+    if (typeof value === "object") {
+        // ATIS 등 객체형 응답에서 텍스트 필드를 찾아냄
+        for (const key of [
+            "text", "message", "atis", "report",
+            "raw", "value", "content", "line"
+        ]) {
+            if (value[key] != null) {
+                const result = sbText(value[key]);
+                if (result) return result;
+            }
+        }
+    }
+
+    // 객체 자체를 String()으로 변환하지 않음
+    return "";
+}
+
+function sbSet(id, value, fallback = "—") {
+    const element = document.getElementById(id);
+    if (!element) return;
+
+    const text = sbText(value);
+    element.textContent = text || fallback;
+}
+
+function sbAirportCode(data, paths) {
+    return sbText(sbGet(data, paths)).toUpperCase();
+}
+
+function sbFormatWeight(value, units = "KG") {
+    if (value == null || value === "") return "";
+
+    const raw = sbText(value);
+    if (!raw) return "";
+
+    // 이미 단위가 포함된 문자열은 그대로 사용
+    if (/[a-z]/i.test(raw) && !/^[\d,. ]+$/.test(raw)) {
+        return raw;
+    }
+
+    const number = Number(String(raw).replace(/,/g, ""));
+    if (!Number.isFinite(number)) return raw;
+
+    return `${Math.round(number).toLocaleString("en-US")} ${units}`;
+}
+
+function sbNormalizePdfUrl(directory, link) {
+    if (!link) return "";
+
+    const pdf = sbText(link);
+    const dir = sbText(directory);
+
+    try {
+        if (/^https?:\/\//i.test(pdf)) {
+            return new URL(pdf).href;
+        }
+
+        const base = dir
+            ? new URL(dir, "https://www.simbrief.com/").href
+            : "https://www.simbrief.com/ofp/flightplans/";
+
+        return new URL(pdf, base.endsWith("/") ? base : base + "/").href;
+    } catch {
+        return "";
+    }
+}
+
+function sbShowPdf(url) {
+    const frame = document.getElementById("sb-pdf-frame");
+    const placeholder = document.getElementById("sb-pdf-placeholder");
+    const openLink = document.getElementById("sb-open-pdf");
+
+    if (!frame || !placeholder || !openLink) return;
+
+    if (!url) {
+        frame.removeAttribute("src");
+        frame.hidden = true;
+        placeholder.hidden = false;
+        placeholder.textContent = "OFP PDF URL was not provided by SimBrief.";
+        openLink.href = "#";
+        openLink.style.pointerEvents = "none";
+        openLink.style.opacity = ".5";
+        return;
+    }
+
+    frame.src = url;
+    frame.hidden = false;
+    placeholder.hidden = true;
+    openLink.href = url;
+    openLink.style.pointerEvents = "";
+    openLink.style.opacity = "";
+}
+
+function sbFindAtis(data) {
+    const candidates = [
+        sbGet(data, ["origin.atis", "origin.atismessage"]),
+        sbGet(data, ["origin.atis_text", "origin.atis_text_full"]),
+        sbGet(data, ["atis.departure", "atis.origin"]),
+        sbGet(data, ["weather.atis", "weather.origin_atis"])
+    ];
+
+    for (const candidate of candidates) {
+        const text = sbText(candidate);
+        if (text) return text;
+    }
+
+    return "Departure ATIS was not provided in the API response.";
+}
+
+function sbSetMetar(prefix, metar, category) {
+    const textEl = document.getElementById(`sb-metar-${prefix}`);
+    const catEl = document.getElementById(`sb-metar-${prefix}-cat`);
+
+    if (textEl) {
+        const text = sbText(metar);
+        textEl.textContent = text || "METAR not provided";
+        textEl.classList.toggle("is-empty", !text);
+    }
+
+    if (catEl) {
+        const cat = sbText(category).toUpperCase();
+        const cls = cat.toLowerCase().replace(/[^a-z]/g, "");
+        catEl.textContent = cat;
+        catEl.className = "sb-metar-cat" + (cls ? " " + cls : "");
+    }
+}
+function sbPopulateFlightPlan(data) {
+    const departure = sbAirportCode(data, [
+        "origin.icao_code", "origin.icao"
+    ]);
+
+    const arrival = sbAirportCode(data, [
+        "destination.icao_code", "destination.icao"
+    ]);
+
+    const alternate = sbAirportCode(data, [
+        "alternate.icao_code",
+        "alternate.icao",
+        "alternate.icao_code_1",
+        "alternate.airport.icao_code"
+    ]);
+
+    sbSet("sb-departure", departure, "----");
+    sbSet("sb-arrival", arrival, "----");
+    sbSet("sb-departure-name", sbGet(data, [
+        "origin.name"
+    ]), "—");
+    sbSet("sb-arrival-name", sbGet(data, [
+        "destination.name"
+    ]), "—");
+
+    // ALTN AIRPORT — 문제 방지
+    sbSet("sb-altn", alternate, "NOT PROVIDED");
+
+    sbSet("sb-cost-index", sbGet(data, [
+        "general.costindex", "general.cost_index"
+    ]));
+
+    sbSet("sb-cruise-altitude", sbGet(data, [
+        "general.initial_altitude",
+        "general.cruise_altitude",
+        "general.cruiselevel"
+    ]));
+
+    const unitsRaw = sbText(sbGet(data, [
+        "params.units", "general.units", "weights.units"
+    ])).toUpperCase();
+
+    const units = unitsRaw.includes("LBS") || unitsRaw === "LB"
+        ? "LB"
+        : "KG";
+
+    sbSet("sb-zfw", sbFormatWeight(sbGet(data, [
+        "weights.est_zfw", "weights.zfw"
+    ]), units));
+
+    sbSet("sb-fob", sbFormatWeight(sbGet(data, [
+        "fuel.plan_ramp",
+        "fuel.block_fuel",
+        "fuel.plan_takeoff"
+    ]), units));
+
+    sbSet("sb-payload", sbFormatWeight(sbGet(data, [
+        "weights.payload", "weights.est_payload"
+    ]), units));
+
+    // 활주로는 API 버전에 따라 키가 다를 수 있음
+    const depRunway = sbText(sbGet(data, [
+        "origin.plan_rwy",
+        "origin.plan_runway",
+        "origin.runway",
+        "origin.rwy"
+    ]));
+
+    const arrRunway = sbText(sbGet(data, [
+        "destination.plan_rwy",
+        "destination.plan_runway",
+        "destination.runway",
+        "destination.rwy"
+    ]));
+
+    sbSet("sb-departure-runway", depRunway, "NOT SET");
+    sbSet("sb-arrival-runway", arrRunway, "NOT SET");
+
+    const route = sbText(sbGet(data, [
+        "general.route",
+        "general.route_string",
+        "route.route"
+    ]));
+
+    sbSet("sb-route", route, "Route not provided");
+
+    // ATIS가 배열/객체여도 [object Object]로 표시하지 않음
+
+    
+    // OFP PDF를 별도 메뉴에 표시
+    const directory = sbGet(data, [
+        "files.directory",
+        "fms_downloads.directory"
+    ]);
+
+    const pdfLink = sbGet(data, [
+        "files.pdf.link",
+        "fms_downloads.pdf.link"
+    ]);
+
+    sbShowPdf(sbNormalizePdfUrl(directory, pdfLink));
+}
+
+
+
+async function loadSimBriefFlightPlan() {
+    const input = document.getElementById("sb-user-id");
+    const button = document.getElementById("sb-load-btn");
+    const status = document.getElementById("sb-status");
+
+    const userId = input.value.trim();
+
+    if (!/^\d{1,7}$/.test(userId)) {
+        status.textContent = "CHECK USER ID";
+        input.focus();
+        return;
+    }
+
+    button.disabled = true;
+    status.textContent = "LOADING...";
+
+    try {
+        const url =
+            "https://www.simbrief.com/api/xml.fetcher.php" +
+            `?userid=${encodeURIComponent(userId)}&json=v2`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`SimBrief API HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data || typeof data !== "object") {
+            throw new Error("Invalid API response");
+        }
+
+        sbPopulateFlightPlan(data);
+        status.textContent = "FLIGHT PLAN LOADED";
+    } catch (error) {
+        console.error("SimBrief load failed:", error);
+
+        status.textContent = error instanceof TypeError
+            ? "NETWORK / CORS ERROR"
+            : "LOAD FAILED";
+    } finally {
+        button.disabled = false;
+    }
+}
+
+
+
+document.getElementById("sb-load-btn")
+    ?.addEventListener("click", loadSimBriefFlightPlan);
+
+const routeText = [
+    departureRunway,
+    route,
+    arrivalRunway
+].filter(Boolean).join(" ");
+
+
+
+</script>
+
+</body>
+</html>
