@@ -159,8 +159,15 @@
 
                             <div class="field">
                                 <label for="cg">CG (%)</label>
-                                <input id="cg" max="100" min="0"
-                                       step="0.1" type="number" value="0">
+                                <input id="cg"
+                                    type="text"
+                                    inputmode="none"
+                                    data-efb-keypad="true"
+                                    data-keypad-decimal="true"
+                                    max="100"
+                                    min="0"
+                                    step="0.1"
+                                    value="0">
                             </div>
 
                             <div class="field">
@@ -263,6 +270,7 @@
                     <div class="sb-load-row">
                         <label for="sb-user-id">SIMBRIEF ID</label>
                         <input
+                            autocomplete="off"
                             id="sb-user-id"
                             type="text"
                             inputmode="numeric"
@@ -474,7 +482,10 @@
                             <div class="wb-input-wrap">
                                 <input id="wb-planned-gw-cg"
                                     class="wb-input"
-                                    type="number"
+                                    type="text"
+                                    inputmode="none"
+                                    data-efb-keypad="true"
+                                    data-keypad-decimal="true"
                                     step="0.1"
                                     placeholder="Enter value">
                                 <span class="wb-unit">MAC %</span>
@@ -760,6 +771,46 @@
 
 
 </main>
+
+<!-- EFB NUMERIC KEYPAD -->
+<div id="efb-numpad" class="efb-numpad" hidden>
+    <div class="efb-numpad-title">NUMPAD</div>
+
+    <div class="efb-numpad-grid">
+        <button type="button" data-key="1">1</button>
+        <button type="button" data-key="2">2</button>
+        <button type="button" data-key="3">3</button>
+
+        <button type="button" data-key="4">4</button>
+        <button type="button" data-key="5">5</button>
+        <button type="button" data-key="6">6</button>
+
+        <button type="button" data-key="7">7</button>
+        <button type="button" data-key="8">8</button>
+        <button type="button" data-key="9">9</button>
+
+        <button type="button"
+                data-key="minus"
+                class="efb-key-special"
+                hidden>−</button>
+
+        <button type="button" data-key="0">0</button>
+
+        <button type="button"
+                data-key="decimal"
+                class="efb-key-special"
+                hidden>.</button>
+
+        <button type="button"
+                data-key="backspace"
+                class="efb-key-special">⌫</button>
+
+        <button type="button"
+                data-key="clear"
+                class="efb-key-special">CLR</button>
+    </div>
+</div>
+
 
 <script>
 'use strict';
@@ -1548,14 +1599,274 @@ async function loadSimBriefFlightPlan() {
 document.getElementById("sb-load-btn")
     ?.addEventListener("click", loadSimBriefFlightPlan);
 
-const routeText = [
-    departureRunway,
-    route,
-    arrivalRunway
-].filter(Boolean).join(" ");
 
 
+/* =========================================
+   EFB ON-SCREEN NUMERIC KEYPAD
+========================================= */
 
+(() => {
+    'use strict';
+
+    const keypad = document.getElementById('efb-numpad');
+
+    if (!keypad) return;
+
+    // 숫자 입력칸과 숫자 전용 텍스트 입력칸
+    const inputSelector =
+        'input[type="number"], input[inputmode="numeric"], input[data-efb-keypad="true"]';
+
+    const minusButton =
+        keypad.querySelector('[data-key="minus"]');
+
+    const decimalButton =
+        keypad.querySelector('[data-key="decimal"]');
+
+    let activeInput = null;
+    let replaceNextKey = true;
+
+
+    /* 키패드 위치를 입력칸 옆으로 이동 */
+    function positionKeypad(input) {
+        const rect = input.getBoundingClientRect();
+
+        const keypadWidth = keypad.offsetWidth;
+        const keypadHeight = keypad.offsetHeight;
+        const gap = 7;
+
+        // 우선 입력칸 오른쪽에 표시
+        let left = rect.right + gap;
+
+        // 오른쪽 공간이 부족하면 왼쪽으로 이동
+        if (left + keypadWidth > window.innerWidth - 4) {
+            left = rect.left - keypadWidth - gap;
+        }
+
+        // 화면 좌우 경계 보정
+        const maxLeft = Math.max(
+            4,
+            window.innerWidth - keypadWidth - 4
+        );
+
+        left = Math.max(4, Math.min(left, maxLeft));
+
+        // 기본적으로 입력칸 위쪽과 정렬
+        let top = rect.top;
+
+        // 화면 아래쪽에 걸리면 위로 이동
+        if (top + keypadHeight > window.innerHeight - 4) {
+            top = rect.bottom - keypadHeight;
+        }
+
+        const maxTop = Math.max(
+            4,
+            window.innerHeight - keypadHeight - 4
+        );
+
+        top = Math.max(4, Math.min(top, maxTop));
+
+        keypad.style.left = `${left}px`;
+        keypad.style.top = `${top}px`;
+    }
+
+
+    /* 입력칸 활성화 */
+    function activateInput(input) {
+        activeInput = input;
+
+        // 현재 값을 편집용 버퍼에 저장
+        input.dataset.keypadBuffer = input.value || '';
+
+        // 다음 입력 숫자는 기존 값을 대체
+        replaceNextKey = true;
+
+        const isNumberInput = input.type === 'number';
+
+        // 음수가 허용된 입력칸에만 부호 표시
+        const allowsNegative =
+            isNumberInput &&
+            input.min !== '' &&
+            Number(input.min) < 0;
+
+        // 소수점 단위가 필요한 입력칸에만 표시
+        const step = String(input.step || '');
+
+        const allowsDecimal =
+            input.dataset.keypadDecimal === 'true' ||
+            (isNumberInput && step.includes('.'));
+
+        minusButton.hidden = !allowsNegative;
+        decimalButton.hidden = !allowsDecimal;
+
+        keypad.hidden = false;
+
+        positionKeypad(input);
+    }
+
+
+    /* 키패드 닫기 */
+    function hideKeypad() {
+        keypad.hidden = true;
+        activeInput = null;
+        replaceNextKey = true;
+    }
+
+
+    /* 숫자 및 편집 버튼 처리 */
+    function pressKey(key) {
+        if (!activeInput || !activeInput.isConnected) {
+            hideKeypad();
+            return;
+        }
+
+        let value =
+            activeInput.dataset.keypadBuffer ??
+            activeInput.value ??
+            '';
+
+        // 숫자 버튼
+        if (/^[0-9]$/.test(key)) {
+            if (replaceNextKey) {
+                value = '';
+            }
+
+            // SimBrief ID의 maxlength 제한 적용
+            const maxLength = activeInput.maxLength;
+
+            if (maxLength > 0 && value.length >= maxLength) {
+                replaceNextKey = false;
+                return;
+            }
+
+            value += key;
+            replaceNextKey = false;
+        }
+
+        // 전체 삭제
+        else if (key === 'clear') {
+            value = '';
+            replaceNextKey = false;
+        }
+
+        // 마지막 글자 삭제
+        else if (key === 'backspace') {
+            if (replaceNextKey) {
+                value = '';
+            } else {
+                value = value.slice(0, -1);
+            }
+
+            replaceNextKey = false;
+        }
+
+        // 음수 부호 전환
+        else if (key === 'minus') {
+            if (replaceNextKey) {
+                value = '';
+            }
+
+            if (value.startsWith('-')) {
+                value = value.slice(1);
+            } else {
+                value = '-' + value;
+            }
+
+            replaceNextKey = false;
+        }
+
+        // 소수점 입력
+        else if (key === 'decimal') {
+            if (replaceNextKey) {
+                value = '';
+            }
+
+            if (!value.includes('.')) {
+                if (value === '' || value === '-') {
+                    value += '0';
+                }
+
+                value += '.';
+            }
+
+            replaceNextKey = false;
+        }
+
+        // 브라우저의 number 입력값과 별도로 버퍼 유지
+        // (예: -, 1. 같은 입력 중간 상태 보존)
+        activeInput.dataset.keypadBuffer = value;
+        activeInput.value = value;
+
+        // 기존 입력 이벤트와의 호환성 유지
+        activeInput.dispatchEvent(
+            new Event('input', { bubbles: true })
+        );
+    }
+
+
+    /* 버튼을 눌러도 입력칸의 포커스를 유지 */
+    keypad.querySelectorAll('button').forEach(button => {
+        button.addEventListener('pointerdown', event => {
+            event.preventDefault();
+        });
+
+        button.addEventListener('click', () => {
+            pressKey(button.dataset.key);
+        });
+    });
+
+
+    /* 입력칸에 포커스가 생기면 키패드 표시 */
+    document.addEventListener('focusin', event => {
+        const target = event.target;
+
+        if (
+            target instanceof Element &&
+            target.matches(inputSelector)
+        ) {
+            activateInput(target);
+        }
+    });
+
+
+    /* 이미 활성화된 입력칸을 다시 클릭해도 새 입력 시작 */
+    document.addEventListener('click', event => {
+        const target = event.target;
+
+        if (!(target instanceof Element)) return;
+
+        const input = target.closest(inputSelector);
+
+        if (input) {
+            activateInput(input);
+        }
+    });
+
+
+    /* 키패드 및 숫자 입력칸 바깥을 클릭하면 닫기 */
+    document.addEventListener('pointerdown', event => {
+        if (keypad.contains(event.target)) return;
+
+        const target = event.target;
+
+        if (
+            target instanceof Element &&
+            target.matches(inputSelector)
+        ) {
+            return;
+        }
+
+        hideKeypad();
+    }, true);
+
+
+    /* 화면 크기가 바뀌면 위치 다시 계산 */
+    window.addEventListener('resize', () => {
+        if (!keypad.hidden && activeInput) {
+            positionKeypad(activeInput);
+        }
+    });
+
+})();
 </script>
 
 </body>
