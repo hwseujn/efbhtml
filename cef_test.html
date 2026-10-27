@@ -3080,6 +3080,13 @@ document.getElementById("startFuelingBtn")
 
 document.getElementById("startBoardingBtn")
     ?.addEventListener("click", () => {
+
+        const payload = Number(document.getElementById("wb-planned-payload").value);
+
+	    const plannedGWCG = Number(document.getElementById("wb-planned-gw-cg").value );
+
+      	xplane.StartBoarding(payload, plannedGWCG);
+        
         console.log("Start Boarding requested");
     });
 
