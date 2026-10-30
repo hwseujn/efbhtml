@@ -3109,7 +3109,7 @@ groundDoors.forEach(button => {
         button.classList.toggle('active');
         //door NO GA DA
         const door = button.dataset.door;
-        const equipment = button.dataset.equipment;
+
         if (door === "L1"){
             xplane.DoorL1();
         } else if (door === "L2"){
@@ -3132,8 +3132,20 @@ groundDoors.forEach(button => {
             xplane.RearCargo();
         }
 
-        // eq
 
+
+    });
+});
+
+groundEquipment.forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+        const state = button.querySelector('small');
+        state.textContent = button.classList.contains('active')
+            ? 'ON'
+            : 'OFF';
+
+        const equipment = button.dataset.equipment;
         if(equipment === "L1 STAIR"){
             xplane.Stair1();
         } else if(equipment === "L2 STAIR"){
@@ -3149,17 +3161,6 @@ groundDoors.forEach(button => {
         } else if(equipment === "CATERING"){
             xplane.Catering();
         }
-
-    });
-});
-
-groundEquipment.forEach(button => {
-    button.addEventListener('click', () => {
-        button.classList.toggle('active');
-        const state = button.querySelector('small');
-        state.textContent = button.classList.contains('active')
-            ? 'ON'
-            : 'OFF';
     });
 });
 
