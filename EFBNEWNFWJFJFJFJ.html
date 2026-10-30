@@ -1802,7 +1802,11 @@ input[type="number"] {
 
     <header class="header">
         <div class="header-left">EHCSTUDIO A330 EFB</div>
-        <div class="header-right">BRIGHTNESS <input type="range" min="0" max="100" value="100" step="1" id="brightness"></div>
+        <div class="header-right">
+            <!-- span use sidebar-label because i am not feeling well making new class to this little thing.-->
+             <span class="sidebar-label" style="color: white;">BRIGHTNESS</span>
+            <input type="range" min="0" max="100" value="100" step="1" id="brightness">
+        </div>
     </header>
 
     <div class="workspace">
@@ -1967,14 +1971,7 @@ input[type="number"] {
 
                         </div>
 
-                        <div class="buttons">
-                            <button class="primary" id="calc" type="button">
-                                CALCULATE
-                            </button>
-                            <button class="secondary" id="reset" type="button">
-                                RESET
-                            </button>
-                        </div>
+                        
                     </section>
 
                     <section>
@@ -2018,6 +2015,14 @@ input[type="number"] {
                                 <div class="value" id="crosswind">---</div>
                                 <div class="unit">KT</div>
                             </div>
+                        </div>
+                        <div class="buttons">
+                            <button class="primary" id="calc" type="button">
+                                CALCULATE
+                            </button>
+                            <button class="secondary" id="reset" type="button">
+                                RESET
+                            </button>
                         </div>
                     </section>
 
