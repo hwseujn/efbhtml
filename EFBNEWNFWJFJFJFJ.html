@@ -1165,7 +1165,23 @@ input[type="number"] {
     opacity: .5;
     cursor: default;
 }
-
+.sb-flight-number {
+    margin-left: auto;
+    padding-left: 14px;
+    border-left: 1px solid var(--border);
+    color: #e7f3ff;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+@media (max-height: 560px) {
+    .sb-flight-number {
+        font-size: 18px;
+    }
+}
 /* ---------- 출발 → 도착 ---------- */
 
 .sb-airports {
@@ -1379,7 +1395,100 @@ input[type="number"] {
     letter-spacing: .5px;
     text-align: right;
 }
+/* ---------- METAR (남는 공간 전부 사용, 이 안에서만 스크롤) ---------- */
 
+.sb-metar-panel {
+    flex: 1 1 0;      /* 남는 높이를 채우고, 넘치면 줄어듦 */
+    min-height: 0;
+}
+
+.sb-metar-list {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.sb-metar-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sb-metar-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sb-metar-list::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #3b4654;
+}
+
+.sb-metar-row {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 7px 10px;
+    border: 1px solid #303b48;
+    border-radius: 4px;
+    background: #12171e;
+}
+
+.sb-metar-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.sb-metar-head span {
+    color: #8c9aaa;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .6px;
+}
+
+.sb-metar-cat {
+    padding: 1px 5px;
+    border: 1px solid #3b4654;
+    border-radius: 2px;
+    color: #8c9aaa;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.sb-metar-cat:empty {
+    display: none;
+}
+
+.sb-metar-cat.vfr  { color: #82ddb1; border-color: #315c49; background: #192b25; }
+.sb-metar-cat.mvfr { color: #7cc4ff; border-color: #2f5a80; background: #172735; }
+.sb-metar-cat.ifr  { color: #ff9696; border-color: #713d40; background: #301f23; }
+.sb-metar-cat.lifr { color: #e8a2ff; border-color: #64386f; background: #2c1d33; }
+
+.sb-metar-text {
+    min-width: 0;
+    margin: 0;
+    color: #cfe0f0;
+    font-family: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.sb-metar-text.is-empty {
+    color: #5f6d7d;
+}
+@media (max-height: 560px) {
+    .sb-route-line {
+        max-height: 84px;
+    }
+}
 /* ---------- SIMBRIEF OFP ---------- */
 
 .sb-open-pdf {
@@ -1675,6 +1784,15 @@ input[type="number"] {
     text-align: center;
     font-variant-numeric: tabular-nums;
 }
+/* BRIGHTNESS 어둡게 하는 막 */
+#dim-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;          /* 키패드(99999)보다 위 */
+    background: #000;
+    opacity: 0;               /* 0 = 원래 밝기 */
+    pointer-events: none;     /* 클릭은 그대로 아래로 통과 */
+}
 </style>
 
 </head>
@@ -1684,7 +1802,7 @@ input[type="number"] {
 
     <header class="header">
         <div class="header-left">EHCSTUDIO A330 EFB</div>
-        <div class="header-right">BRIGHTNESS <input type="range" min="1" max="100" value="50" step="1" id="brightness"></div>
+        <div class="header-right">BRIGHTNESS <input type="range" min="0" max="100" value="100" step="1" id="brightness"></div>
     </header>
 
     <div class="workspace">
@@ -1932,6 +2050,8 @@ input[type="number"] {
                         <button id="sb-load-btn" type="button">
                             LOAD FLIGHT PLAN
                         </button>
+
+                        <strong id="sb-flight-number" class="sb-flight-number">---- ----</strong>
                     </div>
 
                     <section class="sb-airports">
@@ -1996,7 +2116,26 @@ input[type="number"] {
                             </div>
                         </div>
                     </section>
+                    <section class="sb-panel sb-metar-panel">
+                        <h2>METAR</h2>
+                        <div class="sb-metar-list">
+                            <div class="sb-metar-row">
+                                <div class="sb-metar-head">
+                                    <span>DEP</span>
+                                    <em id="sb-metar-dep-cat" class="sb-metar-cat"></em>
+                                </div>
+                                <p id="sb-metar-dep" class="sb-metar-text is-empty">METAR not loaded</p>
+                            </div>
 
+                            <div class="sb-metar-row">
+                                <div class="sb-metar-head">
+                                    <span>ARR</span>
+                                    <em id="sb-metar-arr-cat" class="sb-metar-cat"></em>
+                                </div>
+                                <p id="sb-metar-arr" class="sb-metar-text is-empty">METAR not loaded</p>
+                            </div>
+                        </div>
+                    </section>
 
 
 
@@ -2466,7 +2605,7 @@ input[type="number"] {
     </div>
 </div>
 
-
+<div id="dim-overlay"></div>
 <script>
 'use strict';
 
@@ -3366,7 +3505,12 @@ function sbPopulateFlightPlan(data) {
     ]);
 
     console.log("SimBrief alternate raw:", data.alternate);
+    // FLIGHT NUMBER (예: KAL 1953)
+    const airline = sbText(sbGet(data, ["general.icao_airline"])).toUpperCase();
+    const flightNo = sbText(sbGet(data, ["general.flight_number"]));
+    const flightNumber = [airline, flightNo].filter(Boolean).join(" ");
 
+    sbSet("sb-flight-number", flightNumber, "---- ----");
     sbSet("sb-departure", departure, "----");
     sbSet("sb-arrival", arrival, "----");
     sbSet("sb-departure-name", sbGet(data, [
@@ -3436,7 +3580,18 @@ function sbPopulateFlightPlan(data) {
     ]));
 
     sbSet("sb-route", route, "Route not provided");
+    // METAR (출발 / 도착)
+    sbSetMetar(
+        "dep",
+        sbGet(data, ["origin.metar", "weather.orig_metar"]),
+        sbGet(data, ["origin.metar_category", "weather.orig_metar_category"])
+    );
 
+    sbSetMetar(
+        "arr",
+        sbGet(data, ["destination.metar", "weather.dest_metar"]),
+        sbGet(data, ["destination.metar_category", "weather.dest_metar_category"])
+    );
     // ATIS가 배열/객체여도 [object Object]로 표시하지 않음
 
     
@@ -3772,6 +3927,27 @@ document.getElementById("sb-load-btn")
         }
     });
 
+})();
+/* BRIGHTNESS
+   슬라이더 100 → 원래 밝기(100%), 슬라이더 0 → 20% */
+(() => {
+    const slider = document.getElementById('brightness');
+    const overlay = document.getElementById('dim-overlay');
+
+    if (!slider || !overlay) return;
+
+    const MIN_BRIGHTNESS = 0.2;
+
+    function applyBrightness() {
+        const ratio = Number(slider.value) / 100;
+        const brightness = MIN_BRIGHTNESS + (1 - MIN_BRIGHTNESS) * ratio;
+
+        // 어둡게 하는 정도 = 1 - 밝기
+        overlay.style.opacity = String(1 - brightness);
+    }
+
+    slider.addEventListener('input', applyBrightness);
+    applyBrightness();
 })();
 </script>
 
