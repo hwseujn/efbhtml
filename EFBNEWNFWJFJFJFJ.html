@@ -1,0 +1,3715 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1042, initial-scale=1.0">
+<title>EHCSTUDIO A330 EFB</title>
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #11151b;
+    --panel: #191f27;
+    --panel2: #202833;
+    --border: #303946;
+    --text: #e8edf3;
+    --muted: #8d99a8;
+    --accent: #63b3ed;
+    --sidebar: #151a21;
+}
+
+html,
+body {
+    margin: 0;
+    width: 1042px;
+    height: 748px;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 12px;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.screen {
+    width: 1042px;
+    height: 748px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #303741;
+}
+
+/* HEADER */
+
+.header {
+    height: 52px;
+    flex: 0 0 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: #191f27;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-left {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.header-right {
+    font-size: 13px;
+    letter-spacing: 1.1px;
+}
+
+
+.connection {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #58c995;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* LAYOUT */
+
+.workspace {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.sidebar {
+    width: 174px;
+    flex: 0 0 174px;
+    display: flex;
+    flex-direction: column;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    padding: 16px 10px;
+}
+
+.sidebar-label {
+    color: #687585;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 5px 10px 14px;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    width: 100%;
+    height: 54px;
+    flex: 0 0 54px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: transparent;
+    color: #98a4b2;
+    text-align: left;
+    transition: background .15s, color .15s;
+}
+
+.nav-item:hover {
+    background: #202833;
+    color: #e8edf3;
+}
+
+.nav-item.active {
+    color: #eaf5ff;
+    background: #233243;
+    border-color: #344e66;
+}
+
+/* IMAGE ICONS */
+
+.nav-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    object-fit: contain;
+}
+
+/* NAVIGATION LABELS */
+
+.nav-text {
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: .25px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 12px 10px 3px;
+    border-top: 1px solid #29313b;
+    color: #687585;
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+/* CONTENT AREA */
+
+.content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    padding: 20px;
+    overflow: hidden;
+    background: var(--bg);
+}
+
+.page {
+    display: none;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
+}
+
+.page.active {
+    display: flex;
+}
+
+.page-header {
+    height: 58px;
+    flex: 0 0 58px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 17px;
+}
+
+.brand {
+    color: #7f8c9b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    margin-bottom: 7px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: .6px;
+}
+
+.page-tag {
+    color: #7f8c9b;
+    border: 1px solid #35404d;
+    padding: 6px 9px;
+    border-radius: 3px;
+    font-size: 9px;
+    letter-spacing: .7px;
+}
+
+/* TAKEOFF PERFORMANCE */
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.03fr;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+}
+
+.columns section {
+    min-width: 0;
+    padding: 13px 11px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+}
+
+.columns h2 {
+    margin: 0 0 14px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid var(--border);
+    color: #bdc8d4;
+    font-size: 10px;
+    letter-spacing: .7px;
+    font-weight: 700;
+}
+
+.input-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field label {
+    color: #8c9aaa;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    height: 32px;
+    min-width: 0;
+    padding: 0 9px;
+    outline: none;
+    border: 1px solid #343f4d;
+    border-radius: 3px;
+    background: #12171e;
+    color: #e9f0f7;
+    font-size: 12px;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--accent);
+}
+
+.field select {
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    gap: 7px;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.buttons button {
+    height: 34px;
+    flex: 1;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.primary {
+    background: #367db5;
+    border: 1px solid #438dc7;
+    color: white;
+}
+
+.primary:hover {
+    background: #438dc7;
+}
+
+.secondary {
+    background: #252d37;
+    border: 1px solid #3b4654;
+    color: #c7d0da;
+}
+
+.secondary:hover {
+    background: #303a47;
+}
+
+.status {
+    min-height: 31px;
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    margin-bottom: 12px;
+    border: 1px solid #3a4653;
+    border-radius: 3px;
+    background: #202833;
+    color: #bdc9d6;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.status.good {
+    color: #82ddb1;
+    border-color: #315c49;
+    background: #192b25;
+}
+
+.status.warn {
+    color: #f0cb7a;
+    border-color: #69562e;
+    background: #30291b;
+}
+
+.status.bad {
+    color: #ff9696;
+    border-color: #713d40;
+    background: #301f23;
+}
+
+.speeds {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.speed {
+    min-width: 0;
+    padding: 12px 3px;
+    text-align: center;
+    border: 1px solid #34404e;
+    border-radius: 4px;
+    background: #202833;
+}
+
+.name {
+    color: #91a0b0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .6px;
+}
+
+.speed .value {
+    margin-top: 8px;
+    font-size: 23px;
+    font-weight: 700;
+    color: #e7f3ff;
+}
+
+.resultgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+}
+
+.result {
+    min-width: 0;
+    padding: 10px 8px;
+    border: 1px solid #303b48;
+    border-radius: 4px;
+    background: #171d25;
+}
+
+.result .value {
+    margin-top: 8px;
+    color: #dce8f5;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.result .unit {
+    margin-top: 3px;
+    color: #728091;
+    font-size: 10px;
+}
+
+/* OTHER PAGES */
+
+.placeholder-panel {
+    flex: 1;
+    min-height: 0;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+    padding: 20px;
+}
+
+.placeholder-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    margin-bottom: 10px;
+}
+
+.placeholder-description {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.placeholder-line {
+    height: 1px;
+    background: var(--border);
+    margin: 18px 0;
+}
+
+/* FOOTER */
+
+.footer {
+    height: 27px;
+    flex: 0 0 27px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px;
+    border-top: 1px solid var(--border);
+    background: #171c23;
+    color: #687585;
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+/* =====================================
+   GROUND AND EQUIPMENT
+===================================== */
+
+#page-ground {
+    min-height: 0;
+    
+}
+
+.ground-toolbar {
+    flex: 0 0 42px;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 9px;
+}
+
+.ground-toolbar-spacer {
+    flex: 1;
+}
+
+.ground-action {
+    min-width: 100px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: 1px solid #394655;
+    border-radius: 4px;
+    background: #202833;
+    color: #d9e3ed;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    white-space: nowrap;
+}
+
+.ground-action:hover {
+    background: #2a3543;
+}
+
+.ground-action.active {
+    border-color: #b58a45;
+    background: #382e1d;
+    color: #ffd58b;
+}
+
+.ground-action.danger {
+    border-color: #654044;
+    background: #302126;
+    color: #ffb1b1;
+}
+
+.ground-action.danger:hover {
+    background: #47272d;
+}
+
+.equipment-state {
+    color: #8b98a7;
+    font-size: 9px;
+}
+
+.ground-action.active .equipment-state {
+    color: #ffd58b;
+}
+
+/* AIRCRAFT STAGE */
+
+.ground-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid #303b48;
+    border-radius: 5px;
+    background-image: url('a330tope.png');
+}
+
+/* AIRCRAFT SILHOUETTE
+   Nose points LEFT.
+   Top view, horizontal fuselage.
+*/
+
+.aircraft {
+    position: absolute;
+    left: 21%;
+    top: 17%;
+    width: 57%;
+    height: 66%;
+    pointer-events: none;
+}
+
+/* 비행기 동체: 날개와 꼬리 제거 */
+.aircraft {
+    position: absolute;
+    left: 20%;
+    top: 35%;
+    width: 70%;
+    height: 30%;
+    background: #b8c0ca;
+    border: 2px solid #737d89;
+    border-radius: 4px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+
+
+
+/* DOOR BUTTONS */
+
+.door-btn {
+    position: absolute;
+    z-index: 5;
+    min-width: 42px;
+    height: 27px;
+    padding: 0 7px;
+    border: 1px solid #394655;
+    border-radius: 4px;
+    background: #202833;
+    color: #d9e3ed;
+    font-size: 10px;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+    white-space: nowrap;
+}
+
+.door-btn:hover {
+    background: #2a3543;
+}
+
+.door-btn.active {
+    background: #176b54;
+    border-color: #47d5a1;
+    color: #c4ffeb;
+}
+
+
+/* LEFT-SIDE DOORS: ABOVE FUSELAGE */
+
+.door-l1 {
+    left: 23%;
+    bottom: 36%;
+}
+
+.door-l2 {
+    left: 43%;
+    bottom: 36%;
+}
+
+.door-l3 {
+    left: 62%;
+    bottom: 36%;
+}
+
+.door-l4 {
+    left: 78%;
+    bottom: 36%;
+}
+
+/* RIGHT-SIDE DOORS: BELOW FUSELAGE */
+
+.door-r1 {
+    left: 23%;
+    bottom: 57%;
+}
+
+.door-r2 {
+    left: 43%;
+    bottom: 57%;
+}
+
+.door-r3 {
+    left: 62%;
+    bottom: 57%;
+}
+
+.door-r4 {
+    left: 78%;
+    bottom: 57%;
+}
+
+/* CARGO DOORS */
+
+.cargo-front {
+    left: 31%;
+    top: 38%;
+    min-width: 79px;
+    height: 25px;
+    font-size: 9px;
+}
+
+.cargo-back {
+    left: 68%;
+    top: 38%;
+    min-width: 75px;
+    height: 25px;
+    font-size: 9px;
+}
+
+/* EQUIPMENT BUTTONS */
+
+.equipment-btn {
+    position: absolute;
+    z-index: 6;
+    min-width: 83px;
+    min-height: 40px;
+    padding: 5px 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 1px solid #475363;
+    border-radius: 4px;
+    background: #222b36;
+    color: #d0d9e3;
+    font-size: 9px;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .22);
+    white-space: nowrap;
+}
+
+.equipment-btn:hover {
+    border-color: #74869a;
+    background: #2d3947;
+}
+
+.equipment-btn small {
+    color: #8190a0;
+    font-size: 8px;
+    font-weight: 600;
+}
+
+.equipment-btn.active {
+    background: #253b31;
+    border-color: #4eae81;
+    color: #a9f0c9;
+}
+
+.equipment-btn.active small {
+    color: #7de0a8;
+}
+
+.equipment-icon {
+    display: none;
+}
+
+/* EQUIPMENT POSITIONS */
+
+.stair-l1 {
+    left: 20%;
+    bottom: 26%;
+}
+
+.stair-l2 {
+    left: 42%;
+    bottom: 26%;
+}
+
+.gpu {
+    left: 8%;
+    top: 30%;
+}
+
+.front-loader {
+    left: 31%;
+    top: 28%;
+}
+
+.fuel-truck {
+    left: 45%;
+    top: 15%;
+}
+
+.back-loader {
+    left: 68%;
+    top: 28%;
+}
+
+.catering {
+    left: 76%;
+    bottom: 26%;
+}
+
+/* LEGEND */
+
+.ground-legend {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    display: flex;
+    gap: 13px;
+    color: #7f8c9b;
+    font-size: 8px;
+    letter-spacing: .5px;
+    pointer-events: none;
+}
+
+.ground-legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+}
+
+.door-dot {
+    background: #3d88ba;
+}
+
+.equipment-dot {
+    background: #475363;
+}
+/* SETTINGS PAGE */
+#page-settings {
+    padding: 24px 30px;
+    box-sizing: border-box;
+    color: #e8edf3;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 680px;
+    margin-top: 15px;
+}
+
+.setting-row {
+    min-height: 54px;
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 8px 14px;
+    background: #202832;
+    border: 1px solid #394653;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.setting-label {
+    color: #c6d0db;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toggle-btn {
+    min-width: 76px;
+    height: 34px;
+    padding: 0 14px;
+    background: #303b47;
+    border: 1px solid #526170;
+    border-radius: 3px;
+    color: #aebbc8;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.toggle-btn:hover {
+    background: #414e5c;
+    color: #ffffff;
+}
+
+.toggle-btn.active {
+    background: #1685a8;
+    border-color: #27b8df;
+    color: #ffffff;
+    box-shadow: inset 0 0 0 1px #27b8df;
+}
+
+
+
+/* WEIGHT AND BALANCE */
+#page-weight {
+    padding: 24px 30px;
+    box-sizing: border-box;
+    color: #e8edf3;
+}
+
+.wb-container {
+    width: 100%;
+    max-width: 850px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wb-row {
+    display: grid;
+    grid-template-columns: 220px minmax(150px, 1fr) minmax(180px, 1fr);
+    align-items: center;
+    gap: 18px;
+    min-height: 72px;
+    padding: 10px 16px;
+    background: #202832;
+    border: 1px solid #394653;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.wb-row-current-only {
+    grid-template-columns: 220px minmax(150px, 1fr);
+}
+
+.wb-label {
+    color: #dbe4ed;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.wb-value {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.wb-value-label {
+    color: #8f9eae;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.wb-current {
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #f2f6fa;
+    font-size: 18px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.wb-unit {
+    flex-shrink: 0;
+    color: #8f9eae;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.wb-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+.wb-input {
+    width: 100%;
+    min-width: 0;
+    height: 34px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    background: #131a22;
+    border: 1px solid #526170;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+}
+
+.wb-input:focus {
+    border-color: #27b8df;
+    box-shadow: 0 0 0 1px #27b8df;
+}
+
+.wb-input::placeholder {
+    color: #667585;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.wb-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.wb-action-btn {
+    min-width: 170px;
+    height: 42px;
+    padding: 0 18px;
+    background: #1685a8;
+    border: 1px solid #27b8df;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+}
+
+.wb-action-btn:hover {
+    background: #1a9ac1;
+}
+
+.wb-action-btn:active {
+    background: #116b87;
+}
+
+@media (max-width: 780px) {
+    .wb-row,
+    .wb-row-current-only {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .wb-label {
+        grid-column: 1 / -1;
+    }
+
+    .wb-actions {
+        flex-wrap: wrap;
+    }
+}
+
+/* 숫자 입력칸의 위/아래 스핀 버튼 제거 */
+
+/* Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* -------------- simbrief importer 여기부터*/
+/* =====================================
+   SIMBRIEF  +  SIMBRIEF OFP
+   style.css 맨 아래 "simbrief importer 여기부터" 다음에 붙여넣기
+
+   사용 가능한 영역: 가로 약 826px (1042 - 사이드바 174 - 좌우 padding 40 - 테두리)
+   세로는 .content 높이를 그대로 따라가며(flex),
+   남는 공간은 하단 여백으로, 부족하면 경로(ROUTE) 박스가 스크롤됩니다.
+===================================== */
+
+#page-simbrief,
+#page-simbrief-ofp {
+    min-height: 0;
+}
+
+.sb-page,
+.sb-ofp-page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ---------- 공통 헤더 ---------- */
+
+.sb-header,
+.sb-ofp-header {
+    flex: 0 0 48px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.sb-eyebrow {
+    margin-bottom: 6px;
+    color: #7f8c9b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+.sb-status {
+    margin-top: 2px;
+    padding: 6px 10px;
+    border: 1px solid #35404d;
+    border-radius: 3px;
+    color: #7f8c9b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .7px;
+    white-space: nowrap;
+}
+
+/* JS에서 status.className = "sb-status good" 처럼 쓰면 색이 바뀝니다 */
+.sb-status.good {
+    color: #82ddb1;
+    border-color: #315c49;
+    background: #192b25;
+}
+
+.sb-status.warn {
+    color: #f0cb7a;
+    border-color: #69562e;
+    background: #30291b;
+}
+
+.sb-status.bad {
+    color: #ff9696;
+    border-color: #713d40;
+    background: #301f23;
+}
+
+/* ---------- SIMBRIEF ID 입력 줄 ---------- */
+
+.sb-load-row {
+    flex: 0 0 38px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+}
+
+.sb-load-row label {
+    color: #8c9aaa;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+.sb-load-row input {
+    width: 190px;
+    height: 26px;
+    min-width: 0;
+    padding: 0 9px;
+    outline: none;
+    border: 1px solid #343f4d;
+    border-radius: 3px;
+    background: #12171e;
+    color: #e9f0f7;
+    font-size: 12px;
+}
+
+.sb-load-row input:focus {
+    border-color: var(--accent);
+}
+
+.sb-load-row input::placeholder {
+    color: #5f6d7d;
+}
+
+#sb-load-btn {
+    height: 26px;
+    padding: 0 14px;
+    border: 1px solid #438dc7;
+    border-radius: 3px;
+    background: #367db5;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+#sb-load-btn:hover {
+    background: #438dc7;
+}
+
+#sb-load-btn:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+/* ---------- 출발 → 도착 ---------- */
+
+.sb-airports {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 56px 1fr;
+    align-items: stretch;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+}
+
+.sb-airport {
+    min-width: 0;
+    padding: 10px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sb-airport-arrival {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.sb-airport span {
+    color: #8c9aaa;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.sb-airport strong {
+    color: #e7f3ff;
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.sb-airport small {
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sb-airport-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 22px;
+}
+
+/* ---------- 정보 카드 6개 (한 줄) ---------- */
+
+.sb-info-grid {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.sb-info-card {
+    min-width: 0;
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--panel);
+}
+
+.sb-info-card span {
+    overflow: hidden;
+    color: #8c9aaa;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sb-info-card strong {
+    overflow: hidden;
+    color: #e7f3ff;
+    font-size: 15px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- ROUTE & RUNWAYS ---------- */
+
+.sb-panel {
+    flex: 0 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel);
+}
+
+.sb-panel h2 {
+    flex: 0 0 auto;
+    margin: 0 0 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--border);
+    color: #bdc8d4;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .7px;
+}
+
+.sb-route-line {
+    flex: 0 1 auto;
+    min-height: 56px;
+    max-height: 170px;
+    display: grid;
+    grid-template-columns: 110px 28px minmax(0, 1fr) 28px 110px;
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
+}
+
+.sb-route-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.sb-runway {
+    min-width: 0;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #34404e;
+    border-radius: 4px;
+    background: #202833;
+    text-align: center;
+}
+
+.sb-runway span,
+.sb-route-text span {
+    color: #8c9aaa;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.sb-runway strong {
+    color: #e7f3ff;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.sb-route-text {
+    min-width: 0;
+    min-height: 0;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid #303b48;
+    border-radius: 4px;
+    background: #12171e;
+}
+
+/* 경로가 길면 이 안에서만 스크롤 */
+.sb-route-text p {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    overflow-y: auto;
+    color: #cfe0f0;
+    font-family: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.sb-route-text p::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sb-route-text p::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sb-route-text p::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #3b4654;
+}
+
+.sb-footnote {
+    flex: 0 0 auto;
+    margin: auto 0 0;
+    color: #687585;
+    font-size: 9px;
+    letter-spacing: .5px;
+    text-align: right;
+}
+
+/* ---------- SIMBRIEF OFP ---------- */
+
+.sb-open-pdf {
+    flex: 0 0 auto;
+    height: 30px;
+    margin-top: 2px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #27b8df;
+    border-radius: 3px;
+    background: #1685a8;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.sb-open-pdf:hover {
+    background: #1a9ac1;
+}
+
+.sb-pdf-placeholder {
+    flex: 1;
+    min-height: 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #3b4654;
+    border-radius: 5px;
+    background: var(--panel);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: center;
+}
+.sb-pdf-frame {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: #fff;   /* 기존 #2a303a → 흰색 */
+}
+
+/* display 를 지정하면 hidden 속성이 무시되므로 반드시 필요 */
+.sb-pdf-placeholder[hidden],
+.sb-pdf-frame[hidden] {
+    display: none;
+}
+
+/* ---------- 낮은 화면(약 478px 높이)용 압축 ---------- */
+
+@media (max-height: 560px) {
+    .sb-page,
+    .sb-ofp-page {
+        gap: 7px;
+    }
+
+    .sb-header,
+    .sb-ofp-header {
+        flex-basis: 42px;
+    }
+
+    .sb-eyebrow {
+        margin-bottom: 4px;
+    }
+
+    .sb-load-row {
+        flex-basis: 34px;
+    }
+
+    .sb-airport {
+        padding: 7px 16px;
+    }
+
+    .sb-airport strong {
+        font-size: 24px;
+    }
+
+    .sb-info-card {
+        padding: 6px 10px;
+        gap: 3px;
+    }
+
+    .sb-panel {
+        padding: 8px 10px;
+    }
+
+    .sb-panel h2 {
+        margin-bottom: 7px;
+        padding-bottom: 6px;
+    }
+
+    .sb-footnote {
+        display: none;
+    }
+}
+/* =========================================
+   EFB ON-SCREEN NUMERIC KEYPAD
+========================================= */
+
+.efb-numpad {
+    position: fixed;
+    z-index: 99999;
+
+    width: 132px;
+    padding: 8px;
+
+    background: #191f27;
+    border: 1px solid #465568;
+    border-radius: 6px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+
+    color: #e8edf3;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+/* hidden 속성 우선 적용 */
+.efb-numpad[hidden],
+.efb-numpad button[hidden] {
+    display: none !important;
+}
+
+/* 키패드 제목 */
+.efb-numpad-title {
+    margin-bottom: 7px;
+
+    color: #91a7bd;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* 숫자 버튼 배열 */
+.efb-numpad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+}
+
+/* 숫자 및 기능 버튼 공통 */
+.efb-numpad button {
+    width: 100%;
+    height: 29px;
+    min-width: 0;
+
+    padding: 0;
+
+    border: 1px solid #394858;
+    border-radius: 4px;
+
+    background: #121922;
+    color: #eef5fc;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+/* 마우스 오버 */
+.efb-numpad button:hover {
+    background: #2c3d50;
+    border-color: #63b3ed;
+}
+
+/* 클릭 상태 */
+.efb-numpad button:active {
+    background: #367db5;
+    border-color: #63b3ed;
+}
+
+/* 삭제, 초기화, 부호, 소수점 */
+.efb-numpad button.efb-key-special {
+    background: #263342;
+    color: #a9c7e2;
+    font-size: 10px;
+}
+
+.efb-numpad button.efb-key-special:hover {
+    background: #354b61;
+    border-color: #63b3ed;
+}
+
+/* CUSTOM SELECT (CEF에서 기본 select 팝업이 안 열리는 문제 대응) */
+.cselect {
+    position: relative;
+    width: 100%;
+}
+
+.cselect-btn {
+    width: 100%;
+    height: 32px;
+    padding: 0 26px 0 9px;
+    border: 1px solid #343f4d;
+    border-radius: 3px;
+    background: #12171e;
+    color: #e9f0f7;
+    font-size: 12px;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+}
+
+.cselect-btn::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border-right: 2px solid #8c9aaa;
+    border-bottom: 2px solid #8c9aaa;
+    transform: translateY(-70%) rotate(45deg);
+}
+
+.cselect.open .cselect-btn {
+    border-color: var(--accent);
+}
+
+.cselect-list {
+    position: fixed;
+    z-index: 10000;
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    background: #12171e;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .55);
+}
+
+.cselect-list[hidden] {
+    display: none;
+}
+
+.cselect-item {
+    display: block;
+    width: 100%;
+    height: 32px;
+    padding: 0 9px;
+    border: 0;
+    background: transparent;
+    color: #e9f0f7;
+    font-size: 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.cselect-item:hover {
+    background: #1d2733;
+}
+
+.cselect-item.selected {
+    background: #367db5;
+    color: #fff;
+}
+
+.sb-font-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.sb-font-ctrl button {
+    width: 38px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid #3b4654;
+    border-radius: 3px;
+    background: #252d37;
+    color: #c7d0da;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sb-font-ctrl button:hover {
+    background: #303a47;
+}
+
+.sb-font-ctrl span {
+    min-width: 44px;
+    color: #8c9aaa;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+</style>
+
+</head>
+
+<body>
+<main class="screen">
+
+    <header class="header">
+        <div class="header-left">EHCSTUDIO A330 EFB</div>
+        <div class="header-right">BRIGHTNESS <input type="range" min="1" max="100" value="50" step="1" id="brightness"></div>
+    </header>
+
+    <div class="workspace">
+
+        <!-- LEFT SIDEBAR. -->
+        
+    <aside class="sidebar">
+        <div class="sidebar-label">APPLICATION</div>
+
+        <nav class="nav-list">
+            <button class="nav-item active"
+                    data-page="simbrief" type="button">
+                <span class="nav-text">SIMBRIEF</span>
+            </button>
+            <button class="nav-item"
+                    data-page="simbrief-ofp" type="button">
+                <span class="nav-text">SIMBRIEF OFP</span>
+            </button>
+            <button class="nav-item"
+                    data-page="takeoff" type="button">
+                <span class="nav-text">TAKEOFF<br>PERFORMANCE</span>
+            </button>
+
+            
+            
+            <button class="nav-item"
+                    data-page="weight" type="button">
+                <span class="nav-text">WEIGHT AND<br>BALANCE</span>
+            </button>
+
+            <button class="nav-item"
+                    data-page="ground" type="button">
+                <span class="nav-text">GROUND AND<br>EQUIPMENT</span>
+            </button>
+            <button class="nav-item" data-page="avitab">
+                <span class="nav-text">AVITAB</span>
+            </button>
+            <button class="nav-item"
+                    data-page="settings" type="button">
+                <span class="nav-text">SETTINGS</span>
+            </button>
+            
+
+
+
+        </nav>
+
+        
+    </aside>
+
+
+        <!-- RIGHT CONTENT -->
+        <div class="content">
+
+            <!-- TAKEOFF PERFORMANCE -->
+            <section class="page" id="page-takeoff">
+
+                <div class="page-header">
+                    <div>
+                        <div class="brand">EHCSTUDIO AIRBUS A330-300</div>
+                        <h1>TAKEOFF PERFORMANCE</h1>
+                    </div>
+                    <span class="page-tag">PERFORMANCE</span>
+                </div>
+
+                <div class="columns">
+
+                    <section>
+                        <h2>WEATHER / RUNWAY</h2>
+                        <div class="input-list">
+
+                            <div class="field">
+                                <label for="runwayHeading">RUNWAY HEADING</label>
+                                <input id="runwayHeading" max="359"
+                                       min="0" step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="runwayLength">RUNWAY LENGTH (M)</label>
+                                <input id="runwayLength" min="1"
+                                       step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="windDirection">WIND DIR</label>
+                                <input id="windDirection" max="359"
+                                       min="0" step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="windSpeed">WIND SPEED (KT)</label>
+                                <input id="windSpeed" max="35"
+                                       min="0" step="1" type="number"
+                                       value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="oat">TEMPERATURE (°C)</label>
+                                <input id="oat" max="50" min="-50"
+                                       step="1" type="number" value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="qnh">QNH (hPa)</label>
+                                <input id="qnh" max="1100" min="900"
+                                       step="1" type="number" value="1013">
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>AIRCRAFT CONFIGURATION</h2>
+                        <div class="input-list">
+
+                            <div class="field">
+                                <label for="tow">TOW (KG)</label>
+                                <input id="tow" step="100"
+                                       type="number" value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="cg">CG (%)</label>
+                                <input id="cg"
+                                    type="text"
+                                    inputmode="none"
+                                    data-efb-keypad="true"
+                                    data-keypad-decimal="true"
+                                    max="100"
+                                    min="0"
+                                    step="0.1"
+                                    value="0">
+                            </div>
+
+                            <div class="field">
+                                <label for="flap">FLAP</label>
+                                <select id="flap">
+                                    <option value="0">1+F</option>
+                                    <option value="1">FLAP 2</option>
+                                    <option value="2">FLAP 3</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label for="condition">RUNWAY CONDITION</label>
+                                <select id="condition">
+                                    <option value="0">DRY</option>
+                                    <option value="1">WET</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label for="thrust">THRUST MODE</label>
+                                <select id="thrust">
+                                    <option value="0">FLEX</option>
+                                    <option value="1">TOGA</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="buttons">
+                            <button class="primary" id="calc" type="button">
+                                CALCULATE
+                            </button>
+                            <button class="secondary" id="reset" type="button">
+                                RESET
+                            </button>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>CALCULATED OUTPUT</h2>
+
+                        <div class="status" id="status">READY</div>
+
+                        <div class="speeds">
+                            <div class="speed">
+                                <div class="name">V1</div>
+                                <div class="value" id="v1">---</div>
+                            </div>
+                            <div class="speed">
+                                <div class="name">VR</div>
+                                <div class="value" id="vr">---</div>
+                            </div>
+                            <div class="speed">
+                                <div class="name">V2</div>
+                                <div class="value" id="v2">---</div>
+                            </div>
+                        </div>
+
+                        <div class="resultgrid">
+                            <div class="result">
+                                <div class="name">FLEX</div>
+                                <div class="value" id="flex">---</div>
+                                <div class="unit">°C</div>
+                            </div>
+                            <div class="result">
+                                <div class="name">TRIM</div>
+                                <div class="value" id="trim">---</div>
+                                <div class="unit">TRIM UNITS</div>
+                            </div>
+                            <div class="result">
+                                <div class="name">HEADWIND</div>
+                                <div class="value" id="headwind">---</div>
+                                <div class="unit">KT</div>
+                            </div>
+                            <div class="result">
+                                <div class="name">CROSSWIND</div>
+                                <div class="value" id="crosswind">---</div>
+                                <div class="unit">KT</div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </section>
+
+            <!-- SIMBRIEF -->
+            
+            <section class="page active" id="page-simbrief">
+                <div class="sb-page">
+
+                    <header class="sb-header">
+                        <div>
+                            <div class="sb-eyebrow">FLIGHT OPERATIONS</div>
+                            <h1>SimBrief Flight Plan</h1>
+                        </div>
+                        <span id="sb-status" class="sb-status">NOT LOADED</span>
+                    </header>
+
+                    <div class="sb-load-row">
+                        <label for="sb-user-id">SIMBRIEF ID</label>
+                        <input
+                            autocomplete="off"
+                            id="sb-user-id"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="7"
+                            placeholder="Enter User ID"
+                        >
+                        <button id="sb-load-btn" type="button">
+                            LOAD FLIGHT PLAN
+                        </button>
+                    </div>
+
+                    <section class="sb-airports">
+                        <div class="sb-airport">
+                            <span>DEPARTURE AIRPORT</span>
+                            <strong id="sb-departure">----</strong>
+                            <small id="sb-departure-name">—</small>
+                        </div>
+
+                        <div class="sb-airport-arrow" aria-hidden="true">→</div>
+
+                        <div class="sb-airport sb-airport-arrival">
+                            <span>ARRIVAL AIRPORT</span>
+                            <strong id="sb-arrival">----</strong>
+                            <small id="sb-arrival-name">—</small>
+                        </div>
+                    </section>
+
+                    <section class="sb-info-grid">
+                        <div class="sb-info-card">
+                            <span>ALTERNATE</span>
+                            <strong id="sb-altn">----</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>COST INDEX</span>
+                            <strong id="sb-cost-index">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>CRUISE ALTITUDE</span>
+                            <strong id="sb-cruise-altitude">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>ZFW</span>
+                            <strong id="sb-zfw">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>FOB</span>
+                            <strong id="sb-fob">—</strong>
+                        </div>
+                        <div class="sb-info-card">
+                            <span>PAYLOAD</span>
+                            <strong id="sb-payload">—</strong>
+                        </div>
+                    </section>
+
+                    <section class="sb-panel">
+                        <h2>ROUTE & RUNWAYS</h2>
+                        <div class="sb-route-line">
+                            <div class="sb-runway">
+                                <span>DEPARTURE RWY</span>
+                                <strong id="sb-departure-runway">—</strong>
+                            </div>
+                            <span class="sb-route-arrow">→</span>
+                            <div class="sb-route-text">
+                                <span>ROUTE</span>
+                                <p id="sb-route">Route not loaded</p>
+                            </div>
+                            <span class="sb-route-arrow">→</span>
+                            <div class="sb-runway">
+                                <span>ARRIVAL RWY</span>
+                                <strong id="sb-arrival-runway">—</strong>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+                    <p class="sb-footnote">
+                        Flight plan data provided by SimBrief.
+                    </p>
+                </div>
+            </section>
+
+            <section class="page" id="page-simbrief-ofp">
+                <div class="sb-ofp-page">
+                    <header class="sb-ofp-header">
+                        <div>
+                            <div class="sb-eyebrow">FLIGHT DOCUMENTS</div>
+                            <h1>SimBrief OFP</h1>
+                        </div>
+
+                        <div class="sb-font-ctrl">
+                            <button id="sb-font-minus" type="button">A−</button>
+                            <span id="sb-font-value">100%</span>
+                            <button id="sb-font-plus" type="button">A+</button>
+                        </div>
+                    </header>
+
+                    <div id="sb-pdf-placeholder" class="sb-pdf-placeholder">
+                        Load a SimBrief flight plan to display the OFP.
+                    </div>
+
+                    <iframe
+                        id="sb-pdf-frame"
+                        title="SimBrief Operational Flight Plan"
+                        class="sb-pdf-frame"
+                        sandbox="allow-same-origin"
+                        hidden
+                    ></iframe>
+                </div>
+            </section>
+            <!-- WEIGHT AND BALANCE -->
+            
+            <section class="page" id="page-weight">
+                <h1 class="page-title">WEIGHT AND BALANCE</h1>
+
+                <div class="wb-container">
+
+                    <!-- 1. Fuel on Board -->
+                    <div class="wb-row">
+                        <div class="wb-label">FUEL ON BOARD</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-fuel">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                        <div class="wb-value">
+                            <label class="wb-value-label" for="wb-planned-fuel">
+                                Planned Value
+                            </label>
+                            <div class="wb-input-wrap">
+                                <input id="wb-planned-fuel"
+                                    class="wb-input"
+                                    type="number"
+                                    min="0"
+                                    step="1"
+                                    placeholder="Enter value">
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Payload -->
+                    <div class="wb-row">
+                        <div class="wb-label">PAYLOAD</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-payload">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                        <div class="wb-value">
+                            <label class="wb-value-label" for="wb-planned-payload">
+                                Planned Value
+                            </label>
+                            <div class="wb-input-wrap">
+                                <input id="wb-planned-payload"
+                                    class="wb-input"
+                                    type="number"
+                                    min="0"
+                                    step="1"
+                                    placeholder="Enter value">
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Gross Weight -->
+                    <div class="wb-row wb-row-current-only">
+                        <div class="wb-label">GROSS WEIGHT</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-gw">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Zero Fuel Weight -->
+                    <div class="wb-row wb-row-current-only">
+                        <div class="wb-label">ZERO FUEL WEIGHT</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-zfw">—</span>
+                                <span class="wb-unit">KG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. GW CG -->
+                    <div class="wb-row">
+                        <div class="wb-label">GW CG</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-gw-cg">—</span>
+                                <span class="wb-unit">MAC %</span>
+                            </div>
+                        </div>
+                        <div class="wb-value">
+                            <label class="wb-value-label" for="wb-planned-gw-cg">
+                                Planned Value
+                            </label>
+                            <div class="wb-input-wrap">
+                                <input id="wb-planned-gw-cg"
+                                    class="wb-input"
+                                    type="text"
+                                    inputmode="none"
+                                    data-efb-keypad="true"
+                                    data-keypad-decimal="true"
+                                    step="0.1"
+                                    placeholder="Enter value">
+                                <span class="wb-unit">MAC %</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. ZFW CG -->
+                    <div class="wb-row wb-row-current-only">
+                        <div class="wb-label">ZFW CG</div>
+                        <div class="wb-value">
+                            <span class="wb-value-label">Current Value</span>
+                            <div class="wb-current">
+                                <span id="wb-current-zfw-cg">—</span>
+                                <span class="wb-unit">MAC %</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="wb-actions">
+                        <button type="button" id="startFuelingBtn" class="wb-action-btn">
+                            START FUELING
+                        </button>
+                        <button type="button" id="startBoardingBtn" class="wb-action-btn">
+                            START BOARDING
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- GROUND AND EQUIPMENT -->
+            
+            <!-- GROUND AND EQUIPMENT -->
+            <section class="page" id="page-ground">
+
+                <div class="page-header">
+                    <div>
+                        <div class="brand">EHCSTUDIO AIRBUS A330-300</div>
+                        <h1>GROUND AND EQUIPMENT</h1>
+                    </div>
+                    <span class="page-tag">GROUND SERVICES</span>
+                </div>
+
+                <!-- TOP ACTIONS -->
+                <div class="ground-toolbar">
+                    <button class="ground-action" id="chocksBtn" type="button">
+                        CHOCKS
+                        <span class="equipment-state" id="chocksState">OFF</span>
+                    </button>
+
+                    <div class="ground-toolbar-spacer"></div>
+
+                    <button class="ground-action danger" id="closeAllDoors" type="button">
+                        CLOSE ALL DOORS
+                    </button>
+
+                    <button class="ground-action" id="clearEquipments" type="button">
+                        CLEAR EQUIPMENTS
+                    </button>
+                </div>
+
+                <!-- AIRCRAFT DIAGRAM -->
+                <div class="ground-stage">
+
+                    <!-- AIRCRAFT SILHOUETTE -->
+ 
+
+                    <!-- LEFT SIDE DOORS -->
+                    <button class="door-btn door-l1" data-door="L1" type="button">
+                        L1
+                    </button>
+
+                    <button class="door-btn door-l2" data-door="L2" type="button">
+                        L2
+                    </button>
+
+                    <button class="door-btn door-l3" data-door="L3" type="button">
+                        L3
+                    </button>
+
+                    <button class="door-btn door-l4" data-door="L4" type="button">
+                        L4
+                    </button>
+
+                    <!-- RIGHT SIDE DOORS -->
+                    <button class="door-btn door-r1" data-door="R1" type="button">
+                        R1
+                    </button>
+
+                    <button class="door-btn door-r2" data-door="R2" type="button">
+                        R2
+                    </button>
+
+                    <button class="door-btn door-r3" data-door="R3" type="button">
+                        R3
+                    </button>
+
+                    <button class="door-btn door-r4" data-door="R4" type="button">
+                        R4
+                    </button>
+
+                    <!-- CARGO DOORS -->
+                    <button class="door-btn cargo-front" data-door="CARGO FRONT"
+                            type="button">
+                        FRONT CARGO
+                    </button>
+
+                    <button class="door-btn cargo-back" data-door="CARGO BACK"
+                            type="button">
+                        BACK CARGO
+                    </button>
+
+                    <!-- GROUND EQUIPMENT -->
+                    <button class="equipment-btn stair-l1" data-equipment="L1 STAIR"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>L1 STAIR</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn stair-l2" data-equipment="L2 STAIR"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>L2 STAIR</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn gpu" data-equipment="GPU"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>GPU</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn front-loader"
+                            data-equipment="FRONT CARGO LOADER" type="button">
+                        <span class="equipment-icon"></span>
+                        <span>FRONT LOADER</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn fuel-truck" data-equipment="FUEL TRUCK"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>FUEL TRUCK</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn back-loader"
+                            data-equipment="BACK CARGO LOADER" type="button">
+                        <span class="equipment-icon"></span>
+                        <span>BACK LOADER</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <button class="equipment-btn catering" data-equipment="CATERING"
+                            type="button">
+                        <span class="equipment-icon"></span>
+                        <span>CATERING</span>
+                        <small>OFF</small>
+                    </button>
+
+                    <!-- LEGEND -->
+                    <div class="ground-legend">
+                        <span><i class="legend-dot door-dot"></i> DOORS</span>
+                        <span><i class="legend-dot equipment-dot"></i> EQUIPMENT</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SETTINGS -->
+            <section class="page" id="page-settings">
+                <h1 class="page-title">SETTINGS</h1>
+
+                <div class="settings-container">
+
+                    <!-- HUD -->
+                    <div class="setting-row">
+                        <div class="setting-label">HUD</div>
+                        <div class="toggle-group" data-setting="hud">
+                            <button class="toggle-btn" data-value="ON">ON</button>
+                            <button class="toggle-btn active" data-value="OFF">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- ISIS / STBY -->
+                    <div class="setting-row">
+                        <div class="setting-label">STANBY INSTRUMENTS</div>
+                        <div class="toggle-group" data-setting="isis">
+                            <button class="toggle-btn active" data-value="ISIS">ISIS</button>
+                            <button class="toggle-btn" data-value="STBY">ANALOG</button>
+                        </div>
+                    </div>
+
+                    <!-- DDMRI -->
+                    <div class="setting-row">
+                        <div class="setting-label">DDMRI</div>
+                        <div class="toggle-group" data-setting="ddmri">
+                            <button class="toggle-btn" data-value="ON">ON</button>
+                            <button class="toggle-btn active" data-value="OFF">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- EIS -->
+                    <div class="setting-row">
+                        <div class="setting-label">SYSTEM</div>
+                        <div class="toggle-group" data-setting="eis">
+                            <button class="toggle-btn" data-value="EIS1">EIS1</button>
+                            <button class="toggle-btn active" data-value="EIS2">EIS2</button>
+                        </div>
+                    </div>
+
+                    <!-- NO PORTABLE DEVICES SIGN -->
+                    <div class="setting-row">
+                        <div class="setting-label">NO PORTABLE DEVICES SIGN</div>
+                        <div class="toggle-group" data-setting="portable">
+                            <button class="toggle-btn" data-value="ON">ON</button>
+                            <button class="toggle-btn active" data-value="OFF">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- 100 Abv / +100 -->
+                    <div class="setting-row">
+                        <div class="setting-label">CALLOUTS</div>
+                        <div class="toggle-group" data-setting="altitude">
+                            <button class="toggle-btn active" data-value="100 Abv">100 Abv</button>
+                            <button class="toggle-btn" data-value="+100">+100</button>
+                        </div>
+                    </div>
+
+                    <!-- ENGINES -->
+                    <div class="setting-row">
+                        <div class="setting-label">ENGINES</div>
+                        <div class="toggle-group" data-setting="engines">
+                            <button class="toggle-btn active" data-value="RR">RR</button>
+                            <button class="toggle-btn" data-value="PW">PW</button>
+                            <button class="toggle-btn" data-value="GE">GE</button>
+                        </div>
+                    </div>
+                    
+                    <!-- WINDOW REFLECTION -->
+                    <div class="setting-row">
+                        <div class="setting-label">WINDOW REFLECTION</div>
+                        <div class="toggle-group" data-setting="windowReflection">
+                            <button class="toggle-btn active" data-value="1">ON</button>
+                            <button class="toggle-btn" data-value="0">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- IRS INSTANT ALIGN -->
+                    <div class="setting-row">
+                        <div class="setting-label">IRS</div>
+                        <div>
+                            <button
+                                type="button"
+                                id="irsInstantAlignBtn"
+                                class="wb-action-btn">
+                                IRS INSTANT ALIGN
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+                        
+            <section class="page" id="page-avitab">
+                <h1 class="page-title">AVITAB</h1>
+                <div class="avitab-content">
+                    <!-- 추후 AviTab 표시 영역 -->
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+
+
+</main>
+
+<!-- EFB NUMERIC KEYPAD. -->
+<div id="efb-numpad" class="efb-numpad" hidden>
+    <div class="efb-numpad-title">NUMPAD</div>
+
+    <div class="efb-numpad-grid">
+        <button type="button" data-key="1">1</button>
+        <button type="button" data-key="2">2</button>
+        <button type="button" data-key="3">3</button>
+
+        <button type="button" data-key="4">4</button>
+        <button type="button" data-key="5">5</button>
+        <button type="button" data-key="6">6</button>
+
+        <button type="button" data-key="7">7</button>
+        <button type="button" data-key="8">8</button>
+        <button type="button" data-key="9">9</button>
+
+        <button type="button"
+                data-key="minus"
+                class="efb-key-special"
+                hidden>−</button>
+
+        <button type="button" data-key="0">0</button>
+
+        <button type="button"
+                data-key="decimal"
+                class="efb-key-special"
+                hidden>.</button>
+
+        <button type="button"
+                data-key="backspace"
+                class="efb-key-special">⌫</button>
+
+        <button type="button"
+                data-key="clear"
+                class="efb-key-special">CLR</button>
+    </div>
+</div>
+
+
+<script>
+'use strict';
+
+/* MOUSEDOWN CLICK
+   마우스 왼쪽 버튼을 누르는 순간 버튼 클릭으로 처리한다.
+   (이후 버튼에서 손을 뗄 때 발생하는 원래 click은 무시) */
+(() => {
+    let suppressButton = null;
+    let resetTimer = null;
+
+    document.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'mouse' || event.button !== 0) return;
+        if (!(event.target instanceof Element)) return;
+
+        const button = event.target.closest('button');
+        if (!button || button.disabled) return;
+
+        suppressButton = button;
+        clearTimeout(resetTimer);
+
+        /* 누르는 즉시 클릭 실행 */
+        button.click();
+    }, true);
+
+    /* 손을 뗄 때 따라오는 진짜 click은 차단 (중복 실행 방지) */
+    document.addEventListener('click', event => {
+        if (!event.isTrusted || !suppressButton) return;
+        if (!(event.target instanceof Element)) return;
+
+        /* 눌렀던 버튼이 사라졌어도(드롭다운 항목 등) 대응하도록 타깃과 무관하게 차단 */
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        suppressButton = null;
+    }, true);
+
+    /* 버튼 밖으로 드래그해서 뗀 경우 등, click이 안 오면 상태 초기화 */
+    document.addEventListener('pointerup', () => {
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => { suppressButton = null; }, 50);
+    }, true);
+})();
+
+
+/* CUSTOM SELECT
+   기본 <select>는 숨기고 값만 동기화한다. (기존 계산 코드는 select.value를 그대로 사용) */
+(() => {
+    const widgets = [];
+
+    function closeAll(except) {
+        widgets.forEach(w => { if (w !== except) w.close(); });
+    }
+
+    document.querySelectorAll('.field select').forEach(select => {
+        const wrap = document.createElement('div');
+        wrap.className = 'cselect';
+
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'cselect-btn';
+
+        const list = document.createElement('div');
+        list.className = 'cselect-list';
+        list.hidden = true;
+
+        function refresh() {
+            const current = select.options[select.selectedIndex];
+            toggle.textContent = current ? current.textContent : '';
+            list.querySelectorAll('.cselect-item').forEach(item => {
+                item.classList.toggle('selected', item.dataset.value === select.value);
+            });
+        }
+
+        Array.from(select.options).forEach(option => {
+            const item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'cselect-item';
+            item.dataset.value = option.value;
+            item.textContent = option.textContent;
+            item.addEventListener('click', () => {
+                select.value = option.value;
+                select.dispatchEvent(new Event('input', { bubbles: true }));
+                select.dispatchEvent(new Event('change', { bubbles: true }));
+                refresh();
+                widget.close();
+            });
+            list.appendChild(item);
+        });
+
+        const widget = {
+            open() {
+                closeAll(widget);
+                const rect = toggle.getBoundingClientRect();
+                list.style.left = rect.left + 'px';
+                list.style.width = rect.width + 'px';
+                list.style.top = (rect.bottom + 2) + 'px';
+                list.hidden = false;
+                wrap.classList.add('open');
+
+                /* 아래 공간이 부족하면 위로 펼침 */
+                const listHeight = list.offsetHeight;
+                if (rect.bottom + 2 + listHeight > window.innerHeight) {
+                    list.style.top = Math.max(0, rect.top - listHeight - 2) + 'px';
+                }
+            },
+            close() {
+                list.hidden = true;
+                wrap.classList.remove('open');
+            },
+            isOpen() { return !list.hidden; }
+        };
+        widgets.push(widget);
+
+        toggle.addEventListener('click', () => {
+            if (widget.isOpen()) widget.close(); else widget.open();
+        });
+
+        select.style.display = 'none';
+        wrap.append(toggle, list);
+        select.after(wrap);
+
+        select.addEventListener('change', refresh);
+        refresh();
+        wrap._widget = widget;
+    });
+
+    /* 바깥을 누르면 닫기 */
+    document.addEventListener('pointerdown', event => {
+        const target = event.target;
+        widgets.forEach(w => {
+            const wrap = document.querySelector('.cselect.open');
+            if (!wrap || !(target instanceof Element) || !wrap.contains(target)) w.close();
+        });
+    }, true);
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeAll(null);
+    });
+
+    window.addEventListener('resize', () => closeAll(null));
+})();
+
+/* SIDEBAR NAVIGATION */
+
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+
+navItems.forEach(button => {
+    button.addEventListener('click', () => {
+        const pageName = button.dataset.page;
+
+        navItems.forEach(item => item.classList.remove('active'));
+        pages.forEach(page => page.classList.remove('active'));
+
+        button.classList.add('active');
+
+        const target = document.getElementById('page-' + pageName);
+        if (target) target.classList.add('active');
+    });
+});
+
+/* TAKEOFF PERFORMANCE */
+
+const V2_TABLE = [
+    [120,128],[140,137],[160,146],[180,154],[200,162],
+    [220,169],[233,174],[242,177],[260,184],[275,189]
+];
+
+const TRIM_TABLE = [
+    [15,7],[21,7],[24,5.5],[28,3.5],[32,1.5],[35,0],[41,0]
+];
+
+const CONF_FACTOR = [1,0.95,0.91];
+const CONF_SPEED_SHIFT = [0,-4,-7];
+
+function interpolate(table, x) {
+    if (x <= table[0][0]) return table[0][1];
+    if (x >= table[table.length - 1][0])
+        return table[table.length - 1][1];
+
+    for (let i = 1; i < table.length; i++) {
+        if (x <= table[i][0]) {
+            const [a,b] = table[i - 1];
+            const [c,d] = table[i];
+            return b + (d-b) * (x-a) / (c-a);
+        }
+    }
+    return table[table.length - 1][1];
+}
+
+function clamp(v, a, b) {
+    return Math.min(Math.max(v, a), b);
+}
+
+const INPUT_LIMITS = {
+    windDirection:[0,359],
+    windSpeed:[0,35],
+    oat:[-50,50],
+    qnh:[900,1100],
+    runwayHeading:[0,359],
+    cg:[0,100]
+};
+
+function normalizeInput(id) {
+    const element = document.getElementById(id);
+    const value = element.value.trim();
+
+    if (id === 'windSpeed' && value === '') {
+        element.value = '0';
+        return;
+    }
+
+    if (value === '') return;
+
+    const number = Number(value);
+    const limits = INPUT_LIMITS[id];
+
+    if (Number.isFinite(number) && limits) {
+        element.value = String(clamp(number, limits[0], limits[1]));
+    }
+}
+
+Object.keys(INPUT_LIMITS).forEach(id => {
+    const element = document.getElementById(id);
+    element.addEventListener('change', () => normalizeInput(id));
+    element.addEventListener('blur', () => normalizeInput(id));
+});
+
+function read(id) {
+    const element = document.getElementById(id);
+
+    if (id === 'windSpeed' && element.value.trim() === '') {
+        element.value = '0';
+    }
+
+    if (element.value.trim() === '') {
+        throw Error('Fill in all numeric input fields.');
+    }
+
+    const number = Number(element.value);
+
+    if (!Number.isFinite(number)) {
+        throw Error('Invalid numeric input.');
+    }
+
+    return number;
+}
+
+function getInputs() {
+    Object.keys(INPUT_LIMITS).forEach(normalizeInput);
+
+    return {
+        windDirection:read('windDirection'),
+        windSpeed:read('windSpeed'),
+        oat:read('oat'),
+        qnh:read('qnh'),
+        tow:read('tow'),
+        runwayLength:read('runwayLength'),
+        runwayHeading:read('runwayHeading'),
+        cg:read('cg'),
+        flap:Number(document.getElementById('flap').value),
+        condition:Number(document.getElementById('condition').value),
+        thrust:Number(document.getElementById('thrust').value)
+    };
+}
+
+function calculateTakeoffPerformance(p) {
+    const result = {
+        v1:0, vr:0, v2:0,
+        flexTemp:-1, trim:0,
+        isPossible:false, errorCode:0
+    };
+
+    if (
+        p.windDirection < 0 || p.windDirection > 359 ||
+        p.runwayHeading < 0 || p.runwayHeading > 359 ||
+        p.oat < -50 || p.oat > 50 ||
+        p.windSpeed < 0 ||
+        p.tow <= 100000 || p.tow >= 500000 ||
+        p.cg < 0 || p.cg > 100 ||
+        p.runwayLength <= 0
+    ) {
+        result.errorCode = 1;
+        return result;
+    }
+
+    const weight = p.tow / 1000;
+    const config = clamp(p.flap, 0, 2);
+
+    if (weight > 242) {
+        result.errorCode = 2;
+        return result;
+    }
+
+    const radians =
+        (p.windDirection - p.runwayHeading) * Math.PI / 180;
+
+    const headwind = p.windSpeed * Math.cos(radians);
+    const crosswind = Math.abs(p.windSpeed * Math.sin(radians));
+
+    result.headwind = headwind;
+    result.crosswind = crosswind;
+
+    if (p.windSpeed >= 35) {
+        result.errorCode = 3;
+        return result;
+    }
+
+    if (headwind < -15 || crosswind > 35) {
+        result.errorCode = 2;
+        return result;
+    }
+
+    const pressureAltitude = (1013.25 - p.qnh) * 27;
+    const isa = 15;
+    const referenceTemp = isa + 16;
+    const cap = isa + 55;
+
+    function takeoffDistance(temp) {
+        let distance = 2900 * Math.pow(weight / 242, 2);
+
+        distance *= CONF_FACTOR[config];
+        distance *= 1 + 0.000035 * Math.max(0, pressureAltitude);
+        distance *= 1 + 0.0065 * Math.max(0, temp - isa);
+        distance *= 1 + 0.012 * Math.max(0, temp - referenceTemp);
+
+        if (p.condition === 1) distance *= 1.06;
+
+        if (headwind >= 0) {
+            distance *= 1 - Math.min(headwind, 40) * 0.005;
+        } else {
+            distance *= 1 + Math.min(-headwind, 15) * 0.013;
+        }
+
+        return distance;
+    }
+
+    const requiredDistance = takeoffDistance(p.oat);
+
+    if (requiredDistance > p.runwayLength) {
+        result.errorCode = 2;
+        result.togaDistance = requiredDistance;
+        return result;
+    }
+
+    result.isPossible = true;
+
+    if (p.thrust === 0) {
+        for (
+            let temp = Math.floor(cap);
+            temp >= Math.floor(Math.max(p.oat, referenceTemp)) + 1;
+            temp--
+        ) {
+            if (takeoffDistance(temp) <= p.runwayLength) {
+                result.flexTemp = temp;
+                break;
+            }
+        }
+    }
+
+    const shift = CONF_SPEED_SHIFT[config];
+    const v2 = Math.max(interpolate(V2_TABLE, weight) + shift, 126);
+    const vr = Math.max(v2 - 3, 121);
+
+    let v1 = vr - 3;
+
+    if (p.runwayLength / requiredDistance < 1.15) v1 -= 4;
+    if (p.condition === 1) v1 -= 5;
+
+    result.v1 = Math.round(clamp(v1, 118, vr));
+    result.vr = Math.round(vr);
+    result.v2 = Math.round(v2);
+    result.trim = clamp(interpolate(TRIM_TABLE, p.cg), -2.5, 7);
+
+    return result;
+}
+
+function setValue(id, value) {
+    document.getElementById(id).textContent = value;
+}
+
+function showStatus(message, type = '') {
+    const element = document.getElementById('status');
+    element.className = 'status' + (type ? ' ' + type : '');
+    element.textContent = message;
+}
+
+function clearResults() {
+    ['v1','vr','v2','flex','trim','headwind','crosswind']
+        .forEach(id => setValue(id, '---'));
+}
+
+function calculate() {
+    let p, r;
+
+    try {
+        p = getInputs();
+        r = calculateTakeoffPerformance(p);
+    } catch (error) {
+        clearResults();
+        showStatus(error.message, 'warn');
+        return;
+    }
+
+    setValue('headwind',
+        r.headwind === undefined ? '---' : r.headwind.toFixed(1));
+
+    setValue('crosswind',
+        r.crosswind === undefined ? '---' : r.crosswind.toFixed(1));
+
+    if (r.errorCode === 1) {
+        clearResults();
+        showStatus('INPUT ERROR · Check input limits.', 'warn');
+        return;
+    }
+
+    if (r.errorCode === 3) {
+        clearResults();
+        setValue('headwind', r.headwind.toFixed(1));
+        setValue('crosswind', r.crosswind.toFixed(1));
+        showStatus(
+            'WIND LIMIT EXCEEDED · 35 kt or greater. TAKEOFF PROHIBITED.',
+            'bad'
+        );
+        return;
+    }
+
+    if (r.errorCode === 2) {
+        clearResults();
+
+        if (r.headwind !== undefined) {
+            setValue('headwind', r.headwind.toFixed(1));
+            setValue('crosswind', r.crosswind.toFixed(1));
+        }
+
+        let message =
+            'TAKEOFF NOT POSSIBLE · Check weight, wind limits, and runway length.';
+
+        if (p.tow / 1000 > 242) {
+            message = 'TAKEOFF NOT POSSIBLE · Weight exceeds 242 tonnes.';
+        } else if (r.togaDistance !== undefined) {
+            message =
+                'TAKEOFF NOT POSSIBLE · Required TOGA distance exceeds runway length.';
+        }
+
+        showStatus(message, 'bad');
+        return;
+    }
+
+    setValue('v1', r.v1);
+    setValue('vr', r.vr);
+    setValue('v2', r.v2);
+    setValue('flex', r.flexTemp < 0 ? 'N/A' : r.flexTemp);
+    setValue('trim', r.trim.toFixed(1));
+
+    showStatus('CALCULATION COMPLETE', 'good');
+}
+
+function resetForm() {
+    const defaults = {
+        windDirection:0,
+        windSpeed:0,
+        oat:15,
+        qnh:1013,
+        runwayHeading:359,
+        runwayLength:3500,
+        tow:200000,
+        cg:28,
+        flap:0,
+        condition:0,
+        thrust:0
+    };
+
+    Object.entries(defaults).forEach(([id, value]) => {
+        document.getElementById(id).value = value;
+    });
+
+    clearResults();
+    showStatus('READY');
+}
+
+document.getElementById('calc').addEventListener('click', calculate);
+document.getElementById('reset').addEventListener('click', resetForm);
+
+calculate();
+
+/* GROUND AND EQUIPMENT INTERACTIONS */
+
+const groundDoors = document.querySelectorAll(
+    '#page-ground .door-btn'
+);
+
+const groundEquipment = document.querySelectorAll(
+    '#page-ground .equipment-btn'
+);
+
+const chocksBtn = document.getElementById('chocksBtn');
+const chocksState = document.getElementById('chocksState');
+
+groundDoors.forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+    });
+});
+
+groundEquipment.forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+
+        const state = button.querySelector('small');
+        state.textContent = button.classList.contains('active')
+            ? 'ON'
+            : 'OFF';
+    });
+});
+
+chocksBtn.addEventListener('click', () => {
+    chocksBtn.classList.toggle('active');
+
+    chocksState.textContent = chocksBtn.classList.contains('active')
+        ? 'ON'
+        : 'OFF';
+});
+
+document.getElementById('closeAllDoors').addEventListener('click', () => {
+    groundDoors.forEach(button => {
+        button.classList.remove('active');
+    });
+});
+
+document.getElementById('clearEquipments').addEventListener('click', () => {
+    groundEquipment.forEach(button => {
+        button.classList.remove('active');
+        button.querySelector('small').textContent = 'OFF';
+    });
+
+    chocksBtn.classList.remove('active');
+    chocksState.textContent = 'OFF';
+});
+
+// Settings 토글
+document.querySelectorAll("#page-settings .toggle-group").forEach(group => {
+    group.querySelectorAll(".toggle-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            group.querySelectorAll(".toggle-btn").forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+	    
+            const setting = group.dataset.setting;
+                    const value = button.dataset.value;
+
+           	    // HUD
+                    if (setting === "hud") {
+               	 if (value === "ON") {
+                   		 xplane.HudOn();
+                            }
+                	else if (value === "OFF") {
+                   		 xplane.HudOff();
+                	}
+           	    }
+	
+	
+        });
+    });
+});
+
+
+/**
+ * Weight & Balance 값 갱신 함수
+ *
+ * 전달 가능한 키:
+ * currentFuel, plannedFuel
+ * currentPayload, plannedPayload
+ * currentGW, currentZFW
+ * currentGWCG, plannedGWCG
+ * currentZWFCG
+ */
+function setWeightBalanceValues(values = {}) {
+    const fields = {
+        currentFuel: "wb-current-fuel",
+        currentPayload: "wb-current-payload",
+        currentGW: "wb-current-gw",
+        currentZFW: "wb-current-zfw",
+        currentGWCG: "wb-current-gw-cg",
+        currentZWFCG: "wb-current-zfw-cg"
+    };
+
+    // Current Value 표시 갱신
+    Object.entries(fields).forEach(([key, id]) => {
+        if (values[key] !== undefined) {
+            const element = document.getElementById(id);
+
+            if (element) {
+                element.textContent =
+                    values[key] === null || values[key] === ""
+                        ? "—"
+                        : values[key];
+            }
+        }
+    });
+
+    // Planned Value 입력란 갱신
+    const plannedFields = {
+        plannedFuel: "wb-planned-fuel",
+        plannedPayload: "wb-planned-payload",
+        plannedGWCG: "wb-planned-gw-cg"
+    };
+
+    Object.entries(plannedFields).forEach(([key, id]) => {
+        if (values[key] !== undefined) {
+            const input = document.getElementById(id);
+
+            if (input) {
+                input.value = values[key] ?? "";
+            }
+        }
+    });
+}
+
+// 다른 스크립트에서도 호출할 수 있도록 공개
+window.setWeightBalanceValues = setWeightBalanceValues;
+
+// 버튼 이벤트: 추후 시뮬레이터 연동 지점
+document.getElementById("startFuelingBtn")
+    ?.addEventListener("click", () => {
+        console.log("Start Fueling requested");
+    });
+
+document.getElementById("startBoardingBtn")
+    ?.addEventListener("click", () => {
+
+        const payload = Number(document.getElementById("wb-planned-payload").value);
+
+	    const plannedGWCG = Number(document.getElementById("wb-planned-gw-cg").value );
+
+      	xplane.StartBoarding(payload, plannedGWCG);
+        
+        console.log("Start Boarding requested");
+    });
+
+function sbGet(data, paths) {
+    for (const path of paths) {
+        const value = path.split(".").reduce((obj, key) => {
+            return obj == null ? undefined : obj[key];
+        }, data);
+
+        if (value !== undefined && value !== null && value !== "") {
+            return value;
+        }
+    }
+    return null;
+}
+
+function sbText(value) {
+    if (value == null) return "";
+
+    if (typeof value === "string" || typeof value === "number") {
+        return String(value).trim();
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(sbText).filter(Boolean).join("\n");
+    }
+
+    if (typeof value === "object") {
+        // ATIS 등 객체형 응답에서 텍스트 필드를 찾아냄
+        for (const key of [
+            "text", "message", "atis", "report",
+            "raw", "value", "content", "line"
+        ]) {
+            if (value[key] != null) {
+                const result = sbText(value[key]);
+                if (result) return result;
+            }
+        }
+    }
+
+    // 객체 자체를 String()으로 변환하지 않음
+    return "";
+}
+
+function sbSet(id, value, fallback = "—") {
+    const element = document.getElementById(id);
+    if (!element) return;
+
+    const text = sbText(value);
+    element.textContent = text || fallback;
+}
+
+function sbAirportCode(data, paths) {
+    return sbText(sbGet(data, paths)).toUpperCase();
+}
+
+function sbFormatWeight(value, units = "KG") {
+    if (value == null || value === "") return "";
+
+    const raw = sbText(value);
+    if (!raw) return "";
+
+    // 이미 단위가 포함된 문자열은 그대로 사용
+    if (/[a-z]/i.test(raw) && !/^[\d,. ]+$/.test(raw)) {
+        return raw;
+    }
+
+    const number = Number(String(raw).replace(/,/g, ""));
+    if (!Number.isFinite(number)) return raw;
+
+    return `${Math.round(number).toLocaleString("en-US")} ${units}`;
+}
+
+function sbShowOfp(html) {
+    const frame = document.getElementById("sb-pdf-frame");
+    const placeholder = document.getElementById("sb-pdf-placeholder");
+
+    if (!frame || !placeholder) return;
+
+    // plan_html이 없는 경우
+    if (!html) {
+        frame.removeAttribute("srcdoc");
+        frame.hidden = true;
+        placeholder.hidden = false;
+        placeholder.textContent =
+            "SimBrief did not provide OFP HTML (plan_html).";
+        return;
+    }
+
+    // 상대경로 이미지/CSS가 simbrief.com 기준으로 열리도록 <base> 삽입
+    const base = '<base href="https://www.simbrief.com/">';
+    const headTag = /<head(\s[^>]*)?>/i;
+
+    const patched = headTag.test(html)
+        ? html.replace(headTag, match => match + base)
+        : base + html;
+
+    frame.srcdoc = patched;
+    frame.hidden = false;
+    placeholder.hidden = true;
+}
+
+/* OFP 글자 크기 조절 */
+const SB_OFP_ZOOM = { value: 130, min: 60, max: 200, step: 10 };
+
+function sbApplyOfpZoom() {
+    const frame = document.getElementById("sb-pdf-frame");
+    const label = document.getElementById("sb-font-value");
+
+    if (label) label.textContent = SB_OFP_ZOOM.value + "%";
+    if (!frame) return;
+
+    try {
+        const doc = frame.contentDocument;
+        if (doc && doc.documentElement) {
+            doc.documentElement.style.zoom = SB_OFP_ZOOM.value / 100;
+        }
+    } catch (error) {
+        console.warn("OFP zoom failed:", error);
+    }
+}
+
+function sbChangeOfpZoom(delta) {
+    SB_OFP_ZOOM.value = Math.min(
+        SB_OFP_ZOOM.max,
+        Math.max(SB_OFP_ZOOM.min, SB_OFP_ZOOM.value + delta)
+    );
+    sbApplyOfpZoom();
+}
+
+document.getElementById("sb-font-minus")
+    ?.addEventListener("click", () => sbChangeOfpZoom(-SB_OFP_ZOOM.step));
+
+document.getElementById("sb-font-plus")
+    ?.addEventListener("click", () => sbChangeOfpZoom(SB_OFP_ZOOM.step));
+
+// 새 OFP가 로드될 때마다 현재 배율을 다시 적용
+document.getElementById("sb-pdf-frame")
+    ?.addEventListener("load", sbApplyOfpZoom);
+function sbFindAtis(data) {
+    const candidates = [
+        sbGet(data, ["origin.atis", "origin.atismessage"]),
+        sbGet(data, ["origin.atis_text", "origin.atis_text_full"]),
+        sbGet(data, ["atis.departure", "atis.origin"]),
+        sbGet(data, ["weather.atis", "weather.origin_atis"])
+    ];
+
+    for (const candidate of candidates) {
+        const text = sbText(candidate);
+        if (text) return text;
+    }
+
+    return "Departure ATIS was not provided in the API response.";
+}
+
+function sbSetMetar(prefix, metar, category) {
+    const textEl = document.getElementById(`sb-metar-${prefix}`);
+    const catEl = document.getElementById(`sb-metar-${prefix}-cat`);
+
+    if (textEl) {
+        const text = sbText(metar);
+        textEl.textContent = text || "METAR not provided";
+        textEl.classList.toggle("is-empty", !text);
+    }
+
+    if (catEl) {
+        const cat = sbText(category).toUpperCase();
+        const cls = cat.toLowerCase().replace(/[^a-z]/g, "");
+        catEl.textContent = cat;
+        catEl.className = "sb-metar-cat" + (cls ? " " + cls : "");
+    }
+}
+function sbPopulateFlightPlan(data) {
+    const departure = sbAirportCode(data, [
+        "origin.icao_code", "origin.icao"
+    ]);
+
+    const arrival = sbAirportCode(data, [
+        "destination.icao_code", "destination.icao"
+    ]);
+
+        // alternatenigger
+    const altRaw = Array.isArray(data.alternate)
+        ? data.alternate[0]
+        : data.alternate;
+
+    const alternate = sbAirportCode({ alt: altRaw }, [
+        "alt.icao_code",
+        "alt.icao",
+        "alt.icao_code_1",
+        "alt.airport.icao_code"
+    ]);
+
+    console.log("SimBrief alternate raw:", data.alternate);
+
+    sbSet("sb-departure", departure, "----");
+    sbSet("sb-arrival", arrival, "----");
+    sbSet("sb-departure-name", sbGet(data, [
+        "origin.name"
+    ]), "—");
+    sbSet("sb-arrival-name", sbGet(data, [
+        "destination.name"
+    ]), "—");
+
+    // ALTN AIRPORT — 문제 방지
+    sbSet("sb-altn", alternate, "NONE");
+
+    sbSet("sb-cost-index", sbGet(data, [
+        "general.costindex", "general.cost_index"
+    ]));
+
+    sbSet("sb-cruise-altitude", sbGet(data, [
+        "general.initial_altitude",
+        "general.cruise_altitude",
+        "general.cruiselevel"
+    ]));
+
+    const unitsRaw = sbText(sbGet(data, [
+        "params.units", "general.units", "weights.units"
+    ])).toUpperCase();
+
+    const units = unitsRaw.includes("LBS") || unitsRaw === "LB"
+        ? "LB"
+        : "KG";
+
+    sbSet("sb-zfw", sbFormatWeight(sbGet(data, [
+        "weights.est_zfw", "weights.zfw"
+    ]), units));
+
+    sbSet("sb-fob", sbFormatWeight(sbGet(data, [
+        "fuel.plan_ramp",
+        "fuel.block_fuel",
+        "fuel.plan_takeoff"
+    ]), units));
+
+    sbSet("sb-payload", sbFormatWeight(sbGet(data, [
+        "weights.payload", "weights.est_payload"
+    ]), units));
+
+    // 활주로는 API 버전에 따라 키가 다를 수 있음
+    const depRunway = sbText(sbGet(data, [
+        "origin.plan_rwy",
+        "origin.plan_runway",
+        "origin.runway",
+        "origin.rwy"
+    ]));
+
+    const arrRunway = sbText(sbGet(data, [
+        "destination.plan_rwy",
+        "destination.plan_runway",
+        "destination.runway",
+        "destination.rwy"
+    ]));
+
+    sbSet("sb-departure-runway", depRunway, "NOT SET");
+    sbSet("sb-arrival-runway", arrRunway, "NOT SET");
+
+    const route = sbText(sbGet(data, [
+        "general.route",
+        "general.route_string",
+        "route.route"
+    ]));
+
+    sbSet("sb-route", route, "Route not provided");
+
+    // ATIS가 배열/객체여도 [object Object]로 표시하지 않음
+
+    
+    // OFP PDF를 별도 메뉴에 표시
+    const directory = sbGet(data, [
+        "files.directory",
+        "fms_downloads.directory"
+    ]);
+
+    const pdfLink = sbGet(data, [
+        "files.pdf.link",
+        "fms_downloads.pdf.link"
+    ]);
+
+        // OFP(HTML)를 SimBrief OFP 메뉴에 표시
+    sbShowOfp(sbText(sbGet(data, [
+        "text.plan_html",
+        "plan_html"
+    ])));
+}
+
+
+
+async function loadSimBriefFlightPlan() {
+    const input = document.getElementById("sb-user-id");
+    const button = document.getElementById("sb-load-btn");
+    const status = document.getElementById("sb-status");
+
+    const userId = input.value.trim();
+
+    if (!/^\d{1,7}$/.test(userId)) {
+        status.textContent = "CHECK USER ID";
+        input.focus();
+        return;
+    }
+
+    button.disabled = true;
+    status.textContent = "LOADING...";
+
+    try {
+        const url =
+            "https://www.simbrief.com/api/xml.fetcher.php" +
+            `?userid=${encodeURIComponent(userId)}&json=v2`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`SimBrief API HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data || typeof data !== "object") {
+            throw new Error("Invalid API response");
+        }
+
+        sbPopulateFlightPlan(data);
+        status.textContent = "FLIGHT PLAN LOADED";
+    } catch (error) {
+        console.error("SimBrief load failed:", error);
+
+        status.textContent = error instanceof TypeError
+            ? "NETWORK / CORS ERROR"
+            : "LOAD FAILED";
+    } finally {
+        button.disabled = false;
+    }
+}
+
+
+
+document.getElementById("sb-load-btn")
+    ?.addEventListener("click", loadSimBriefFlightPlan);
+
+
+
+/* =========================================
+   EFB ON-SCREEN NUMERIC KEYPAD
+========================================= */
+
+(() => {
+    'use strict';
+
+    const keypad = document.getElementById('efb-numpad');
+
+    if (!keypad) return;
+
+    // 숫자 입력칸과 숫자 전용 텍스트 입력칸
+    const inputSelector =
+        'input[type="number"], input[inputmode="numeric"], input[data-efb-keypad="true"]';
+
+    const minusButton =
+        keypad.querySelector('[data-key="minus"]');
+
+    const decimalButton =
+        keypad.querySelector('[data-key="decimal"]');
+
+    let activeInput = null;
+    let replaceNextKey = true;
+
+
+    /* 키패드 위치를 입력칸 옆으로 이동 */
+    function positionKeypad(input) {
+        const rect = input.getBoundingClientRect();
+
+        const keypadWidth = keypad.offsetWidth;
+        const keypadHeight = keypad.offsetHeight;
+        const gap = 7;
+
+        // 우선 입력칸 오른쪽에 표시
+        let left = rect.right + gap;
+
+        // 오른쪽 공간이 부족하면 왼쪽으로 이동
+        if (left + keypadWidth > window.innerWidth - 4) {
+            left = rect.left - keypadWidth - gap;
+        }
+
+        // 화면 좌우 경계 보정
+        const maxLeft = Math.max(
+            4,
+            window.innerWidth - keypadWidth - 4
+        );
+
+        left = Math.max(4, Math.min(left, maxLeft));
+
+        // 기본적으로 입력칸 위쪽과 정렬
+        let top = rect.top;
+
+        // 화면 아래쪽에 걸리면 위로 이동
+        if (top + keypadHeight > window.innerHeight - 4) {
+            top = rect.bottom - keypadHeight;
+        }
+
+        const maxTop = Math.max(
+            4,
+            window.innerHeight - keypadHeight - 4
+        );
+
+        top = Math.max(4, Math.min(top, maxTop));
+
+        keypad.style.left = `${left}px`;
+        keypad.style.top = `${top}px`;
+    }
+
+
+    /* 입력칸 활성화 */
+    function activateInput(input) {
+        activeInput = input;
+
+        // 현재 값을 편집용 버퍼에 저장
+        input.dataset.keypadBuffer = input.value || '';
+
+        // 다음 입력 숫자는 기존 값을 대체
+        replaceNextKey = true;
+
+        const isNumberInput = input.type === 'number';
+
+        // 음수가 허용된 입력칸에만 부호 표시
+        const allowsNegative =
+            isNumberInput &&
+            input.min !== '' &&
+            Number(input.min) < 0;
+
+        // 소수점 단위가 필요한 입력칸에만 표시
+        const step = String(input.step || '');
+
+        const allowsDecimal =
+            input.dataset.keypadDecimal === 'true' ||
+            (isNumberInput && step.includes('.'));
+
+        minusButton.hidden = !allowsNegative;
+        decimalButton.hidden = !allowsDecimal;
+
+        keypad.hidden = false;
+
+        positionKeypad(input);
+    }
+
+
+    /* 키패드 닫기 */
+    function hideKeypad() {
+        keypad.hidden = true;
+        activeInput = null;
+        replaceNextKey = true;
+    }
+
+
+    /* 숫자 및 편집 버튼 처리 */
+    function pressKey(key) {
+        if (!activeInput || !activeInput.isConnected) {
+            hideKeypad();
+            return;
+        }
+
+        let value =
+            activeInput.dataset.keypadBuffer ??
+            activeInput.value ??
+            '';
+
+        // 숫자 버튼
+        if (/^[0-9]$/.test(key)) {
+            if (replaceNextKey) {
+                value = '';
+            }
+
+            // SimBrief ID의 maxlength 제한 적용
+            const maxLength = activeInput.maxLength;
+
+            if (maxLength > 0 && value.length >= maxLength) {
+                replaceNextKey = false;
+                return;
+            }
+
+            value += key;
+            replaceNextKey = false;
+        }
+
+        // 전체 삭제
+        else if (key === 'clear') {
+            value = '';
+            replaceNextKey = false;
+        }
+
+        // 마지막 글자 삭제
+        else if (key === 'backspace') {
+            if (replaceNextKey) {
+                value = '';
+            } else {
+                value = value.slice(0, -1);
+            }
+
+            replaceNextKey = false;
+        }
+
+        // 음수 부호 전환
+        else if (key === 'minus') {
+            if (replaceNextKey) {
+                value = '';
+            }
+
+            if (value.startsWith('-')) {
+                value = value.slice(1);
+            } else {
+                value = '-' + value;
+            }
+
+            replaceNextKey = false;
+        }
+
+        // 소수점 입력
+        else if (key === 'decimal') {
+            if (replaceNextKey) {
+                value = '';
+            }
+
+            if (!value.includes('.')) {
+                if (value === '' || value === '-') {
+                    value += '0';
+                }
+
+                value += '.';
+            }
+
+            replaceNextKey = false;
+        }
+
+        // 브라우저의 number 입력값과 별도로 버퍼 유지
+        // (예: -, 1. 같은 입력 중간 상태 보존)
+        activeInput.dataset.keypadBuffer = value;
+        activeInput.value = value;
+
+        // 기존 입력 이벤트와의 호환성 유지
+        activeInput.dispatchEvent(
+            new Event('input', { bubbles: true })
+        );
+    }
+
+
+    /* 버튼을 눌러도 입력칸의 포커스를 유지 */
+    keypad.querySelectorAll('button').forEach(button => {
+        button.addEventListener('pointerdown', event => {
+            event.preventDefault();
+        });
+
+        button.addEventListener('click', () => {
+            pressKey(button.dataset.key);
+        });
+    });
+
+
+    /* 입력칸에 포커스가 생기면 키패드 표시 */
+    document.addEventListener('focusin', event => {
+        const target = event.target;
+
+        if (
+            target instanceof Element &&
+            target.matches(inputSelector)
+        ) {
+            activateInput(target);
+        }
+    });
+
+
+    /* 이미 활성화된 입력칸을 다시 클릭해도 새 입력 시작 */
+    document.addEventListener('click', event => {
+        const target = event.target;
+
+        if (!(target instanceof Element)) return;
+
+        const input = target.closest(inputSelector);
+
+        if (input) {
+            activateInput(input);
+        }
+    });
+
+
+    /* 키패드 및 숫자 입력칸 바깥을 클릭하면 닫기 */
+    document.addEventListener('pointerdown', event => {
+        if (keypad.contains(event.target)) return;
+
+        const target = event.target;
+
+        if (
+            target instanceof Element &&
+            target.matches(inputSelector)
+        ) {
+            return;
+        }
+
+        hideKeypad();
+    }, true);
+
+
+    /* 화면 크기가 바뀌면 위치 다시 계산 */
+    window.addEventListener('resize', () => {
+        if (!keypad.hidden && activeInput) {
+            positionKeypad(activeInput);
+        }
+    });
+
+})();
+</script>
+
+</body>
+</html>
