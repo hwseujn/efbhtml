@@ -3067,12 +3067,12 @@ function resetForm() {
     const defaults = {
         windDirection:0,
         windSpeed:0,
-        oat:15,
+        oat:0,
         qnh:1013,
-        runwayHeading:359,
-        runwayLength:3500,
-        tow:200000,
-        cg:28,
+        runwayHeading:0,
+        runwayLength:0,
+        tow:0,
+        cg:0,
         flap:0,
         condition:0,
         thrust:0
@@ -3107,13 +3107,55 @@ const chocksState = document.getElementById('chocksState');
 groundDoors.forEach(button => {
     button.addEventListener('click', () => {
         button.classList.toggle('active');
+        //door NO GA DA
+        const door = button.dataset.door;
+        const equipment = button.dataset.equipment;
+        if (door === "L1"){
+            xplane.DoorL1();
+        } else if (door === "L2"){
+            xplane.DoorL2();
+        } else if (door === "L3"){
+            xplane.DoorL3();
+        } else if (door === "L4"){
+            xplane.DoorL4();
+        } else if (door === "R1"){
+            xplane.DoorR1();
+        } else if (door === "R2"){
+            xplane.DoorR2();
+        } else if (door === "R3"){
+            xplane.DoorR3();
+        } else if (door === "R4"){
+            xplane.DoorR4();
+        } else if (door === "CARGO FRONT"){
+            xplane.FrontCargo();
+        } else if (door === "CARGO BACK"){
+            xplane.RearCargo();
+        }
+
+        // eq
+
+        if(equipment === "L1 STAIR"){
+            xplane.Stair1();
+        } else if(equipment === "L2 STAIR"){
+            xplane.Stair2();
+        } else if(equipment === "GPU"){
+            xplane.GPU();
+        } else if(equipment === "FRONT CARGO LOADER"){
+            xplane.Loader1();
+        } else if(equipment === "FUEL TRUCK"){
+            xplane.FuelTruck();
+        } else if(equipment === "BACK CARGO LOADER"){
+            xplane.Loader2();
+        } else if(equipment === "CATERING"){
+            xplane.Catering();
+        }
+
     });
 });
 
 groundEquipment.forEach(button => {
     button.addEventListener('click', () => {
         button.classList.toggle('active');
-
         const state = button.querySelector('small');
         state.textContent = button.classList.contains('active')
             ? 'ON'
@@ -3123,26 +3165,31 @@ groundEquipment.forEach(button => {
 
 chocksBtn.addEventListener('click', () => {
     chocksBtn.classList.toggle('active');
-
     chocksState.textContent = chocksBtn.classList.contains('active')
         ? 'ON'
         : 'OFF';
+    xplane.ChockToggle();
 });
 
 document.getElementById('closeAllDoors').addEventListener('click', () => {
     groundDoors.forEach(button => {
         button.classList.remove('active');
+        
     });
+    xplane.CloseAllDoors();
 });
 
 document.getElementById('clearEquipments').addEventListener('click', () => {
     groundEquipment.forEach(button => {
         button.classList.remove('active');
+        
         button.querySelector('small').textContent = 'OFF';
     });
+    xplane.ClearAllEquipments();
 
     chocksBtn.classList.remove('active');
     chocksState.textContent = 'OFF';
+
 });
 
 // Settings 토글
@@ -3220,14 +3267,17 @@ document.querySelectorAll("#page-settings .toggle-group").forEach(group => {
                     xplane.WinRefOff();
                 }
             }
-            //IRS
-            document.getElementById('irsInstantAlignBtn').addEventListener('click', xplane.IRSInstant);
+           
 	
         });
     });
 });
-
-
+//irs
+// IRS INSTANT ALIGN
+document.getElementById('irsInstantAlignBtn')
+    ?.addEventListener('click', () => {
+        xplane.IRSInstant();
+    });
 /**
  * Weight & Balance 값 갱신 함수
  *
