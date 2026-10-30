@@ -2453,13 +2453,16 @@ input[type="number"] {
                 class="efb-key-special"
                 hidden>.</button>
 
-        <button type="button"
-                data-key="backspace"
-                class="efb-key-special">⌫</button>
+        
 
         <button type="button"
                 data-key="clear"
                 class="efb-key-special">CLR</button>
+
+
+        <button type="button"
+                data-key="backspace"
+                class="efb-key-special">ENT</button>
     </div>
 </div>
 
@@ -3014,18 +3017,72 @@ document.querySelectorAll("#page-settings .toggle-group").forEach(group => {
             button.classList.add("active");
 	    
             const setting = group.dataset.setting;
-                    const value = button.dataset.value;
+            const value = button.dataset.value;
 
-           	    // HUD
-                    if (setting === "hud") {
-               	 if (value === "ON") {
-                   		 xplane.HudOn();
-                            }
-                	else if (value === "OFF") {
-                   		 xplane.HudOff();
-                	}
-           	    }
-	
+            // HUD
+            if (setting === "hud") {
+                if (value === "ON") {
+                    xplane.HudOn();
+                    }
+                else if (value === "OFF") {
+                    xplane.HudOff();
+                }
+            }
+
+            if (setting === "isis"){
+                if (value === "ISIS") {
+                    xplane.StbyOff();
+                } else if (value === "STBY") {
+                    xplane.StbyOn();
+                }
+            }
+
+            if (setting === "ddmri"){
+                if (value === "ON") {
+                    xplane.DDRMIOn();
+                } else if ( value === "OFF") {
+                    xplane.DDRMIOff();
+                }
+            }
+            if (setting === "eis"){
+                if (value === "EIS1") {
+                    xplane.EISOn();
+                } else if ( value === "EIS2") {
+                    xplane.EISOff();
+                }
+            }
+            if (setting === "portable"){
+                if (value === "ON") {
+                    xplane.NodeviceOn();
+                } else if ( value === "OFF") {
+                    xplane.NodeviceOff();
+                }
+            }
+            if (setting === "altitude"){
+                if (value === "100 Abv") {
+                    xplane.AppminOn();
+                } else if ( value === "+100") {
+                    xplane.AppminOff();
+                }
+            }
+            if (setting === "engines"){
+                if (value === "RR") {
+                    xplane.EngineRR();
+                } else if ( value === "PW") {
+                    xplane.EnginePW();
+                } else if ( value === "GE") {
+                    xplane.EngineGE();
+                }
+            }
+            if (setting === "windowReflection"){
+                if (value === "1") {
+                    xplane.WinRefOn();
+                } else if ( value === "0") {
+                    xplane.WinRefOff();
+                }
+            }
+            //IRS
+            document.getElementById('irsInstantAlignBtn').addEventListener('click', xplane.IRSInstant);
 	
         });
     });
@@ -3090,7 +3147,20 @@ window.setWeightBalanceValues = setWeightBalanceValues;
 // 버튼 이벤트: 추후 시뮬레이터 연동 지점
 document.getElementById("startFuelingBtn")
     ?.addEventListener("click", () => {
-        console.log("Start Fueling requested");
+
+        const fuelInput = document.getElementById("wb-planned-fuel");
+        const plannedFuel = Number(fuelInput.value);
+
+        if (
+            fuelInput.value.trim() === "" ||
+            !Number.isFinite(plannedFuel) ||
+            plannedFuel < 0
+        ) {
+            console.log("Invalid Planned Fuel value");
+            return;
+        }
+
+        xplane.StartFueling(plannedFuel);
     });
 
 document.getElementById("startBoardingBtn")
@@ -3283,7 +3353,7 @@ function sbPopulateFlightPlan(data) {
         "destination.icao_code", "destination.icao"
     ]);
 
-        // alternatenigger
+        // alternate
     const altRaw = Array.isArray(data.alternate)
         ? data.alternate[0]
         : data.alternate;
@@ -3590,15 +3660,9 @@ document.getElementById("sb-load-btn")
             replaceNextKey = false;
         }
 
-        // 마지막 글자 삭제
+        // 엔터(backspace키를 ENTER키로 교체함) backspacehello
         else if (key === 'backspace') {
-            if (replaceNextKey) {
-                value = '';
-            } else {
-                value = value.slice(0, -1);
-            }
-
-            replaceNextKey = false;
+            hideKeypad()
         }
 
         // 음수 부호 전환
