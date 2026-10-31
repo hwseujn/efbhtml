@@ -76,6 +76,19 @@ button {
     font-size: 13px;
     letter-spacing: 1.1px;
 }
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brightness-label {
+    color: #8c9aaa;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    line-height: 1;
+}
 
 
 .connection {
@@ -338,6 +351,17 @@ h1 {
     background: #303a47;
 }
 
+.getsimbrief {
+    background: #367db5;
+    border: 1px solid #438dc7;
+    color: white;
+}
+
+.getsimbrief:hover {
+    background: #438dc7;
+}
+
+
 .status {
     min-height: 31px;
     display: flex;
@@ -348,7 +372,7 @@ h1 {
     border-radius: 3px;
     background: #202833;
     color: #bdc9d6;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.5;
 }
 
@@ -549,7 +573,7 @@ h1 {
     overflow: hidden;
     border: 1px solid #303b48;
     border-radius: 5px;
-    background-image: url('a330tope.png');
+    background-image: url('topfinal.png');
 }
 
 /* AIRCRAFT SILHOUETTE
@@ -863,6 +887,9 @@ h1 {
 
 
 /* WEIGHT AND BALANCE */
+
+
+
 #page-weight {
     padding: 24px 30px;
     box-sizing: border-box;
@@ -901,6 +928,43 @@ h1 {
     font-weight: 700;
     letter-spacing: 0.5px;
 }
+
+.wb-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.wb-warning {
+    min-width: 0;
+    padding: 6px 12px;
+    border: 1px solid #69562e;
+    border-radius: 3px;
+    background: #30291b;
+    color: #f0cb7a;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 문구가 없으면 칸 자체를 숨김 */
+.wb-warning:empty {
+    display: none;
+}
+
+/* 더 심각한 경고용 (빨강) */
+.wb-warning.bad {
+    border-color: #713d40;
+    background: #301f23;
+    color: #ff9696;
+}
+
+
 
 .wb-value {
     min-width: 0;
@@ -991,6 +1055,18 @@ h1 {
 .wb-action-btn:hover {
     background: #1a9ac1;
 }
+
+
+#getfromsimbrief{
+    background-color: #252d37;
+    border-color:#3b4654;
+    color: #c7d0da;
+}
+
+ #getfromsimbrief:hover{
+    background: #303a47;
+}
+
 
 .wb-action-btn:active {
     background: #116b87;
@@ -1803,8 +1879,7 @@ input[type="number"] {
     <header class="header">
         <div class="header-left">EHCSTUDIO A330 EFB</div>
         <div class="header-right">
-            <!-- span use sidebar-label because i am not feeling well making new class to this little thing.-->
-             <span class="sidebar-label" style="color: white;">BRIGHTNESS</span>
+             <span style="color: white;" class="brightness-label">BRIGHTNESS</span>
             <input type="range" min="0" max="100" value="100" step="1" id="brightness">
         </div>
     </header>
@@ -1919,6 +1994,11 @@ input[type="number"] {
                             </div>
 
                         </div>
+                        <div class="buttons">
+                            <button class="getsimbrief" id="getsimbrief" type="button">
+                                GET DATA FROM SIMBRIEF
+                            </button>
+                        </div>
                     </section>
 
                     <section>
@@ -2023,6 +2103,7 @@ input[type="number"] {
                             <button class="secondary" id="reset" type="button">
                                 RESET
                             </button>
+                            
                         </div>
                     </section>
 
@@ -2178,10 +2259,13 @@ input[type="number"] {
                     ></iframe>
                 </div>
             </section>
-            <!-- WEIGHT AND BALANCE -->
+            <!-- WEIGHT AND BALANCE. -->
             
             <section class="page" id="page-weight">
-                <h1 class="page-title">WEIGHT AND BALANCE</h1>
+                <div class="wb-title-row">
+                    <h1 class="page-title">WEIGHT AND BALANCE</h1>
+                    <div id="wb-warning" class="wb-warning"></div>
+                </div>
 
                 <div class="wb-container">
 
@@ -2303,12 +2387,16 @@ input[type="number"] {
 
                     <!-- Actions -->
                     <div class="wb-actions">
+                        <button class="wb-action-btn" id="getfromsimbrief" type="button">
+                            INSERT SIMBRIEF DATA
+                        </button>
                         <button type="button" id="startFuelingBtn" class="wb-action-btn">
                             START FUELING
                         </button>
                         <button type="button" id="startBoardingBtn" class="wb-action-btn">
                             START BOARDING
                         </button>
+                        
                     </div>
 
                 </div>
@@ -2557,7 +2645,7 @@ input[type="number"] {
             <section class="page" id="page-avitab">
                 <h1 class="page-title">AVITAB</h1>
                 <div class="avitab-content">
-                    <!-- 추후 AviTab 표시 영역 -->
+                    <p>help me</p>
                 </div>
             </section>
 
@@ -3282,7 +3370,9 @@ document.querySelectorAll("#page-settings .toggle-group").forEach(group => {
 // IRS INSTANT ALIGN
 document.getElementById('irsInstantAlignBtn')
     ?.addEventListener('click', () => {
+        console.log("IRSINS")
         xplane.IRSInstant();
+        
     });
 /**
  * Weight & Balance 값 갱신 함수
@@ -3336,10 +3426,172 @@ function setWeightBalanceValues(values = {}) {
     });
 }
 
+let sbBlockFuel = null;   // 블록(램프) 연료, KG
+let sbPayload   = null;   // 페이로드, KG
+
+function sbToNumber(value) {
+    const raw = sbText(value).replace(/,/g, "");
+    if (raw === "") return null;
+
+    const number = Number(raw);
+    return Number.isFinite(number) ? number : null;
+}
 // 다른 스크립트에서도 호출할 수 있도록 공개
 window.setWeightBalanceValues = setWeightBalanceValues;
 
+
+// 이륙 성능 입력값 (로드 전/없으면 null)
+let sbTakeoff = {
+    windDirection: 0,
+    windSpeed: 0,
+    oat: 0,
+    qnh: 1013,
+    runwayHeading: 0,
+    runwayLength: 0,   // m
+    tow: 0,            // kg
+    condition: 0,
+};
+
+// TLR 활주로 길이 단위 (콘솔에서 값을 확인하고 필요하면 "M"으로 변경)
+const SB_RUNWAY_LENGTH_UNIT = "FT";
+
+function sbParseMetar(metar) {
+    const text = sbText(metar).toUpperCase();
+    const out = { windDirection: null, windSpeed: null, oat: null, qnh: null, wet: null };
+    if (!text) return out;
+
+    // 바람: 27015KT, 27015G25KT, VRB03KT, 27008MPS
+    const wind = text.match(/\b(VRB|\d{3})(\d{2,3})(?:G\d{2,3})?(KT|MPS)\b/);
+    if (wind) {
+        out.windDirection = wind[1] === "VRB" ? null : Number(wind[1]);
+        const speed = Number(wind[2]);
+        out.windSpeed = Math.round(wind[3] === "MPS" ? speed * 1.94384 : speed);
+    }
+
+    // 온도: 15/08, M02/M05
+    const temp = text.match(/\s(M?\d{2})\/(?:M?\d{2})?(?=\s|$)/);
+    if (temp) {
+        out.oat = temp[1].startsWith("M")
+            ? -Number(temp[1].slice(1))
+            : Number(temp[1]);
+    }
+
+    // QNH: Q1013 (hPa) 또는 A2992 (inHg)
+    const q = text.match(/\bQ(\d{4})\b/);
+    const a = text.match(/\bA(\d{4})\b/);
+    if (q) out.qnh = Number(q[1]);
+    else if (a) out.qnh = Math.round(Number(a[1]) / 100 * 33.8639);
+
+    // 노면 젖음(근사): 비/이슬비/눈/소나기/뇌우 등이 보고되면 WET
+    out.wet = /(^|\s)[-+]?(VC)?(RA|DZ|SN|SG|GR|GS|PL|SH|TS)/.test(text) ? 1 : 0;
+
+    return out;
+}
+
+function sbFindTlrRunway(data, planRunway) {
+    const raw = sbGet(data, ["tlr.takeoff.runway"]);
+    if (!raw) return null;
+
+    const list = Array.isArray(raw) ? raw : [raw];
+    const wanted = sbText(planRunway).toUpperCase();
+
+    return list.find(r => sbText(r?.identifier).toUpperCase() === wanted)
+        || list[0]
+        || null;
+}
+
+function sbExtractTakeoffInputs(data, units) {
+    const metar = sbParseMetar(sbGet(data, ["origin.metar", "weather.orig_metar"]));
+    const planRwy = sbText(sbGet(data, ["origin.plan_rwy", "origin.plan_runway"]));
+    const tlr = sbFindTlrRunway(data, planRwy);
+
+    const num = value => sbToNumber(value);
+    const pick = (...values) => values.find(v => v !== null && v !== undefined) ?? null;
+
+    // 활주로 방향: TLR 우선, 없으면 "10L" → 100
+    let heading = tlr ? num(sbGet(tlr, ["true_course", "magnetic_course", "heading"])) : null;
+    if (heading === null) {
+        const m = planRwy.match(/^(\d{2})/);
+        if (m) heading = (Number(m[1]) * 10) % 360;
+    }
+
+    // 활주로 길이 (m)
+    let length = tlr ? num(sbGet(tlr, ["length", "length_tora"])) : null;
+    if (length !== null && SB_RUNWAY_LENGTH_UNIT === "FT") {
+        length = Math.round(length * 0.3048);
+    }
+
+    // 이륙중량 (kg)
+    let tow = num(sbGet(data, ["weights.est_tow"]));
+    if (tow !== null && units === "LB") tow = Math.round(tow * 0.45359237);
+
+    // 노면 상태
+    let condition = null;
+    const surface = tlr ? sbText(sbGet(tlr, ["surface_condition", "condition"])).toUpperCase() : "";
+    if (surface) condition = surface.includes("WET") ? 1 : 0;
+    else condition = metar.wet;
+
+    return {
+        windDirection: pick(metar.windDirection, tlr && num(sbGet(tlr, ["wind_direction"]))),
+        windSpeed:     pick(metar.windSpeed,     tlr && num(sbGet(tlr, ["wind_speed"]))),
+        oat:           pick(metar.oat,           tlr && num(sbGet(tlr, ["temperature"]))),
+        qnh:           metar.qnh,
+        runwayHeading: heading,
+        runwayLength:  length,
+        tow,
+        condition
+    };
+}
+
+
+
 // 버튼 이벤트: 추후 시뮬레이터 연동 지점
+function setWbWarning(text = "", type = "warn") {
+    const el = document.getElementById("wb-warning");
+    if (!el) return;
+
+    el.textContent = text;
+    el.className = "wb-warning" + (type === "bad" ? " bad" : "");
+}
+
+window.setWbWarning = setWbWarning;
+
+// getsimbrief data and fill up takeoff performance inputs
+document.getElementById("getsimbrief")
+    ?.addEventListener("click", () => {
+        //getsimbrief
+        
+
+
+        Object.entries(sbTakeoff).forEach(([id, value]) => {
+            document.getElementById(id).value = value;
+            if (sbTakeoff.tow === 0 ) {
+                showStatus("Simbrief not loaded", 'bad');
+            } else {
+                showStatus("Simbrief loaded. Insert the remaining data.", 'good');
+            }
+            
+        });
+    });
+
+document.getElementById("getfromsimbrief")
+    ?.addEventListener("click", () => {
+        if (sbBlockFuel === null ){
+            setWbWarning("Simbrief not loaded");  
+        } else {
+            setWbWarning("");
+            document.getElementById('wb-planned-fuel').value = sbBlockFuel;
+        }
+
+        if (sbPayload === null ){
+            setWbWarning("Simbrief not loaded");  
+        } else {
+            setWbWarning("");
+            document.getElementById('wb-planned-payload').value = sbPayload;
+        }
+
+    });
+
 document.getElementById("startFuelingBtn")
     ?.addEventListener("click", () => {
 
@@ -3350,17 +3602,18 @@ document.getElementById("startFuelingBtn")
             fuelInput.value.trim() === "" ||
             !Number.isFinite(plannedFuel) ||
             plannedFuel < 0
+            
         ) {
-            console.log("Invalid Planned Fuel value");
+            setWbWarning("Invalid Planned Fuel value", "bad"); 
             return;
         }
-
+        setWbWarning("");
         xplane.StartFueling(plannedFuel);
     });
 
 document.getElementById("startBoardingBtn")
     ?.addEventListener("click", () => {
-
+        setWbWarning("");
         const payload = Number(document.getElementById("wb-planned-payload").value);
 
 	    const plannedGWCG = Number(document.getElementById("wb-planned-gw-cg").value );
@@ -3368,6 +3621,7 @@ document.getElementById("startBoardingBtn")
       	xplane.StartBoarding(payload, plannedGWCG);
         
         console.log("Start Boarding requested");
+        
     });
 
 function sbGet(data, paths) {
@@ -3596,6 +3850,26 @@ function sbPopulateFlightPlan(data) {
     const units = unitsRaw.includes("LBS") || unitsRaw === "LB"
         ? "LB"
         : "KG";
+
+    sbTakeoff = sbExtractTakeoffInputs(data, units);
+    console.log("SimBrief takeoff inputs:", sbTakeoff);
+    
+    // LB 플랜일 때만 KG로 변환
+    const toKg = value =>
+        value === null ? null
+        : units === "LB" ? Math.round(value * 0.45359237)
+        : value;
+
+    sbBlockFuel = toKg(sbToNumber(sbGet(data, [
+        "fuel.plan_ramp",
+        "fuel.block_fuel",
+        "fuel.ramp"
+    ])));
+
+    sbPayload = toKg(sbToNumber(sbGet(data, [
+        "weights.payload",
+        "weights.est_payload"
+    ])));
 
     sbSet("sb-zfw", sbFormatWeight(sbGet(data, [
         "weights.est_zfw", "weights.zfw"
