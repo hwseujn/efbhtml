@@ -2849,6 +2849,13 @@ navItems.forEach(button => {
     button.addEventListener('click', () => {
         const pageName = button.dataset.page;
 
+		if (pageName === 'avitab') {
+	    	xplane.AvitabOpen();
+		}
+		else {
+        	xplane.AvitabClose();
+    	}
+
         navItems.forEach(item => item.classList.remove('active'));
         pages.forEach(page => page.classList.remove('active'));
 
