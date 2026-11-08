@@ -73,15 +73,23 @@ button {
 }
 
 .header-right {
+    font-size: 13px;
+    letter-spacing: 1.1px;
+}
+.header-right {
     display: flex;
     align-items: center;
-    gap: 16px;
-    color: var(--muted);
+    gap: 10px;
 }
 
-.header-right p {
-    margin: 0;
+.brightness-label {
+    color: #8c9aaa;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    line-height: 1;
 }
+
 
 .connection {
     width: 7px;
@@ -164,7 +172,7 @@ button {
 /* NAVIGATION LABELS */
 
 .nav-text {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.4;
     font-weight: 700;
     letter-spacing: .25px;
@@ -279,7 +287,7 @@ h1 {
 
 .field label {
     color: #8c9aaa;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: .5px;
 }
@@ -318,7 +326,7 @@ h1 {
     height: 34px;
     flex: 1;
     border-radius: 3px;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: .5px;
 }
@@ -343,6 +351,17 @@ h1 {
     background: #303a47;
 }
 
+.getsimbrief {
+    background: #367db5;
+    border: 1px solid #438dc7;
+    color: white;
+}
+
+.getsimbrief:hover {
+    background: #438dc7;
+}
+
+
 .status {
     min-height: 31px;
     display: flex;
@@ -353,7 +372,7 @@ h1 {
     border-radius: 3px;
     background: #202833;
     color: #bdc9d6;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1.5;
 }
 
@@ -393,7 +412,7 @@ h1 {
 
 .name {
     color: #91a0b0;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: .6px;
 }
@@ -429,7 +448,7 @@ h1 {
 .result .unit {
     margin-top: 3px;
     color: #728091;
-    font-size: 8px;
+    font-size: 10px;
 }
 
 /* OTHER PAGES */
@@ -554,7 +573,7 @@ h1 {
     overflow: hidden;
     border: 1px solid #303b48;
     border-radius: 5px;
-    background-image: url('a330tope.png');
+    background-image: url('topfinal.png');
 }
 
 /* AIRCRAFT SILHOUETTE
@@ -596,10 +615,10 @@ h1 {
     min-width: 42px;
     height: 27px;
     padding: 0 7px;
-    border: 1px solid #3d88ba;
+    border: 1px solid #394655;
     border-radius: 4px;
-    background: #1c3445;
-    color: #a9ddff;
+    background: #202833;
+    color: #d9e3ed;
     font-size: 10px;
     font-weight: 700;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
@@ -607,7 +626,7 @@ h1 {
 }
 
 .door-btn:hover {
-    background: #294c65;
+    background: #2a3543;
 }
 
 .door-btn.active {
@@ -615,6 +634,7 @@ h1 {
     border-color: #47d5a1;
     color: #c4ffeb;
 }
+
 
 /* LEFT-SIDE DOORS: ABOVE FUSELAGE */
 
@@ -807,9 +827,9 @@ h1 {
 .settings-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     max-width: 680px;
-    margin-top: 24px;
+    margin-top: 15px;
 }
 
 .setting-row {
@@ -867,6 +887,9 @@ h1 {
 
 
 /* WEIGHT AND BALANCE */
+
+
+
 #page-weight {
     padding: 24px 30px;
     box-sizing: border-box;
@@ -905,6 +928,43 @@ h1 {
     font-weight: 700;
     letter-spacing: 0.5px;
 }
+
+.wb-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.wb-warning {
+    min-width: 0;
+    padding: 6px 12px;
+    border: 1px solid #69562e;
+    border-radius: 3px;
+    background: #30291b;
+    color: #f0cb7a;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 문구가 없으면 칸 자체를 숨김 */
+.wb-warning:empty {
+    display: none;
+}
+
+/* 더 심각한 경고용 (빨강) */
+.wb-warning.bad {
+    border-color: #713d40;
+    background: #301f23;
+    color: #ff9696;
+}
+
+
 
 .wb-value {
     min-width: 0;
@@ -995,6 +1055,18 @@ h1 {
 .wb-action-btn:hover {
     background: #1a9ac1;
 }
+
+
+#getfromsimbrief{
+    background-color: #252d37;
+    border-color:#3b4654;
+    color: #c7d0da;
+}
+
+ #getfromsimbrief:hover{
+    background: #303a47;
+}
+
 
 .wb-action-btn:active {
     background: #116b87;
@@ -1169,7 +1241,23 @@ input[type="number"] {
     opacity: .5;
     cursor: default;
 }
-
+.sb-flight-number {
+    margin-left: auto;
+    padding-left: 14px;
+    border-left: 1px solid var(--border);
+    color: #e7f3ff;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+@media (max-height: 560px) {
+    .sb-flight-number {
+        font-size: 18px;
+    }
+}
 /* ---------- 출발 → 도착 ---------- */
 
 .sb-airports {
@@ -1197,7 +1285,7 @@ input[type="number"] {
 
 .sb-airport span {
     color: #8c9aaa;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: .5px;
 }
@@ -1250,7 +1338,7 @@ input[type="number"] {
 .sb-info-card span {
     overflow: hidden;
     color: #8c9aaa;
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: .5px;
     text-overflow: ellipsis;
@@ -1383,7 +1471,100 @@ input[type="number"] {
     letter-spacing: .5px;
     text-align: right;
 }
+/* ---------- METAR (남는 공간 전부 사용, 이 안에서만 스크롤) ---------- */
 
+.sb-metar-panel {
+    flex: 1 1 0;      /* 남는 높이를 채우고, 넘치면 줄어듦 */
+    min-height: 0;
+}
+
+.sb-metar-list {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.sb-metar-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sb-metar-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sb-metar-list::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #3b4654;
+}
+
+.sb-metar-row {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 7px 10px;
+    border: 1px solid #303b48;
+    border-radius: 4px;
+    background: #12171e;
+}
+
+.sb-metar-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.sb-metar-head span {
+    color: #8c9aaa;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .6px;
+}
+
+.sb-metar-cat {
+    padding: 1px 5px;
+    border: 1px solid #3b4654;
+    border-radius: 2px;
+    color: #8c9aaa;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.sb-metar-cat:empty {
+    display: none;
+}
+
+.sb-metar-cat.vfr  { color: #82ddb1; border-color: #315c49; background: #192b25; }
+.sb-metar-cat.mvfr { color: #7cc4ff; border-color: #2f5a80; background: #172735; }
+.sb-metar-cat.ifr  { color: #ff9696; border-color: #713d40; background: #301f23; }
+.sb-metar-cat.lifr { color: #e8a2ff; border-color: #64386f; background: #2c1d33; }
+
+.sb-metar-text {
+    min-width: 0;
+    margin: 0;
+    color: #cfe0f0;
+    font-family: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.sb-metar-text.is-empty {
+    color: #5f6d7d;
+}
+@media (max-height: 560px) {
+    .sb-route-line {
+        max-height: 84px;
+    }
+}
 /* ---------- SIMBRIEF OFP ---------- */
 
 .sb-open-pdf {
@@ -1423,7 +1604,6 @@ input[type="number"] {
     line-height: 1.8;
     text-align: center;
 }
-
 .sb-pdf-frame {
     flex: 1;
     width: 100%;
@@ -1431,7 +1611,7 @@ input[type="number"] {
     display: block;
     border: 1px solid var(--border);
     border-radius: 5px;
-    background: #2a303a;
+    background: #fff;   /* 기존 #2a303a → 흰색 */
 }
 
 /* display 를 지정하면 hidden 속성이 무시되므로 반드시 필요 */
@@ -1577,6 +1757,118 @@ input[type="number"] {
     background: #354b61;
     border-color: #63b3ed;
 }
+
+/* CUSTOM SELECT (CEF에서 기본 select 팝업이 안 열리는 문제 대응) */
+.cselect {
+    position: relative;
+    width: 100%;
+}
+
+.cselect-btn {
+    width: 100%;
+    height: 32px;
+    padding: 0 26px 0 9px;
+    border: 1px solid #343f4d;
+    border-radius: 3px;
+    background: #12171e;
+    color: #e9f0f7;
+    font-size: 12px;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+}
+
+.cselect-btn::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border-right: 2px solid #8c9aaa;
+    border-bottom: 2px solid #8c9aaa;
+    transform: translateY(-70%) rotate(45deg);
+}
+
+.cselect.open .cselect-btn {
+    border-color: var(--accent);
+}
+
+.cselect-list {
+    position: fixed;
+    z-index: 10000;
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    background: #12171e;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .55);
+}
+
+.cselect-list[hidden] {
+    display: none;
+}
+
+.cselect-item {
+    display: block;
+    width: 100%;
+    height: 32px;
+    padding: 0 9px;
+    border: 0;
+    background: transparent;
+    color: #e9f0f7;
+    font-size: 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.cselect-item:hover {
+    background: #1d2733;
+}
+
+.cselect-item.selected {
+    background: #367db5;
+    color: #fff;
+}
+
+.sb-font-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.sb-font-ctrl button {
+    width: 38px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid #3b4654;
+    border-radius: 3px;
+    background: #252d37;
+    color: #c7d0da;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sb-font-ctrl button:hover {
+    background: #303a47;
+}
+
+.sb-font-ctrl span {
+    min-width: 44px;
+    color: #8c9aaa;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+/* BRIGHTNESS 어둡게 하는 막 */
+#dim-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;          /* 키패드(99999)보다 위 */
+    background: #000;
+    opacity: 0;               /* 0 = 원래 밝기 */
+    pointer-events: none;     /* 클릭은 그대로 아래로 통과 */
+}
 </style>
 
 </head>
@@ -1586,6 +1878,10 @@ input[type="number"] {
 
     <header class="header">
         <div class="header-left">EHCSTUDIO A330 EFB</div>
+        <div class="header-right">
+             <span style="color: white;" class="brightness-label">BRIGHTNESS</span>
+            <input type="range" min="0" max="100" value="100" step="1" id="brightness">
+        </div>
     </header>
 
     <div class="workspace">
@@ -1596,58 +1892,39 @@ input[type="number"] {
         <div class="sidebar-label">APPLICATION</div>
 
         <nav class="nav-list">
-
             <button class="nav-item active"
-                    data-page="takeoff" type="button">
-                <img class="nav-icon"
-                    src="icons/takeoff.png"
-                    alt="">
-                <span class="nav-text">TAKEOFF<br>PERFORMANCE</span>
-            </button>
-
-            <button class="nav-item"
                     data-page="simbrief" type="button">
-                <img class="nav-icon"
-                    src="icons/simbrief.png"
-                    alt="">
                 <span class="nav-text">SIMBRIEF</span>
             </button>
             <button class="nav-item"
                     data-page="simbrief-ofp" type="button">
-                <img class="nav-icon"
-                    src="icons/simbrief-ofp.png"
-                    alt="">
                 <span class="nav-text">SIMBRIEF OFP</span>
             </button>
+            <button class="nav-item"
+                    data-page="takeoff" type="button">
+                <span class="nav-text">TAKEOFF<br>PERFORMANCE</span>
+            </button>
+
+            
             
             <button class="nav-item"
                     data-page="weight" type="button">
-                <img class="nav-icon"
-                    src="icons/weight-balance.png"
-                    alt="">
                 <span class="nav-text">WEIGHT AND<br>BALANCE</span>
             </button>
 
             <button class="nav-item"
                     data-page="ground" type="button">
-                <img class="nav-icon"
-                    src="icons/ground.png"
-                    alt="">
                 <span class="nav-text">GROUND AND<br>EQUIPMENT</span>
             </button>
-
+            <button class="nav-item" data-page="avitab">
+                <span class="nav-text">AVITAB</span>
+            </button>
             <button class="nav-item"
                     data-page="settings" type="button">
-                <img class="nav-icon"
-                    src="icons/settings.png"
-                    alt="">
                 <span class="nav-text">SETTINGS</span>
             </button>
             
-            <button class="nav-item" data-page="avitab">
-                <img class="nav-icon" src="icons/avitab.png" alt="">
-                <span class="nav-text">AVITAB</span>
-            </button>
+
 
 
         </nav>
@@ -1660,7 +1937,7 @@ input[type="number"] {
         <div class="content">
 
             <!-- TAKEOFF PERFORMANCE -->
-            <section class="page active" id="page-takeoff">
+            <section class="page" id="page-takeoff">
 
                 <div class="page-header">
                     <div>
@@ -1717,6 +1994,11 @@ input[type="number"] {
                             </div>
 
                         </div>
+                        <div class="buttons">
+                            <button class="getsimbrief" id="getsimbrief" type="button">
+                                GET DATA FROM SIMBRIEF
+                            </button>
+                        </div>
                     </section>
 
                     <section>
@@ -1769,14 +2051,7 @@ input[type="number"] {
 
                         </div>
 
-                        <div class="buttons">
-                            <button class="primary" id="calc" type="button">
-                                CALCULATE
-                            </button>
-                            <button class="secondary" id="reset" type="button">
-                                RESET
-                            </button>
-                        </div>
+                        
                     </section>
 
                     <section>
@@ -1821,6 +2096,15 @@ input[type="number"] {
                                 <div class="unit">KT</div>
                             </div>
                         </div>
+                        <div class="buttons">
+                            <button class="primary" id="calc" type="button">
+                                CALCULATE
+                            </button>
+                            <button class="secondary" id="reset" type="button">
+                                RESET
+                            </button>
+                            
+                        </div>
                     </section>
 
                 </div>
@@ -1828,7 +2112,7 @@ input[type="number"] {
 
             <!-- SIMBRIEF -->
             
-            <section class="page" id="page-simbrief">
+            <section class="page active" id="page-simbrief">
                 <div class="sb-page">
 
                     <header class="sb-header">
@@ -1852,6 +2136,8 @@ input[type="number"] {
                         <button id="sb-load-btn" type="button">
                             LOAD FLIGHT PLAN
                         </button>
+
+                        <strong id="sb-flight-number" class="sb-flight-number">---- ----</strong>
                     </div>
 
                     <section class="sb-airports">
@@ -1872,7 +2158,7 @@ input[type="number"] {
 
                     <section class="sb-info-grid">
                         <div class="sb-info-card">
-                            <span>ALTERNATE AIRPORT</span>
+                            <span>ALTERNATE</span>
                             <strong id="sb-altn">----</strong>
                         </div>
                         <div class="sb-info-card">
@@ -1916,7 +2202,26 @@ input[type="number"] {
                             </div>
                         </div>
                     </section>
+                    <section class="sb-panel sb-metar-panel">
+                        <h2>METAR</h2>
+                        <div class="sb-metar-list">
+                            <div class="sb-metar-row">
+                                <div class="sb-metar-head">
+                                    <span>DEP</span>
+                                    <em id="sb-metar-dep-cat" class="sb-metar-cat"></em>
+                                </div>
+                                <p id="sb-metar-dep" class="sb-metar-text is-empty">METAR not loaded</p>
+                            </div>
 
+                            <div class="sb-metar-row">
+                                <div class="sb-metar-head">
+                                    <span>ARR</span>
+                                    <em id="sb-metar-arr-cat" class="sb-metar-cat"></em>
+                                </div>
+                                <p id="sb-metar-arr" class="sb-metar-text is-empty">METAR not loaded</p>
+                            </div>
+                        </div>
+                    </section>
 
 
 
@@ -1933,13 +2238,12 @@ input[type="number"] {
                             <div class="sb-eyebrow">FLIGHT DOCUMENTS</div>
                             <h1>SimBrief OFP</h1>
                         </div>
-                        <a
-                            id="sb-open-pdf"
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="sb-open-pdf"
-                        >OPEN PDF ↗</a>
+
+                        <div class="sb-font-ctrl">
+                            <button id="sb-font-minus" type="button">A−</button>
+                            <span id="sb-font-value">100%</span>
+                            <button id="sb-font-plus" type="button">A+</button>
+                        </div>
                     </header>
 
                     <div id="sb-pdf-placeholder" class="sb-pdf-placeholder">
@@ -1950,14 +2254,18 @@ input[type="number"] {
                         id="sb-pdf-frame"
                         title="SimBrief Operational Flight Plan"
                         class="sb-pdf-frame"
+                        sandbox="allow-same-origin"
                         hidden
                     ></iframe>
                 </div>
             </section>
-            <!-- WEIGHT AND BALANCE -->
+            <!-- WEIGHT AND BALANCE. -->
             
             <section class="page" id="page-weight">
-                <h1 class="page-title">WEIGHT AND BALANCE</h1>
+                <div class="wb-title-row">
+                    <h1 class="page-title">WEIGHT AND BALANCE</h1>
+                    <div id="wb-warning" class="wb-warning"></div>
+                </div>
 
                 <div class="wb-container">
 
@@ -2047,22 +2355,6 @@ input[type="number"] {
                                 <span class="wb-unit">MAC %</span>
                             </div>
                         </div>
-                        <div class="wb-value">
-                            <label class="wb-value-label" for="wb-planned-gw-cg">
-                                Planned Value
-                            </label>
-                            <div class="wb-input-wrap">
-                                <input id="wb-planned-gw-cg"
-                                    class="wb-input"
-                                    type="text"
-                                    inputmode="none"
-                                    data-efb-keypad="true"
-                                    data-keypad-decimal="true"
-                                    step="0.1"
-                                    placeholder="Enter value">
-                                <span class="wb-unit">MAC %</span>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- 6. ZFW CG -->
@@ -2079,12 +2371,16 @@ input[type="number"] {
 
                     <!-- Actions -->
                     <div class="wb-actions">
+                        <button class="wb-action-btn" id="getfromsimbrief" type="button">
+                            INSERT SIMBRIEF DATA
+                        </button>
                         <button type="button" id="startFuelingBtn" class="wb-action-btn">
                             START FUELING
                         </button>
                         <button type="button" id="startBoardingBtn" class="wb-action-btn">
                             START BOARDING
                         </button>
+                        
                     </div>
 
                 </div>
@@ -2333,7 +2629,7 @@ input[type="number"] {
             <section class="page" id="page-avitab">
                 <h1 class="page-title">AVITAB</h1>
                 <div class="avitab-content">
-                    <!-- 추후 AviTab 표시 영역 -->
+                    <p>No Avitab Found</p>
                 </div>
             </section>
 
@@ -2373,17 +2669,20 @@ input[type="number"] {
                 class="efb-key-special"
                 hidden>.</button>
 
-        <button type="button"
-                data-key="backspace"
-                class="efb-key-special">⌫</button>
+        
 
         <button type="button"
                 data-key="clear"
                 class="efb-key-special">CLR</button>
+
+
+        <button type="button"
+                data-key="backspace"
+                class="efb-key-special">ENT</button>
     </div>
 </div>
 
-
+<div id="dim-overlay"></div>
 <script>
 'use strict';
 
@@ -2413,10 +2712,9 @@ input[type="number"] {
         if (!event.isTrusted || !suppressButton) return;
         if (!(event.target instanceof Element)) return;
 
-        if (suppressButton.contains(event.target)) {
-            event.stopImmediatePropagation();
-            event.preventDefault();
-        }
+        /* 눌렀던 버튼이 사라졌어도(드롭다운 항목 등) 대응하도록 타깃과 무관하게 차단 */
+        event.stopImmediatePropagation();
+        event.preventDefault();
         suppressButton = null;
     }, true);
 
@@ -2427,6 +2725,105 @@ input[type="number"] {
     }, true);
 })();
 
+
+/* CUSTOM SELECT
+   기본 <select>는 숨기고 값만 동기화한다. (기존 계산 코드는 select.value를 그대로 사용) */
+(() => {
+    const widgets = [];
+
+    function closeAll(except) {
+        widgets.forEach(w => { if (w !== except) w.close(); });
+    }
+
+    document.querySelectorAll('.field select').forEach(select => {
+        const wrap = document.createElement('div');
+        wrap.className = 'cselect';
+
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'cselect-btn';
+
+        const list = document.createElement('div');
+        list.className = 'cselect-list';
+        list.hidden = true;
+
+        function refresh() {
+            const current = select.options[select.selectedIndex];
+            toggle.textContent = current ? current.textContent : '';
+            list.querySelectorAll('.cselect-item').forEach(item => {
+                item.classList.toggle('selected', item.dataset.value === select.value);
+            });
+        }
+
+        Array.from(select.options).forEach(option => {
+            const item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'cselect-item';
+            item.dataset.value = option.value;
+            item.textContent = option.textContent;
+            item.addEventListener('click', () => {
+                select.value = option.value;
+                select.dispatchEvent(new Event('input', { bubbles: true }));
+                select.dispatchEvent(new Event('change', { bubbles: true }));
+                refresh();
+                widget.close();
+            });
+            list.appendChild(item);
+        });
+
+        const widget = {
+            open() {
+                closeAll(widget);
+                const rect = toggle.getBoundingClientRect();
+                list.style.left = rect.left + 'px';
+                list.style.width = rect.width + 'px';
+                list.style.top = (rect.bottom + 2) + 'px';
+                list.hidden = false;
+                wrap.classList.add('open');
+
+                /* 아래 공간이 부족하면 위로 펼침 */
+                const listHeight = list.offsetHeight;
+                if (rect.bottom + 2 + listHeight > window.innerHeight) {
+                    list.style.top = Math.max(0, rect.top - listHeight - 2) + 'px';
+                }
+            },
+            close() {
+                list.hidden = true;
+                wrap.classList.remove('open');
+            },
+            isOpen() { return !list.hidden; }
+        };
+        widgets.push(widget);
+
+        toggle.addEventListener('click', () => {
+            if (widget.isOpen()) widget.close(); else widget.open();
+        });
+
+        select.style.display = 'none';
+        wrap.append(toggle, list);
+        select.after(wrap);
+
+        select.addEventListener('change', refresh);
+        refresh();
+        wrap._widget = widget;
+    });
+
+    /* 바깥을 누르면 닫기 */
+    document.addEventListener('pointerdown', event => {
+        const target = event.target;
+        widgets.forEach(w => {
+            const wrap = document.querySelector('.cselect.open');
+            if (!wrap || !(target instanceof Element) || !wrap.contains(target)) w.close();
+        });
+    }, true);
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeAll(null);
+    });
+
+    window.addEventListener('resize', () => closeAll(null));
+})();
+
 /* SIDEBAR NAVIGATION */
 
 const navItems = document.querySelectorAll('.nav-item');
@@ -2435,6 +2832,13 @@ const pages = document.querySelectorAll('.page');
 navItems.forEach(button => {
     button.addEventListener('click', () => {
         const pageName = button.dataset.page;
+
+		if (pageName === 'avitab') {
+	    	xplane.AvitabOpen();
+		}
+		else {
+        	xplane.AvitabClose();
+    	}
 
         navItems.forEach(item => item.classList.remove('active'));
         pages.forEach(page => page.classList.remove('active'));
@@ -2747,12 +3151,12 @@ function resetForm() {
     const defaults = {
         windDirection:0,
         windSpeed:0,
-        oat:15,
+        oat:0,
         qnh:1013,
-        runwayHeading:359,
-        runwayLength:3500,
-        tow:200000,
-        cg:28,
+        runwayHeading:0,
+        runwayLength:0,
+        tow:0,
+        cg:0,
         flap:0,
         condition:0,
         thrust:0
@@ -2787,42 +3191,90 @@ const chocksState = document.getElementById('chocksState');
 groundDoors.forEach(button => {
     button.addEventListener('click', () => {
         button.classList.toggle('active');
+        //door NO GA DA
+        const door = button.dataset.door;
+
+        if (door === "L1"){
+            xplane.DoorL1();
+        } else if (door === "L2"){
+            xplane.DoorL2();
+        } else if (door === "L3"){
+            xplane.DoorL3();
+        } else if (door === "L4"){
+            xplane.DoorL4();
+        } else if (door === "R1"){
+            xplane.DoorR1();
+        } else if (door === "R2"){
+            xplane.DoorR2();
+        } else if (door === "R3"){
+            xplane.DoorR3();
+        } else if (door === "R4"){
+            xplane.DoorR4();
+        } else if (door === "CARGO FRONT"){
+            xplane.FrontCargo();
+        } else if (door === "CARGO BACK"){
+            xplane.RearCargo();
+        }
+
+
+
     });
 });
 
 groundEquipment.forEach(button => {
     button.addEventListener('click', () => {
         button.classList.toggle('active');
-
         const state = button.querySelector('small');
         state.textContent = button.classList.contains('active')
             ? 'ON'
             : 'OFF';
+
+        const equipment = button.dataset.equipment;
+        if(equipment === "L1 STAIR"){
+            xplane.Stair1();
+        } else if(equipment === "L2 STAIR"){
+            xplane.Stair2();
+        } else if(equipment === "GPU"){
+            xplane.GPU();
+        } else if(equipment === "FRONT CARGO LOADER"){
+            xplane.Loader1();
+        } else if(equipment === "FUEL TRUCK"){
+            xplane.FuelTruck();
+        } else if(equipment === "BACK CARGO LOADER"){
+            xplane.Loader2();
+        } else if(equipment === "CATERING"){
+            xplane.Catering();
+        }
     });
 });
 
 chocksBtn.addEventListener('click', () => {
     chocksBtn.classList.toggle('active');
-
     chocksState.textContent = chocksBtn.classList.contains('active')
         ? 'ON'
         : 'OFF';
+    xplane.ChockToggle();
 });
 
 document.getElementById('closeAllDoors').addEventListener('click', () => {
     groundDoors.forEach(button => {
         button.classList.remove('active');
+        
     });
+    xplane.CloseAllDoors();
 });
 
 document.getElementById('clearEquipments').addEventListener('click', () => {
     groundEquipment.forEach(button => {
         button.classList.remove('active');
+        
         button.querySelector('small').textContent = 'OFF';
     });
+    xplane.ClearAllEquipments();
 
     chocksBtn.classList.remove('active');
     chocksState.textContent = 'OFF';
+
 });
 
 // Settings 토글
@@ -2834,11 +3286,85 @@ document.querySelectorAll("#page-settings .toggle-group").forEach(group => {
             });
 
             button.classList.add("active");
+	    
+            const setting = group.dataset.setting;
+            const value = button.dataset.value;
+
+            // HUD
+            if (setting === "hud") {
+                if (value === "ON") {
+                    xplane.HudOn();
+                    }
+                else if (value === "OFF") {
+                    xplane.HudOff();
+                }
+            }
+
+            if (setting === "isis"){
+                if (value === "ISIS") {
+                    xplane.StbyOff();
+                } else if (value === "STBY") {
+                    xplane.StbyOn();
+                }
+            }
+
+            if (setting === "ddmri"){
+                if (value === "ON") {
+                    xplane.DDRMIOn();
+                } else if ( value === "OFF") {
+                    xplane.DDRMIOff();
+                }
+            }
+            if (setting === "eis"){
+                if (value === "EIS1") {
+                    xplane.EISOn();
+                } else if ( value === "EIS2") {
+                    xplane.EISOff();
+                }
+            }
+            if (setting === "portable"){
+                if (value === "ON") {
+                    xplane.NodeviceOn();
+                } else if ( value === "OFF") {
+                    xplane.NodeviceOff();
+                }
+            }
+            if (setting === "altitude"){
+                if (value === "100 Abv") {
+                    xplane.AppminOn();
+                } else if ( value === "+100") {
+                    xplane.AppminOff();
+                }
+            }
+            if (setting === "engines"){
+                if (value === "RR") {
+                    xplane.EngineRR();
+                } else if ( value === "PW") {
+                    xplane.EnginePW();
+                } else if ( value === "GE") {
+                    xplane.EngineGE();
+                }
+            }
+            if (setting === "windowReflection"){
+                if (value === "1") {
+                    xplane.WinRefOn();
+                } else if ( value === "0") {
+                    xplane.WinRefOff();
+                }
+            }
+           
+	
         });
     });
 });
-
-
+//irs
+// IRS INSTANT ALIGN
+document.getElementById('irsInstantAlignBtn')
+    ?.addEventListener('click', () => {
+        console.log("IRSINS")
+        xplane.IRSInstant();
+        
+    });
 /**
  * Weight & Balance 값 갱신 함수
  *
@@ -2891,18 +3417,202 @@ function setWeightBalanceValues(values = {}) {
     });
 }
 
+let sbBlockFuel = null;   // 블록(램프) 연료, KG
+let sbPayload   = null;   // 페이로드, KG
+
+function sbToNumber(value) {
+    const raw = sbText(value).replace(/,/g, "");
+    if (raw === "") return null;
+
+    const number = Number(raw);
+    return Number.isFinite(number) ? number : null;
+}
 // 다른 스크립트에서도 호출할 수 있도록 공개
 window.setWeightBalanceValues = setWeightBalanceValues;
 
+
+// 이륙 성능 입력값 (로드 전/없으면 null)
+let sbTakeoff = {
+    windDirection: 0,
+    windSpeed: 0,
+    oat: 0,
+    qnh: 1013,
+    runwayHeading: 0,
+    runwayLength: 0,   // m
+    tow: 0,            // kg
+    condition: 0,
+};
+
+// TLR 활주로 길이 단위 (콘솔에서 값을 확인하고 필요하면 "M"으로 변경)
+const SB_RUNWAY_LENGTH_UNIT = "FT";
+
+function sbParseMetar(metar) {
+    const text = sbText(metar).toUpperCase();
+    const out = { windDirection: null, windSpeed: null, oat: null, qnh: null, wet: null };
+    if (!text) return out;
+
+    // 바람: 27015KT, 27015G25KT, VRB03KT, 27008MPS
+    const wind = text.match(/\b(VRB|\d{3})(\d{2,3})(?:G\d{2,3})?(KT|MPS)\b/);
+    if (wind) {
+        out.windDirection = wind[1] === "VRB" ? null : Number(wind[1]);
+        const speed = Number(wind[2]);
+        out.windSpeed = Math.round(wind[3] === "MPS" ? speed * 1.94384 : speed);
+    }
+
+    // 온도: 15/08, M02/M05
+    const temp = text.match(/\s(M?\d{2})\/(?:M?\d{2})?(?=\s|$)/);
+    if (temp) {
+        out.oat = temp[1].startsWith("M")
+            ? -Number(temp[1].slice(1))
+            : Number(temp[1]);
+    }
+
+    // QNH: Q1013 (hPa) 또는 A2992 (inHg)
+    const q = text.match(/\bQ(\d{4})\b/);
+    const a = text.match(/\bA(\d{4})\b/);
+    if (q) out.qnh = Number(q[1]);
+    else if (a) out.qnh = Math.round(Number(a[1]) / 100 * 33.8639);
+
+    // 노면 젖음(근사): 비/이슬비/눈/소나기/뇌우 등이 보고되면 WET
+    out.wet = /(^|\s)[-+]?(VC)?(RA|DZ|SN|SG|GR|GS|PL|SH|TS)/.test(text) ? 1 : 0;
+
+    return out;
+}
+
+function sbFindTlrRunway(data, planRunway) {
+    const raw = sbGet(data, ["tlr.takeoff.runway"]);
+    if (!raw) return null;
+
+    const list = Array.isArray(raw) ? raw : [raw];
+    const wanted = sbText(planRunway).toUpperCase();
+
+    return list.find(r => sbText(r?.identifier).toUpperCase() === wanted)
+        || list[0]
+        || null;
+}
+
+function sbExtractTakeoffInputs(data, units) {
+    const metar = sbParseMetar(sbGet(data, ["origin.metar", "weather.orig_metar"]));
+    const planRwy = sbText(sbGet(data, ["origin.plan_rwy", "origin.plan_runway"]));
+    const tlr = sbFindTlrRunway(data, planRwy);
+
+    const num = value => sbToNumber(value);
+    const pick = (...values) => values.find(v => v !== null && v !== undefined) ?? null;
+
+    // 활주로 방향: TLR 우선, 없으면 "10L" → 100
+    let heading = tlr ? num(sbGet(tlr, ["true_course", "magnetic_course", "heading"])) : null;
+    if (heading === null) {
+        const m = planRwy.match(/^(\d{2})/);
+        if (m) heading = (Number(m[1]) * 10) % 360;
+    }
+
+    // 활주로 길이 (m)
+    let length = tlr ? num(sbGet(tlr, ["length", "length_tora"])) : null;
+    if (length !== null && SB_RUNWAY_LENGTH_UNIT === "FT") {
+        length = Math.round(length * 0.3048);
+    }
+
+    // 이륙중량 (kg)
+    let tow = num(sbGet(data, ["weights.est_tow"]));
+    if (tow !== null && units === "LB") tow = Math.round(tow * 0.45359237);
+
+    // 노면 상태
+    let condition = null;
+    const surface = tlr ? sbText(sbGet(tlr, ["surface_condition", "condition"])).toUpperCase() : "";
+    if (surface) condition = surface.includes("WET") ? 1 : 0;
+    else condition = metar.wet;
+
+    return {
+        windDirection: pick(metar.windDirection, tlr && num(sbGet(tlr, ["wind_direction"]))),
+        windSpeed:     pick(metar.windSpeed,     tlr && num(sbGet(tlr, ["wind_speed"]))),
+        oat:           pick(metar.oat,           tlr && num(sbGet(tlr, ["temperature"]))),
+        qnh:           metar.qnh,
+        runwayHeading: heading,
+        runwayLength:  length,
+        tow,
+        condition
+    };
+}
+
+
+
 // 버튼 이벤트: 추후 시뮬레이터 연동 지점
+function setWbWarning(text = "", type = "warn") {
+    const el = document.getElementById("wb-warning");
+    if (!el) return;
+
+    el.textContent = text;
+    el.className = "wb-warning" + (type === "bad" ? " bad" : "");
+}
+
+window.setWbWarning = setWbWarning;
+
+// getsimbrief data and fill up takeoff performance inputs
+document.getElementById("getsimbrief")
+    ?.addEventListener("click", () => {
+        //getsimbrief
+        
+
+
+        Object.entries(sbTakeoff).forEach(([id, value]) => {
+            document.getElementById(id).value = value;
+            if (sbTakeoff.tow === 0 ) {
+                showStatus("Simbrief not loaded", 'bad');
+            } else {
+                showStatus("Simbrief loaded. Insert the remaining data.", 'good');
+            }
+            
+        });
+    });
+
+document.getElementById("getfromsimbrief")
+    ?.addEventListener("click", () => {
+        if (sbBlockFuel === null ){
+            setWbWarning("Simbrief not loaded");  
+        } else {
+            setWbWarning("");
+            document.getElementById('wb-planned-fuel').value = sbBlockFuel;
+        }
+
+        if (sbPayload === null ){
+            setWbWarning("Simbrief not loaded");  
+        } else {
+            setWbWarning("");
+            document.getElementById('wb-planned-payload').value = sbPayload;
+        }
+
+    });
+
 document.getElementById("startFuelingBtn")
     ?.addEventListener("click", () => {
-        console.log("Start Fueling requested");
+
+        const fuelInput = document.getElementById("wb-planned-fuel");
+        const plannedFuel = Number(fuelInput.value);
+
+        if (
+            fuelInput.value.trim() === "" ||
+            !Number.isFinite(plannedFuel) ||
+            plannedFuel < 0
+            
+        ) {
+            setWbWarning("Invalid Planned Fuel value", "bad"); 
+            return;
+        }
+        setWbWarning("");
+        xplane.StartFueling(plannedFuel);
     });
 
 document.getElementById("startBoardingBtn")
     ?.addEventListener("click", () => {
+        setWbWarning("");
+        const payload = Number(document.getElementById("wb-planned-payload").value);
+
+
+
+      	xplane.StartBoarding(payload);
+        
         console.log("Start Boarding requested");
+        
     });
 
 function sbGet(data, paths) {
@@ -2975,53 +3685,72 @@ function sbFormatWeight(value, units = "KG") {
     return `${Math.round(number).toLocaleString("en-US")} ${units}`;
 }
 
-function sbNormalizePdfUrl(directory, link) {
-    if (!link) return "";
-
-    const pdf = sbText(link);
-    const dir = sbText(directory);
-
-    try {
-        if (/^https?:\/\//i.test(pdf)) {
-            return new URL(pdf).href;
-        }
-
-        const base = dir
-            ? new URL(dir, "https://www.simbrief.com/").href
-            : "https://www.simbrief.com/ofp/flightplans/";
-
-        return new URL(pdf, base.endsWith("/") ? base : base + "/").href;
-    } catch {
-        return "";
-    }
-}
-
-function sbShowPdf(url) {
+function sbShowOfp(html) {
     const frame = document.getElementById("sb-pdf-frame");
     const placeholder = document.getElementById("sb-pdf-placeholder");
-    const openLink = document.getElementById("sb-open-pdf");
 
-    if (!frame || !placeholder || !openLink) return;
+    if (!frame || !placeholder) return;
 
-    if (!url) {
-        frame.removeAttribute("src");
+    // plan_html이 없는 경우
+    if (!html) {
+        frame.removeAttribute("srcdoc");
         frame.hidden = true;
         placeholder.hidden = false;
-        placeholder.textContent = "OFP PDF URL was not provided by SimBrief.";
-        openLink.href = "#";
-        openLink.style.pointerEvents = "none";
-        openLink.style.opacity = ".5";
+        placeholder.textContent =
+            "SimBrief did not provide OFP HTML (plan_html).";
         return;
     }
 
-    frame.src = url;
+    // 상대경로 이미지/CSS가 simbrief.com 기준으로 열리도록 <base> 삽입
+    const base = '<base href="https://www.simbrief.com/">';
+    const headTag = /<head(\s[^>]*)?>/i;
+
+    const patched = headTag.test(html)
+        ? html.replace(headTag, match => match + base)
+        : base + html;
+
+    frame.srcdoc = patched;
     frame.hidden = false;
     placeholder.hidden = true;
-    openLink.href = url;
-    openLink.style.pointerEvents = "";
-    openLink.style.opacity = "";
 }
 
+/* OFP 글자 크기 조절 */
+const SB_OFP_ZOOM = { value: 130, min: 60, max: 200, step: 10 };
+
+function sbApplyOfpZoom() {
+    const frame = document.getElementById("sb-pdf-frame");
+    const label = document.getElementById("sb-font-value");
+
+    if (label) label.textContent = SB_OFP_ZOOM.value + "%";
+    if (!frame) return;
+
+    try {
+        const doc = frame.contentDocument;
+        if (doc && doc.documentElement) {
+            doc.documentElement.style.zoom = SB_OFP_ZOOM.value / 100;
+        }
+    } catch (error) {
+        console.warn("OFP zoom failed:", error);
+    }
+}
+
+function sbChangeOfpZoom(delta) {
+    SB_OFP_ZOOM.value = Math.min(
+        SB_OFP_ZOOM.max,
+        Math.max(SB_OFP_ZOOM.min, SB_OFP_ZOOM.value + delta)
+    );
+    sbApplyOfpZoom();
+}
+
+document.getElementById("sb-font-minus")
+    ?.addEventListener("click", () => sbChangeOfpZoom(-SB_OFP_ZOOM.step));
+
+document.getElementById("sb-font-plus")
+    ?.addEventListener("click", () => sbChangeOfpZoom(SB_OFP_ZOOM.step));
+
+// 새 OFP가 로드될 때마다 현재 배율을 다시 적용
+document.getElementById("sb-pdf-frame")
+    ?.addEventListener("load", sbApplyOfpZoom);
 function sbFindAtis(data) {
     const candidates = [
         sbGet(data, ["origin.atis", "origin.atismessage"]),
@@ -3064,13 +3793,25 @@ function sbPopulateFlightPlan(data) {
         "destination.icao_code", "destination.icao"
     ]);
 
-    const alternate = sbAirportCode(data, [
-        "alternate.icao_code",
-        "alternate.icao",
-        "alternate.icao_code_1",
-        "alternate.airport.icao_code"
+        // alternate
+    const altRaw = Array.isArray(data.alternate)
+        ? data.alternate[0]
+        : data.alternate;
+
+    const alternate = sbAirportCode({ alt: altRaw }, [
+        "alt.icao_code",
+        "alt.icao",
+        "alt.icao_code_1",
+        "alt.airport.icao_code"
     ]);
 
+    console.log("SimBrief alternate raw:", data.alternate);
+    // FLIGHT NUMBER (예: KAL 1953)
+    const airline = sbText(sbGet(data, ["general.icao_airline"])).toUpperCase();
+    const flightNo = sbText(sbGet(data, ["general.flight_number"]));
+    const flightNumber = [airline, flightNo].filter(Boolean).join(" ");
+
+    sbSet("sb-flight-number", flightNumber, "---- ----");
     sbSet("sb-departure", departure, "----");
     sbSet("sb-arrival", arrival, "----");
     sbSet("sb-departure-name", sbGet(data, [
@@ -3081,7 +3822,7 @@ function sbPopulateFlightPlan(data) {
     ]), "—");
 
     // ALTN AIRPORT — 문제 방지
-    sbSet("sb-altn", alternate, "NOT PROVIDED");
+    sbSet("sb-altn", alternate, "NONE");
 
     sbSet("sb-cost-index", sbGet(data, [
         "general.costindex", "general.cost_index"
@@ -3100,6 +3841,26 @@ function sbPopulateFlightPlan(data) {
     const units = unitsRaw.includes("LBS") || unitsRaw === "LB"
         ? "LB"
         : "KG";
+
+    sbTakeoff = sbExtractTakeoffInputs(data, units);
+    console.log("SimBrief takeoff inputs:", sbTakeoff);
+    
+    // LB 플랜일 때만 KG로 변환
+    const toKg = value =>
+        value === null ? null
+        : units === "LB" ? Math.round(value * 0.45359237)
+        : value;
+
+    sbBlockFuel = toKg(sbToNumber(sbGet(data, [
+        "fuel.plan_ramp",
+        "fuel.block_fuel",
+        "fuel.ramp"
+    ])));
+
+    sbPayload = toKg(sbToNumber(sbGet(data, [
+        "weights.payload",
+        "weights.est_payload"
+    ])));
 
     sbSet("sb-zfw", sbFormatWeight(sbGet(data, [
         "weights.est_zfw", "weights.zfw"
@@ -3140,7 +3901,18 @@ function sbPopulateFlightPlan(data) {
     ]));
 
     sbSet("sb-route", route, "Route not provided");
+    // METAR (출발 / 도착)
+    sbSetMetar(
+        "dep",
+        sbGet(data, ["origin.metar", "weather.orig_metar"]),
+        sbGet(data, ["origin.metar_category", "weather.orig_metar_category"])
+    );
 
+    sbSetMetar(
+        "arr",
+        sbGet(data, ["destination.metar", "weather.dest_metar"]),
+        sbGet(data, ["destination.metar_category", "weather.dest_metar_category"])
+    );
     // ATIS가 배열/객체여도 [object Object]로 표시하지 않음
 
     
@@ -3155,7 +3927,11 @@ function sbPopulateFlightPlan(data) {
         "fms_downloads.pdf.link"
     ]);
 
-    sbShowPdf(sbNormalizePdfUrl(directory, pdfLink));
+        // OFP(HTML)를 SimBrief OFP 메뉴에 표시
+    sbShowOfp(sbText(sbGet(data, [
+        "text.plan_html",
+        "plan_html"
+    ])));
 }
 
 
@@ -3360,15 +4136,9 @@ document.getElementById("sb-load-btn")
             replaceNextKey = false;
         }
 
-        // 마지막 글자 삭제
+        // 엔터(backspace키를 ENTER키로 교체함) backspacehello
         else if (key === 'backspace') {
-            if (replaceNextKey) {
-                value = '';
-            } else {
-                value = value.slice(0, -1);
-            }
-
-            replaceNextKey = false;
+            hideKeypad()
         }
 
         // 음수 부호 전환
@@ -3478,6 +4248,27 @@ document.getElementById("sb-load-btn")
         }
     });
 
+})();
+/* BRIGHTNESS
+   슬라이더 100 → 원래 밝기(100%), 슬라이더 0 → 20% */
+(() => {
+    const slider = document.getElementById('brightness');
+    const overlay = document.getElementById('dim-overlay');
+
+    if (!slider || !overlay) return;
+
+    const MIN_BRIGHTNESS = 0.2;
+
+    function applyBrightness() {
+        const ratio = Number(slider.value) / 100;
+        const brightness = MIN_BRIGHTNESS + (1 - MIN_BRIGHTNESS) * ratio;
+
+        // 어둡게 하는 정도 = 1 - 밝기
+        overlay.style.opacity = String(1 - brightness);
+    }
+
+    slider.addEventListener('input', applyBrightness);
+    applyBrightness();
 })();
 </script>
 
